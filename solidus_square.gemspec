@@ -5,17 +5,16 @@ require_relative 'lib/solidus_square/version'
 Gem::Specification.new do |spec|
   spec.name = 'solidus_square'
   spec.version = SolidusSquare::VERSION
-  spec.authors = ['garciajordy']
-  spec.email = 'jordygarcia0119@gmail.com'
+  spec.authors = ['Jordy Garcia', 'Michelle Crisologo']
+  spec.email = 'contact@solidus.io'
 
-  spec.summary = 'TODO: Write a short summary, because RubyGems requires one.'
-  spec.description = 'TODO: Write a longer description or delete this line.'
-  spec.homepage = 'https://github.com/garciajordy/solidus_square#readme'
-  spec.license = 'BSD-3-Clause'
+  spec.summary = 'Solidus extension for using Square in your store.'
+  spec.homepage = 'https://github.com/nebulab/solidus_square#readme'
+  spec.license = 'Apache-2.0'
 
   spec.metadata['homepage_uri'] = spec.homepage
-  spec.metadata['source_code_uri'] = 'https://github.com/garciajordy/solidus_square'
-  spec.metadata['changelog_uri'] = 'https://github.com/garciajordy/solidus_square/blob/master/CHANGELOG.md'
+  spec.metadata['source_code_uri'] = 'https://github.com/nebulab/solidus_square'
+  spec.metadata['changelog_uri'] = 'https://github.com/nebulab/solidus_square/blob/master/CHANGELOG.md'
 
   spec.required_ruby_version = Gem::Requirement.new('~> 2.5')
 
@@ -29,6 +28,7 @@ Gem::Specification.new do |spec|
   spec.executables = files.grep(%r{^exe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
+  spec.add_dependency 'square.rb'
   spec.add_dependency 'solidus_core', ['>= 2.0.0', '< 4']
   spec.add_dependency 'solidus_support', '~> 0.5'
 
