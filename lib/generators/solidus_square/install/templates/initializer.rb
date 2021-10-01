@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
 SolidusSquare.configure do |config|
-  # TODO: Remember to change this with the actual preferences you have implemented!
-  # config.sample_preference = 'sample_value'
+  config.square_access_token = ''
+  config.square_environment = 'sandbox'
 end
