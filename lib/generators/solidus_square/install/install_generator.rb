@@ -24,6 +24,12 @@ module SolidusSquare
         run 'bin/rails railties:install:migrations FROM=solidus_square'
       end
 
+      def mount_engine
+        insert_into_file File.join('config', 'routes.rb'), after: "Rails.application.routes.draw do\n" do
+          "mount SolidusSquare::Engine, at: '/solidus_square'\n"
+        end
+      end
+
       def run_migrations
         run_migrations = options[:auto_run_migrations] || ['', 'y', 'Y'].include?(ask('Would you like to run the migrations now? [Y/n]')) # rubocop:disable Layout/LineLength
         if run_migrations
