@@ -8,6 +8,9 @@ module SolidusSquare
 
       def copy_initializer
         template 'initializer.rb', 'config/initializers/solidus_square.rb'
+
+        # mount routes
+        route "mount SolidusSquare::Engine, at: '/solidus_square'"
       end
 
       def add_javascripts
@@ -22,12 +25,6 @@ module SolidusSquare
 
       def add_migrations
         run 'bin/rails railties:install:migrations FROM=solidus_square'
-      end
-
-      def mount_engine
-        insert_into_file File.join('config', 'routes.rb'), after: "Rails.application.routes.draw do\n" do
-          "mount SolidusSquare::Engine, at: '/solidus_square'\n"
-        end
       end
 
       def run_migrations
