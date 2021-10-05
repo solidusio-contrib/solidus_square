@@ -1,0 +1,62 @@
+---
+http_interactions:
+  - request:
+      method: post
+      uri: https://connect.squareupsandbox.com/v2/customers/search
+      body:
+        encoding: UTF-8
+        string: '{"limit":1,"query":{"filter":{"email_address":{"fuzzy":"email1@example.com"}}}}'
+      headers:
+        Accept:
+          - application/json
+        Content-Type:
+          - application/json; charset=utf-8
+        Authorization:
+          - Bearer
+        User-Agent:
+          - Square-Ruby-SDK/14.1.0.20210915
+        Square-Version:
+          - '2021-09-15'
+        Accept-Encoding:
+          - gzip,deflate
+    response:
+      status:
+        code: 401
+        message: Unauthorized
+      headers:
+        Content-Type:
+          - application/json
+        Vary:
+          - Origin, Accept-Encoding
+        X-Content-Type-Options:
+          - nosniff
+        X-Download-Options:
+          - noopen
+        X-Frame-Options:
+          - SAMEORIGIN
+        X-Permitted-Cross-Domain-Policies:
+          - none
+        X-Sq-Envoy-Safe-Auth-Decision:
+          - UNAUTHORIZED
+        X-Xss-Protection:
+          - 1; mode=block
+        Date:
+          - Tue, 05 Oct 2021 17:28:22 GMT
+        Content-Length:
+          - '161'
+        Strict-Transport-Security:
+          - max-age=631152000; includeSubDomains; preload
+      body:
+        encoding: UTF-8
+        string: |-
+          {
+            "errors": [
+              {
+                "category": "AUTHENTICATION_ERROR",
+                "code": "UNAUTHORIZED",
+                "detail": "This request could not be authorized."
+              }
+            ]
+          }
+    recorded_at: Tue, 05 Oct 2021 17:28:21 GMT
+recorded_with: VCR 6.0.0

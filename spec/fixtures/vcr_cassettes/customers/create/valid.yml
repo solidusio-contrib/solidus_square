@@ -1,0 +1,57 @@
+---
+http_interactions:
+  - request:
+      method: post
+      uri: https://connect.squareupsandbox.com/v2/customers
+      body:
+        encoding: UTF-8
+        string: '{"given_name":"John","family_name":"Doe","email_address":"email1@example.com","address":{"address_line_1":"A
+        Different Road","address_line_2":"A Different Road","locality":"Herndon","postal_code":"10002","country":"US"},"phone_number":"555-555-0199","reference_id":"1"}'
+      headers:
+        Accept:
+          - application/json
+        Content-Type:
+          - application/json; charset=utf-8
+        Authorization:
+          - Bearer EAAAEJ2wQT1qUQIvMGlImkhphBakgTk-r8rhyznGQ_5IvSKFpKk4vmMexZRGAIgR
+        User-Agent:
+          - Square-Ruby-SDK/14.1.0.20210915
+        Square-Version:
+          - '2021-09-15'
+        Accept-Encoding:
+          - gzip,deflate
+    response:
+      status:
+        code: 200
+        message: OK
+      headers:
+        Date:
+          - Tue, 05 Oct 2021 17:04:20 GMT
+        Frame-Options:
+          - DENY
+        X-Frame-Options:
+          - DENY
+        X-Content-Type-Options:
+          - nosniff
+        X-Xss-Protection:
+          - 1; mode=block
+        Content-Type:
+          - application/json
+        Square-Version:
+          - '2021-09-15'
+        Squareup--Connect--V2--Common--Versionmetadata-Bin:
+          - CgoyMDIxLTA5LTE1
+        Vary:
+          - Accept-Encoding, User-Agent
+        Content-Encoding:
+          - gzip
+        Content-Length:
+          - '321'
+        Strict-Transport-Security:
+          - max-age=631152000; includeSubDomains; preload
+      body:
+        encoding: ASCII-8BIT
+        string: !binary |-
+          H4sIAAAAAAAAAH2RT0/DIBjG736KhbNboK4x28mZulQTjbIanRfC4K0jobAAXVyWfneh1e2kBwJ5nt/7lyMSrQ+2AYfmoyNSMl5oSYvV7fvb3fSRrq+WL7QqyxWuaPE0RZdIOOABJOMhoRnOyJjgMc4rcj3H03lGJjjLPyLY7uT/YII+1R4MM7yBBD3YrYlizRulDye1sBBFaLjSjEvpwPsk9wK5gS/e7DRMhG0idfaPv2+mlQFGUshiVKi6BgcmjKjl8hwwQNkfkLaCaxUOyS7BGWlTmzvrA9dMWNm3STDGWVqQbU1wPfu6Ql3ktjbmNm2z6beM8jwfp4PJbBZ5B30xAWzYPkmpT+IwyjB8a3y78cKpDSSy5tpD9/MjyhrmbetE30tV3tOCPS9otY7Z9uB89KOBu+7iG2TX8OHzAQAA
+    recorded_at: Tue, 05 Oct 2021 17:04:20 GMT
+recorded_with: VCR 6.0.0

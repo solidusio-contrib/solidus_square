@@ -3,3 +3,6 @@ require:
 
 AllCops:
   NewCops: disable
+
+RSpec/AnyInstance:
+  Enabled: false
