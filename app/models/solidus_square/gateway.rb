@@ -20,8 +20,9 @@ module SolidusSquare
       ::SolidusSquare::Customers::Create.call(client: client, spree_user: user, spree_address: address)
     end
 
-    def refund
-      # call refund service
+    def refund(idempotency_key, payment_id, amount, currency)
+      ::SolidusSquare::Refunds::Create.call(client: client, idempotency_key: idempotency_key,
+                                            payment_id: payment_id, amount: amount, currency: currency)
     end
 
     def checkout
