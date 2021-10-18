@@ -7,6 +7,8 @@ ENV['RAILS_ENV'] = 'test'
 require 'solidus_dev_support/rspec/coverage'
 require 'pry'
 
+require 'square'
+
 # Create the dummy app if it's still missing.
 dummy_env = "#{__dir__}/dummy/config/environment.rb"
 system 'bin/rake extension:test_app' unless File.exist? dummy_env
