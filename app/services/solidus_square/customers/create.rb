@@ -4,7 +4,7 @@
 # The payment method used to pay for the order will be tied to the customer's profile in Square,
 # so that it can be used to charge the customer at a later stage (e.g., for subscriptions).
 module SolidusSquare
-  module Customer
+  module Customers
     class Create < ::SolidusSquare::Base
       attr_reader :spree_user, :spree_address
 
