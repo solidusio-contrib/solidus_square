@@ -4,10 +4,13 @@ require 'square'
 
 module SolidusSquare
   class Gateway
-    def self.client
-      @client ||= ::Square::Client.new(
-        access_token: ::SolidusSquare.config.square_access_token,
-        environment: ::SolidusSquare.config.square_environment
+    attr_accessor :options, :client
+
+    def initialize(options)
+      @options = options
+      @client = ::Square::Client.new(
+        access_token: options[:access_token],
+        environment: options[:environment]
       )
     end
   end
