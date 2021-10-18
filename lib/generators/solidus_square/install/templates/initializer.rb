@@ -1,6 +1,11 @@
 # frozen_string_literal: true
 
-SolidusSquare.configure do |config|
-  config.square_access_token = ''
-  config.square_environment = 'sandbox'
+Spree::Config.configure do |config|
+  config.static_model_preferences.add(
+    SolidusSquare::PaymentMethod,
+    'square_credentials', {
+      access_token: ENV['SQUARE_ACCESS_TOKEN'],
+      environment: ENV['SQUARE_ENVIRONMENT'],
+    }
+  )
 end
