@@ -25,6 +25,14 @@ bin/rails generate solidus_square:install
 
 ## Development
 
+Create a Square Developer Account
+
+- Visit https://squareup.com/signup?v=developers
+- Create your application
+- Go to `view details`, expand the application details and take note of `access_token`. You'll need it later to set PaymentMethod.
+
+<img width="771" alt="Screenshot 2021-10-19 at 14 59 11" src="https://user-images.githubusercontent.com/387690/137914206-1546215b-8b1b-40e5-b9ed-4baf6daffa81.png">
+
 ### Testing the extension
 
 First bundle your dependencies, then run `bin/rake`. `bin/rake` will default to building the dummy
