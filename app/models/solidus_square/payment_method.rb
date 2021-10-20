@@ -4,6 +4,7 @@ module SolidusSquare
   class PaymentMethod < SolidusSupport.payment_method_parent_class
     preference :access_token, :string
     preference :environment, :string
+    preference :location_id, :string
 
     def gateway_class
       ::SolidusSquare::Gateway
