@@ -47,7 +47,7 @@ module SolidusSquare
             email_address: spree_user.email,
             address: {
               address_line_1: spree_address.address1,
-              address_line_2: spree_address.address1,
+              address_line_2: spree_address.address2,
               locality: spree_address.city,
               postal_code: spree_address.zipcode,
               country: spree_address.country.iso
