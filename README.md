@@ -19,6 +19,41 @@ Bundle your dependencies and run the installation generator:
 bin/rails generate solidus_square:install
 ```
 
+### Creating a new Payment Method
+
+Payment methods can accept preferences either directly entered in admin, or from a static source in code.
+For most projects we recommend using a static source, so that sensitive account credentials are not stored in the database.
+
+1. Set static preferences in an initializer
+
+```ruby
+# config/initializers/solidus_square.rb
+Spree::Config.configure do |config|
+  config.static_model_preferences.add(
+    SolidusSquare::PaymentMethod,
+    'square_credentials', {
+      access_token: ENV['SQUARE_ACCESS_TOKEN'],
+      environment: ENV['SQUARE_ENVIRONMENT'],
+    }
+  )
+end
+```
+
+2. Visit `/admin/payment_methods/new`
+3. Set `provider` to SolidusSquare::PaymentMethod
+4. Click "Save"
+5. Choose `square_credentials` from the `Preference Source` select
+6. Click `Update` to save
+
+Alternatively, create a payment method from the Rails console with:
+
+```ruby
+SolidusSquare::PaymentMethod.new(
+  name: "Square",
+  preference_source: "square_credentials"
+).save
+```
+
 ## Usage
 
 <!-- Explain how to use your extension once it's been installed. -->

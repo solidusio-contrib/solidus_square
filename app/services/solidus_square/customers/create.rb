@@ -4,41 +4,38 @@
 # The payment method used to pay for the order will be tied to the customer's profile in Square,
 # so that it can be used to charge the customer at a later stage (e.g., for subscriptions).
 module SolidusSquare
-  module Customer
+  module Customers
     class Create < ::SolidusSquare::Base
-      attr_reader :spree_user, :spree_address
+      attr_reader :client, :spree_user, :spree_address
 
-      def initialize(spree_user, spree_address)
+      def initialize(client:, spree_user:, spree_address:)
+        @client = client
         @spree_user = spree_user
         @spree_address = spree_address
         super
       end
 
       def call
-        if search_customer.present?
-          # should ignore or do something with the data
-          # perhaps store the square id?
-        else
-          create_customer
-        end
+        # search for existing customer first
+        # otherwise, create new customer
+        customer = search_customer
+        customer.presence || create_customer
       rescue ::Square::APIException => e
         # probably add tracking here
         raise e
       end
 
-      private
-
       def create_customer
-        result = ::SolidusSquare::Gateway.client.customers.create_customer(construct_customer)
-        data = JSON.parse result.data
-        data['customer']
+        result = client.customers.create_customer(construct_customer)
+        result.data&.customer
       end
 
       def search_customer
-        result = ::SolidusSquare::Gateway.client.customers.search_customers(construct_search_query)
-        data = JSON.parse result.data
-        data['customers']
+        result = client.customers.search_customers(construct_search_query)
+        result.data&.customers&.first
       end
+
+      private
 
       # rubocop:disable Naming/VariableNumber
       def construct_customer
@@ -56,7 +53,7 @@ module SolidusSquare
               country: spree_address.country.iso
             },
             phone_number: spree_address.phone,
-            reference_id: spree_user.id
+            reference_id: spree_user.id.to_s
           }
         }
       end
