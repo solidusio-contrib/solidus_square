@@ -1,7 +1,7 @@
 # Solidus Square
 
 [![CircleCI](https://circleci.com/gh/nebulab/solidus_square.svg?style=shield)](https://circleci.com/gh/nebulab/solidus_square)
-[![codecov](https://codecov.io/gh/nebulab/solidus_square/branch/master/graph/badge.svg)](https://codecov.io/gh/nebulab/solidus_square)
+[![codecov](https://codecov.io/gh/nebulab/solidus_square/branch/main/graph/badge.svg)](https://codecov.io/gh/nebulab/solidus_square)
 
 <!-- Explain what your extension does. -->
 
