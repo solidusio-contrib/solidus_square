@@ -30,4 +30,31 @@ RSpec.describe SolidusSquare::Gateway do
       )
     end
   end
+
+  describe "#capture" do
+    subject(:response) { SolidusSquare::Gateway.new(location_id: 12345).capture(nil, nil, gateway_options)}
+
+    let(:order) { create(:order) }
+    let(:gateway_options) do
+      OpenStruct.new(order: order)
+    end
+    let(:checkout_response) do
+      OpenStruct.new(body: OpenStruct.new(id: 12))
+    end
+
+    # before do
+    #   stub_request(%r"")
+    # end
+
+    context "when response is unsuccessfull" do
+      it "should return an active merchant billing response" do
+        expect(response).to be_an_instance_of(ActiveMerchant::Billing::Response)
+      end
+
+      it "should contain an error message" do
+        # binding.pry
+        expect(response.message).not_to be_empty
+      end
+    end
+  end
 end
