@@ -2,5 +2,8 @@
 
 SolidusSquare::Engine.routes.draw do
   # Add your extension routes here
-  get '/customers', to: '/solidus_square/customers#index'
+  get 'customers', to: '/solidus_square/customers#index'
+
+  # Uncomment this line to activate the endpoint for the Square hosted checkout workflow.
+  # post 'square_checkout', to: '/solidus_square/callback_actions#square_checkout'
 end
