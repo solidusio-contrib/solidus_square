@@ -74,6 +74,10 @@ SolidusSquare::PaymentMethod.new(
 
 ## Usage
 
+To activate the Square hosted checkout workflow, simply uncomment the endpoint in the `config/routes.rb` file,
+
+and create a button to bring the user at that page, or call the API to start the checkout Flow.
+
 <!-- Explain how to use your extension once it's been installed. -->
 
 ## Development
