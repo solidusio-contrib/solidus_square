@@ -34,6 +34,7 @@ Spree::Config.configure do |config|
     'square_credentials', {
       access_token: ENV['SQUARE_ACCESS_TOKEN'],
       environment: ENV['SQUARE_ENVIRONMENT'],
+      location_id: ENV['SQUARE_LOCATION_ID']
     }
   )
 end
@@ -53,6 +54,16 @@ SolidusSquare::PaymentMethod.new(
   preference_source: "square_credentials"
 ).save
 ```
+
+### How to retrieve the location ID
+
+1. Visit the [SquareDeveloper](https://developer.squareup.com/apps) website
+
+2. Login into your account.
+
+3. Create or open an existing app.
+
+4. Navigate on the left side navigation bar to `Locations`.
 
 ## Usage
 
