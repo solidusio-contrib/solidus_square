@@ -20,9 +20,6 @@ module SolidusSquare
         # otherwise, create new customer
         customer = search_customer
         customer.presence || create_customer
-      rescue ::Square::APIException => e
-        # probably add tracking here
-        raise e
       end
 
       def create_customer
