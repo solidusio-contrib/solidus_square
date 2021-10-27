@@ -17,11 +17,6 @@ RSpec.describe 'SolidusSquare::CallbackActionsController', type: :request do
     let(:payment_method) { create(:square_payment_method) }
 
     before do
-      order.currency = "EUR"
-      order.save
-      allow(SolidusSquare.config).to receive(:square_access_token).and_return(ENV['SQUARE_ACCESS_TOKEN'])
-      allow(SolidusSquare.config).to receive(:square_environment).and_return(ENV['SQUARE_ENVIRONMENT'])
-      allow(SolidusSquare.config).to receive(:square_location_id).and_return(ENV['SQUARE_LOCATION_ID'])
       payment_method.preferred_redirect_url = "https://github.com"
       payment_method.save!
     end
@@ -33,6 +28,7 @@ RSpec.describe 'SolidusSquare::CallbackActionsController', type: :request do
 
       it "has http status 302" do
         expect(response.status).to eq(302)
+        expect(response.location).to match %r/https:\/\/connect.squareupsandbox.com\/v2\/checkout\?/
       end
     end
 

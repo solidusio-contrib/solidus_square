@@ -5,8 +5,8 @@ http_interactions:
     uri: https://connect.squareupsandbox.com/v2/locations/LOCATION_ID/checkouts
     body:
       encoding: UTF-8
-      string: '{"idempotency_key":"02f4ed38-86e0-42a2-9720-89522d564e87","order":{"order":{"location_id":"LOCATION_ID","reference_id":"R942823433","customer_id":"1","line_items":[{"name":"Order
-        total","quantity":"1","base_price_money":{"amount":11000,"currency":"EUR"}}]}},"pre_populate_buyer_email":"email2@example.com","redirect_url":"https://github.com"}'
+      string: '{"idempotency_key":"bc98a213-6325-474e-9f26-538bc13b6f0c","order":{"order":{"location_id":"LOCATION_ID","reference_id":"R791158962","customer_id":"1","line_items":[{"name":"Order
+        total","quantity":"1","base_price_money":{"amount":11000,"currency":"USD"}}]}},"pre_populate_buyer_email":"email2@example.com","redirect_url":"https://github.com"}'
     headers:
       Accept:
       - application/json
@@ -42,18 +42,18 @@ http_interactions:
       X-Permitted-Cross-Domain-Policies:
       - none
       X-Speleo-Traceid:
-      - EPHYFMHCgXZMe
+      - RYhMHHkYCFQgC
       X-Xss-Protection:
       - 1; mode=block
       Date:
-      - Wed, 27 Oct 2021 09:24:20 GMT
+      - Wed, 27 Oct 2021 21:16:38 GMT
       Content-Length:
-      - '591'
+      - '585'
       Strict-Transport-Security:
       - max-age=631152000; includeSubDomains; preload
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        H4sIAAAAAAAA/7ySX28aOxDFv0o0z07YXQh/Voruzc0lIsm9JSU0JbSVZbyz4LJrG/+hQMR3r8wmeUijCB7aJz/4d2bOmZlH4DPkc+UdpI8gMkjh4p/zu+717QPvKN6+6tfno3/ZmMe9xeZ/IC841WyK1JsCUpg5p21aq3ElJXJ3YheeGfTaMplN1OqEq7K2TGrP0r/42Ts9vvooSprF2X8fH25Go+th8/Pp6QgIMDunuTLUzoTWQk4pyzKD1kKas8IiAW2QaqV9wRzSiV+joVgyEQzu3uRvXLFSFxj8AAGDmTDI3asQU+FmfvLEKJOheZnMsN7/zsbtdtSaXxf+9C4fXOb3zUY+WGXjByBQKM6cUJLu6NcBDOZoUHKsvgedRtJO6o16HQhY5Q3H0EiyEiGFu2p0R7kyR3YRiUwfr8vNTd5gfvFjvZn2W0mihve9KWwJcG+dKtFUhePgREikwmFpIf3yCH73cW5lNp5n5WWx6U1akp3zbm91AeS5Zz+EPXLKsQIILDyTTrj1U8VQjLq1DuDVsBtOYcIsUm0ER1oqietgn5XKSwdpHEdRFJyZEDkU6X4aBK9LZkQ1pF2jg/VTo6yllhVoD1BVvRxb/ap5h8+E5QE6SLSvqe03AhIdrTAbFIcVILB/nkOTCL0nadEswwL5jJnpG3t8KzgBbpA5zChzkEISJfFxHB0nrWHUSZNGGndOOs36GAh4ne3FWcfc7oJvux+AwBKNFUpCGh+6lD96KftPueJ/x6yTaAzb7c8AAAD//z/pQZgGBgAA
-  recorded_at: Wed, 27 Oct 2021 09:24:20 GMT
+        H4sIAAAAAAAA/7ySX08aQRTFv4q5z6PsLqK4iWmRKjUqtSBaaJvJMHuBCbszw/whUMN3b4alPlhj2If2aR/2d+4959x5Bj5DPlfeQfoMIoMU2het/mW710muH/PO3K27D6PFTbRqsd4QyAtONZsi9SaHFGbOaZvWalxJidwd2YVnBr22TGZjtTriqqgtk9of6Qd+/s6OHz6KkpP8/LbT7R3X28P+1bfhIxBgdk4nylA7E1oLOaUsywxaC+mE5RYJaINUK+1z5pCO/RoNxYKJYHD7TT7iihU6x+AHCBjMhEHuXoWYCjfz4x2jTIbmpZlld9B+nDQHn097tqi78XGE87ydP9nb21HoJlecOaEk3dKvAxicoEHJsfzdOz2L40bz7CQBAlZ5wzEskqxASKFfVncwUebALiKR6cPWnYjN8ddJYyiiwc1U+ouOX7dgQ4B761SBphwcBydCIhUOCwvp92fw2x+N5moQreLW1ey+/YvVn7r8vhdC7lZ+CVkPnHIsBwILz6QTbr0bGGZRt9YBvH64vAMCY2aRaiM40kJJXAf3rFBeOkjjOIqiYMyExGHIoP8pWF0yI8qOtosq66dGWUsty9FWUJW7HFv9rXmHz4TlAaok2tfU5icBiY6WmA2KagMI7J+nahKh9yQtmmU4IJ8xM33jjm8FJ8ANMocZZQ5SSKIkPoyjw+T0IYnT+CStN48a9WQEBLzO9uKsY277gu8vu0BgicYKJSGNqx7lv76U/Vsu+X/T9Qg2m98BAAD//0S7k1cFBgAA
+  recorded_at: Wed, 27 Oct 2021 21:16:38 GMT
 recorded_with: VCR 6.0.0
