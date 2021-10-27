@@ -39,7 +39,7 @@ module SolidusSquare
               order: {
                 location_id: location_id,
                 reference_id: order.number,
-                customer_id: order.user_id,
+                customer_id: order.user_id.to_s,
                 line_items: [{
                   name: 'Order total',
                   quantity: '1',
