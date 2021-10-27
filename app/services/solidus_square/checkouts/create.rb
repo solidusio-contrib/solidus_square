@@ -26,8 +26,9 @@ module SolidusSquare
       private
 
       def create_checkout
-        result = client.checkout.create_checkout(construct_checkout)
-        result.data&.checkout
+        handle_square_result(client.checkout.create_checkout(construct_checkout)) do |result|
+          result.data&.checkout
+        end
       end
 
       def construct_checkout
