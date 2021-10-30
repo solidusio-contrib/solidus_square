@@ -30,12 +30,17 @@ For most projects we recommend using a static source, so that sensitive account 
 
 ```ruby
 # config/initializers/solidus_square.rb
+SolidusSquare.configure do |config|
+  config.square_access_token = ENV['SQUARE_ACCESS_TOKEN'],
+  config.square_environment = ENV['SQUARE_ENVIRONMENT'],
+end
+
 Spree::Config.configure do |config|
   config.static_model_preferences.add(
     SolidusSquare::PaymentMethod,
     'square_credentials', {
-      access_token: ENV['SQUARE_ACCESS_TOKEN'],
-      environment: ENV['SQUARE_ENVIRONMENT'],
+      access_token: SolidusSquare.config.square_access_token,
+      environment: SolidusSquare.config.square_environment,
       location_id: ENV['SQUARE_LOCATION_ID']
     }
   )
