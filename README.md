@@ -3,7 +3,7 @@
 [![CircleCI](https://circleci.com/gh/nebulab/solidus_square.svg?style=shield)](https://circleci.com/gh/nebulab/solidus_square)
 [![codecov](https://codecov.io/gh/nebulab/solidus_square/branch/main/graph/badge.svg)](https://codecov.io/gh/nebulab/solidus_square)
 
-<!-- Explain what your extension does. -->
+`solidus_square` is an extension that adds support for using [Square](https://squareup.com) as a payment source in your [Solidus](https://solidus.io/) store.
 
 ## Installation
 
