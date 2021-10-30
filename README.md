@@ -19,6 +19,8 @@ Bundle your dependencies and run the installation generator:
 bin/rails generate solidus_square:install
 ```
 
+## Basic Setup
+
 ### Creating a new Payment Method
 
 Payment methods can accept preferences either directly entered in admin, or from a static source in code.
