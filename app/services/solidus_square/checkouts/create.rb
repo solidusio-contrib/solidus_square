@@ -31,6 +31,10 @@ module SolidusSquare
         end
       end
 
+      def customer_id
+        Digest::MD5.hexdigest(order.email)
+      end
+
       def construct_checkout
         {
           location_id: location_id,
@@ -40,7 +44,7 @@ module SolidusSquare
               order: {
                 location_id: location_id,
                 reference_id: order.number,
-                customer_id: order.user_id.to_s,
+                customer_id: customer_id,
                 line_items: [{
                   name: 'Order total',
                   quantity: '1',
@@ -52,7 +56,7 @@ module SolidusSquare
               }
             },
             pre_populate_buyer_email: order.email,
-            redirect_url: redirect_url
+            redirect_url: SolidusSquare.config.square_payment_method.preferred_redirect_url
           }
         }
       end
