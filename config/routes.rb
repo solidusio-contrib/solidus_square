@@ -6,4 +6,7 @@ SolidusSquare::Engine.routes.draw do
 
   # Uncomment this line to activate the endpoint for the Square hosted checkout workflow.
   # post 'square_checkout', to: '/solidus_square/callback_actions#square_checkout'
+
+  # Uncomment this line to activate the endpoint for the Square order.updated Webhook
+  # patch "webhooks/square", to: '/solidus_square/webhooks#update'
 end
