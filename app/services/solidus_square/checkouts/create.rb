@@ -26,8 +26,9 @@ module SolidusSquare
       private
 
       def create_checkout
-        result = client.checkout.create_checkout(construct_checkout)
-        result.data&.checkout
+        handle_square_result(client.checkout.create_checkout(construct_checkout)) do |result|
+          result.data&.checkout
+        end
       end
 
       def construct_checkout
@@ -39,7 +40,7 @@ module SolidusSquare
               order: {
                 location_id: location_id,
                 reference_id: order.number,
-                customer_id: order.user_id,
+                customer_id: order.user_id.to_s,
                 line_items: [{
                   name: 'Order total',
                   quantity: '1',

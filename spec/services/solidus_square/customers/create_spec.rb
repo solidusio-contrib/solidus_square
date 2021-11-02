@@ -13,7 +13,9 @@ describe ::SolidusSquare::Customers::Create do
 
   context 'when customer already exists' do
     let(:customer_api) { instance_double(Square::CustomersApi, search_customers: api_response) }
-    let(:api_response) { instance_double(Square::ApiResponse, data: OpenStruct.new(customers: [{ 'id' => 111 }])) }
+    let(:api_response) do
+      instance_double(Square::ApiResponse, success?: true, data: OpenStruct.new(customers: [{ 'id' => 111 }]))
+    end
 
     it 'returns existing customer data' do
       expect(service['id']).to eq 111
@@ -28,11 +30,39 @@ describe ::SolidusSquare::Customers::Create do
         create_customer: create_api_response
       )
     }
-    let(:search_api_response) { instance_double(Square::ApiResponse, data: OpenStruct.new(customers: [])) }
-    let(:create_api_response) { instance_double(Square::ApiResponse, data: OpenStruct.new(customer: { 'id' => 111 })) }
+    let(:search_api_response) do
+      instance_double(Square::ApiResponse, success?: true, data: OpenStruct.new(customers: []))
+    end
+    let(:create_api_response) do
+      instance_double(Square::ApiResponse, success?: true, data: OpenStruct.new(customer: { 'id' => 111 }))
+    end
 
     it 'returns new customer data' do
       expect(service['id']).to eq 111
+    end
+
+    context 'when server fails' do
+      let(:errors) { [{ key: :value }] }
+
+      context 'with search request' do
+        let(:search_api_response) do
+          instance_double(Square::ApiResponse, success?: false, errors: errors)
+        end
+
+        it 'raises an exception' do
+          expect { service }.to raise_error(SolidusSquare::ServerError, errors.to_json)
+        end
+      end
+
+      context 'with create request' do
+        let(:create_api_response) do
+          instance_double(Square::ApiResponse, success?: false, errors: errors)
+        end
+
+        it 'raises an exception' do
+          expect { service }.to raise_error(SolidusSquare::ServerError, errors.to_json)
+        end
+      end
     end
   end
 end

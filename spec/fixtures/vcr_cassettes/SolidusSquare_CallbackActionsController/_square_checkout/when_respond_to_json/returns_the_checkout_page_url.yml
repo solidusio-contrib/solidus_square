@@ -1,0 +1,59 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://connect.squareupsandbox.com/v2/locations/LOCATION_ID/checkouts
+    body:
+      encoding: UTF-8
+      string: '{"idempotency_key":"bc98a213-6325-474e-9f26-538bc13b6f0c","order":{"order":{"location_id":"LOCATION_ID","reference_id":"R791158962","customer_id":"1","line_items":[{"name":"Order
+        total","quantity":"1","base_price_money":{"amount":11000,"currency":"USD"}}]}},"pre_populate_buyer_email":"email2@example.com","redirect_url":"https://github.com"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Authorization:
+      - "<BEARER_TOKEN>"
+      User-Agent:
+      - Square-Ruby-SDK/14.1.0.20210915
+      Square-Version:
+      - '2021-09-15'
+      Accept-Encoding:
+      - gzip,deflate
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Square-Version:
+      - '2021-09-15'
+      Vary:
+      - Origin, Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Speleo-Traceid:
+      - RYhMHHkYCFQgC
+      X-Xss-Protection:
+      - 1; mode=block
+      Date:
+      - Wed, 27 Oct 2021 21:16:38 GMT
+      Content-Length:
+      - '585'
+      Strict-Transport-Security:
+      - max-age=631152000; includeSubDomains; preload
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAA/7ySX08aQRTFv4q5z6PsLqK4iWmRKjUqtSBaaJvJMHuBCbszw/whUMN3b4alPlhj2If2aR/2d+4959x5Bj5DPlfeQfoMIoMU2het/mW710muH/PO3K27D6PFTbRqsd4QyAtONZsi9SaHFGbOaZvWalxJidwd2YVnBr22TGZjtTriqqgtk9of6Qd+/s6OHz6KkpP8/LbT7R3X28P+1bfhIxBgdk4nylA7E1oLOaUsywxaC+mE5RYJaINUK+1z5pCO/RoNxYKJYHD7TT7iihU6x+AHCBjMhEHuXoWYCjfz4x2jTIbmpZlld9B+nDQHn097tqi78XGE87ydP9nb21HoJlecOaEk3dKvAxicoEHJsfzdOz2L40bz7CQBAlZ5wzEskqxASKFfVncwUebALiKR6cPWnYjN8ddJYyiiwc1U+ouOX7dgQ4B761SBphwcBydCIhUOCwvp92fw2x+N5moQreLW1ey+/YvVn7r8vhdC7lZ+CVkPnHIsBwILz6QTbr0bGGZRt9YBvH64vAMCY2aRaiM40kJJXAf3rFBeOkjjOIqiYMyExGHIoP8pWF0yI8qOtosq66dGWUsty9FWUJW7HFv9rXmHz4TlAaok2tfU5icBiY6WmA2KagMI7J+nahKh9yQtmmU4IJ8xM33jjm8FJ8ANMocZZQ5SSKIkPoyjw+T0IYnT+CStN48a9WQEBLzO9uKsY277gu8vu0BgicYKJSGNqx7lv76U/Vsu+X/T9Qg2m98BAAD//0S7k1cFBgAA
+  recorded_at: Wed, 27 Oct 2021 21:16:38 GMT
+recorded_with: VCR 6.0.0
