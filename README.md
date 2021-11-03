@@ -31,8 +31,10 @@ For most projects we recommend using a static source, so that sensitive account 
 ```ruby
 # config/initializers/solidus_square.rb
 SolidusSquare.configure do |config|
-  config.square_access_token = ENV['SQUARE_ACCESS_TOKEN'],
-  config.square_environment = ENV['SQUARE_ENVIRONMENT'],
+  config.square_access_token = ENV['SQUARE_ACCESS_TOKEN']
+  config.square_environment = ENV['SQUARE_ENVIRONMENT']
+  config.square_location_id = ENV['SQUARE_LOCATION_ID']
+  config.square_payment_method = Spree::PaymentMethod.find(ENV['SQUARE_PAYMENT_METHOD_ID'])
 end
 
 Spree::Config.configure do |config|
@@ -41,7 +43,8 @@ Spree::Config.configure do |config|
     'square_credentials', {
       access_token: SolidusSquare.config.square_access_token,
       environment: SolidusSquare.config.square_environment,
-      location_id: ENV['SQUARE_LOCATION_ID']
+      location_id: SolidusSquare.config.square_location_id,
+      redirect_url: ENV['SQUARE_REDIRECT_URL']
     }
   )
 end
@@ -72,15 +75,47 @@ SolidusSquare::PaymentMethod.new(
 
 4. Navigate on the left side navigation bar to `Locations`.
 
-## Usage
+## **Square Hosted Checkout**
 
-To activate the Square hosted checkout workflow, simply uncomment the endpoint in the `config/routes.rb` file,
+### Usage
+
+To activate the Square hosted checkout workflow, copy the endpoint in the `config/routes.rb` file,
+```ruby
+Spree::Core::Engine.routes.draw do
+    get 'square_checkout', to: '/solidus_square/callback_actions#square_checkout'
+end
+```
 
 and create a button to bring the user at that page, or call the API to start the checkout Flow.
 
-When the Square hosted checkout finish, Square will redirect you automatically to the confirm page of the Solidus frontend.
+When the Square hosted checkout finish, Square will redirect you automatically to the redirect URL given in the preferences of the `Square` payment method.
+### How to set the order updated webhook
 
-If you are not using the Solidus frontend please specify your custom URL in the PaymentMethod `redirect_url` preferences in the admin panel.
+1. Visit the [SquareDeveloper](https://developer.squareup.com/apps) website.
+
+2. Login into your account.
+
+3. Create or open an existing app.
+
+4. Navigate on the left side navigation bar to `Webhooks`.
+
+5. Click on `Add Endpoiont`.
+
+6. Paste `<domain>/solidus_square/square_update` in the URL field, eg. `https://www.solidus.com/solidus_square/square_update`.
+
+7. Select/check `order.updated` from the Events.
+
+8. Click on `Save`.
+
+9. Navigate to the `routes.rb` file and paste the endpoint for the `order.updated` webhook.
+```ruby
+Spree::Core::Engine.routes.draw do
+    patch "webhooks/square", to: '/solidus_square/webhooks#update'
+end
+```
+
+
+
 
 <!-- Explain how to use your extension once it's been installed. -->
 
