@@ -26,5 +26,12 @@ module SolidusSquare
         redirect_url: redirect_url
       )
     end
+
+    def retrieve_order(order_id)
+      ::SolidusSquare::Orders::Retrieve.call(
+        client: client,
+        order_id: order_id
+      )
+    end
   end
 end
