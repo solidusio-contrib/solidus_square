@@ -6,13 +6,3 @@ SolidusSquare.configure do |config|
   config.square_location_id = ENV['SQUARE_LOCATION_ID']
   # config.square_payment_method = Spree::PaymentMethod.find_by(ENV['SQUARE_PAYMENT_METHOD'])
 end
-
-Spree::Config.configure do |config|
-  config.static_model_preferences.add(
-    SolidusSquare::PaymentMethod,
-    'square_credentials', {
-      access_token: SolidusSquare.config.square_access_token,
-      environment: SolidusSquare.config.square_environment
-    }
-  )
-end
