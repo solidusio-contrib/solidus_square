@@ -19,6 +19,10 @@ RSpec.describe 'SolidusSquare::CallbackActionsController', type: :request do
     before do
       payment_method.preferred_redirect_url = "https://github.com"
       payment_method.save!
+      # rubocop:disable RSpec/AnyInstance
+      allow_any_instance_of(Spree::Core::ControllerHelpers::Order).to receive(:current_order).and_return(order)
+      # rubocop:enable RSpec/AnyInstance
+      allow(SolidusSquare.config).to receive(:square_payment_method).and_return(payment_method)
     end
 
     context "when respond to html", vcr: true do
@@ -29,16 +33,6 @@ RSpec.describe 'SolidusSquare::CallbackActionsController', type: :request do
       it "has http status 302" do
         expect(response.status).to eq(302)
         expect(response.location).to match %r/https:\/\/connect.squareupsandbox.com\/v2\/checkout\?/
-      end
-    end
-
-    context "when respond to json", vcr: true do
-      before do
-        post square_checkout_path(order_number: order.number, format: :json)
-      end
-
-      it "returns the checkout_page_url" do
-        expect(JSON.parse(response.body)).to include("redirect_url")
       end
     end
   end
