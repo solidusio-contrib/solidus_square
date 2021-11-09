@@ -33,9 +33,13 @@ module SolidusSquare
           @order ||= ::Spree::Order.find_by!(number: order_number)
         end
 
+        def order_amount
+          order_info[:total_money][:amount] / 100.0
+        end
+
         def payment_params
           {
-            amount: order_info[:total_money][:amount],
+            amount: order_amount,
             order: order,
             source: ::SolidusSquare::PaymentSource.create!(token: square_order_id),
             payment_method_id: square_payment_method.id

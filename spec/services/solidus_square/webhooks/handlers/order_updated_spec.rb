@@ -46,6 +46,7 @@ RSpec.describe SolidusSquare::Webhooks::Handlers::OrderUpdated do
 
         it "does create a Spree::Payment" do
           expect(payment).to be_an_instance_of(Spree::Payment)
+          expect(payment).to have_attributes(amount: order.total)
         end
       end
 
