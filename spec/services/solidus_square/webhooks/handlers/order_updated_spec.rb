@@ -9,12 +9,13 @@ RSpec.describe SolidusSquare::Webhooks::Handlers::OrderUpdated do
   let(:payment_method) { create(:square_payment_method) }
   let(:gateway) { SolidusSquare::Gateway.new(options) }
   let!(:order) { create(:order_with_line_items, number: "R919717663") }
+  let(:square_order_id) { find_or_create_square_order_id_on_sandbox(order) }
   let(:state) { "COMPLETED" }
   let(:params) do
     {
       type: "order.updated",
       data: {
-        id: "aCvoi0WsmnpeNRIs7BjEHVtarh4F",
+        id: square_order_id,
         object: {
           order_updated: {
             state: state
@@ -25,24 +26,26 @@ RSpec.describe SolidusSquare::Webhooks::Handlers::OrderUpdated do
   end
 
   describe "#call" do
-    context "when state is completed", vcr: true do
+    context "when square order state is completed", vcr: true do
+      let(:payment) { order.payments.first }
+
       before do
         allow(payment_method).to receive(:gateway).and_return(gateway)
         allow(SolidusSquare.config).to receive(:square_payment_method).and_return(payment_method)
       end
 
-      context "when order is not completed yet" do
+      context "when spree state is not completed yet" do
         before do
           handler.call
           order.reload
         end
 
-        it "update the orders state to complete" do
+        it "updates the orders state to complete" do
           expect(order).to be_complete
         end
 
         it "does create a Spree::Payment" do
-          expect(order.payments.first).to be_an_instance_of(Spree::Payment)
+          expect(payment).to be_an_instance_of(Spree::Payment)
         end
       end
 
@@ -58,7 +61,7 @@ RSpec.describe SolidusSquare::Webhooks::Handlers::OrderUpdated do
       end
     end
 
-    context "when state is not completed" do
+    context "when square order state is not completed", vcr: true do
       before do
         handler.call
         order.reload
