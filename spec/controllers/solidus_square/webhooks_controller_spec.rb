@@ -20,15 +20,16 @@ RSpec.describe 'SolidusSquare::WebhooksController', type: :request do
     }
     let(:gateway) { SolidusSquare::Gateway.new(options) }
     let(:payment_method) { create(:square_payment_method) }
-    let!(:order) { create(:order_with_line_items, number: "R919717663") }
+    let!(:order) { create(:order_ready_to_complete, number: "R919717663", state: 'payment', payment_state: nil) }
+    let(:square_order_id) { find_or_create_square_order_id_on_sandbox(order) }
     let(:params) do
       {
         type: "order.updated",
         data: {
-          id: "aCvoi0WsmnpeNRIs7BjEHVtarh4F",
+          id: square_order_id,
           object: {
             order_updated: {
-              state: "COMPLETED"
+              state: 'COMPLETED'
             }
           }
         }
@@ -36,41 +37,49 @@ RSpec.describe 'SolidusSquare::WebhooksController', type: :request do
     end
 
     context "when valid", vcr: true do
+      let(:payment) { order.payments.last }
+
       before do
         allow(payment_method).to receive(:gateway).and_return(gateway)
         allow(SolidusSquare.config).to receive(:square_payment_method).and_return(payment_method)
-        endpoint_call
-        order.reload
       end
 
       it "creates a Spree::Payment" do
-        expect(order.payments.first).to be_an_instance_of(Spree::Payment)
+        expect { endpoint_call }.to change { order.reload.payments.count }.by(1)
+
+        expect(payment).to be_an_instance_of(Spree::Payment)
+        expect(payment).to have_attributes(amount: order.total)
       end
 
       it "updates the order state to complete" do
-        expect(order).to be_complete
+        expect { endpoint_call }.to change { order.reload.state }.from('payment').to('complete')
       end
 
       it "have http status success" do
+        endpoint_call
+
         expect(response).to have_http_status(:success)
       end
     end
 
-    context "when not valid" do
+    context "when not valid", vcr: true do
       before do
         allow(::SolidusSquare::Webhooks::Sorter).to receive(:call).and_raise(ActiveRecord::RecordInvalid)
-        endpoint_call
       end
 
       it "does not create a Spree::Payment" do
-        expect(order.payments).not_to be_any
+        expect { endpoint_call }.not_to(change { order.payments.count })
       end
 
       it "does not updates the order state to complete" do
+        endpoint_call
+
         expect(order).not_to be_complete
       end
 
       it "have http status unprocessable entity" do
+        endpoint_call
+
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end

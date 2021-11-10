@@ -6,9 +6,12 @@ module SolidusSquare
       class OrderUpdated < Base
         def call
           return if not_completed?
+          return unless order.payment?
 
-          ::Spree::Payment.create!(payment_params) unless order.complete?
-          order.update!(state: "complete")
+          create_square_payment!
+
+          order.next!
+          order.complete!
         end
 
         private
@@ -37,13 +40,13 @@ module SolidusSquare
           order_info[:total_money][:amount] / 100.0
         end
 
-        def payment_params
-          {
-            amount: order_amount,
-            order: order,
-            source: ::SolidusSquare::PaymentSource.create!(token: square_order_id),
-            payment_method_id: square_payment_method.id
-          }
+        def create_square_payment!
+          order.payments.find_or_create_by!(response_code: square_order_id) do |payment|
+            payment.amount = order_amount
+            payment.source = ::SolidusSquare::PaymentSource.create!(token: square_order_id)
+            payment.payment_method_id = square_payment_method.id
+            payment.state = 'pending'
+          end
         end
       end
     end

@@ -27,37 +27,60 @@ RSpec.describe SolidusSquare::Webhooks::Handlers::OrderUpdated do
 
   describe "#call" do
     context "when square order state is completed", vcr: true do
-      let(:payment) { order.payments.first }
+      let(:payment) { order.payments.last }
 
       before do
         allow(payment_method).to receive(:gateway).and_return(gateway)
         allow(SolidusSquare.config).to receive(:square_payment_method).and_return(payment_method)
       end
 
-      context "when spree state is not completed yet" do
-        before do
-          handler.call
-          order.reload
-        end
+      [
+        :cart,
+        :address,
+        :delivery,
+        :confirm,
+        :complete
+      ].each do |state|
+        context "when spree state is #{state}" do
+          let(:order) { create(:order_ready_to_complete, number: "R919717663", state: state, payment_state: nil) }
 
-        it "updates the orders state to complete" do
-          expect(order).to be_complete
-        end
-
-        it "does create a Spree::Payment" do
-          expect(payment).to be_an_instance_of(Spree::Payment)
-          expect(payment).to have_attributes(amount: order.total)
+          it 'returns false' do
+            expect(handler.call).to be_falsey
+          end
         end
       end
 
-      context "when order is completed already" do
-        before do
-          order.update(state: "complete")
-          handler.call
+      context "when spree state is payment" do
+        let!(:order) { create(:order_ready_to_complete, number: "R919717663", state: 'payment', payment_state: nil) }
+
+        it 'returns true' do
+          expect(handler.call).to be_truthy
         end
 
+        it "updates the orders state to complete" do
+          expect { handler.call }.to change { order.reload.state }.from('payment').to('complete')
+        end
+
+        it "does create a Spree::Payment" do
+          expect { handler.call }.to change { order.reload.payments.count }.by(1)
+
+          expect(payment).to be_an_instance_of(Spree::Payment)
+          expect(payment).to have_attributes(
+            amount: order.total,
+            payment_method: SolidusSquare.config.square_payment_method
+          )
+        end
+      end
+
+      context "when spree order is completed already" do
+        let!(:order) { create(:completed_order_with_totals, number: "R919717663") }
+
         it "does not create a Spree::Payment" do
-          expect(order.payments).not_to be_any
+          expect { handler.call }.not_to change(order, :payments)
+        end
+
+        it "doesn't change the order state" do
+          expect { handler.call }.not_to change(order, :state)
         end
       end
     end
