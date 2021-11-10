@@ -5,7 +5,7 @@ http_interactions:
     uri: https://connect.squareupsandbox.com/v2/orders/search
     body:
       encoding: UTF-8
-      string: '{"location_ids":["LOCATION_ID"],"limit":1,"return_entries":true,"query":{"filter":{}}}'
+      string: '{"location_ids":["LOCATION_ID"],"limit":1,"return_entries":true,"query":{"filter":{"source_filter":{"source_names":["solidus_square_test_R857214878"]}}}}'
     headers:
       Accept:
       - application/json
@@ -25,7 +25,56 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 04 Nov 2021 15:13:22 GMT
+      - Wed, 10 Nov 2021 14:22:56 GMT
+      Frame-Options:
+      - DENY
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/json;charset=utf-8
+      Square-Version:
+      - '2021-09-15'
+      Vary:
+      - Accept-Encoding, User-Agent
+      Content-Length:
+      - '3'
+      Strict-Transport-Security:
+      - max-age=631152000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: "{}\n"
+  recorded_at: Wed, 10 Nov 2021 14:22:56 GMT
+- request:
+    method: post
+    uri: https://connect.squareupsandbox.com/v2/orders
+    body:
+      encoding: UTF-8
+      string: '{"idempotency_key":"3920db15-4650-403c-8769-8ca2b546bec8","order":{"location_id":"LOCATION_ID","reference_id":"R857214878","customer_id":"ZW1haWwyQGV4YW1wbGUuY29t","source":{"name":"solidus_square_test_R857214878"},"line_items":[{"name":"Order
+        total","quantity":"1","base_price_money":{"amount":11000,"currency":"USD"}}]}}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Authorization:
+      - "<BEARER_TOKEN>"
+      User-Agent:
+      - Square-Ruby-SDK/14.1.0.20210915
+      Square-Version:
+      - '2021-09-15'
+      Accept-Encoding:
+      - gzip,deflate
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 10 Nov 2021 14:22:57 GMT
       Frame-Options:
       - DENY
       X-Frame-Options:
@@ -43,17 +92,17 @@ http_interactions:
       Content-Encoding:
       - gzip
       Content-Length:
-      - '354'
+      - '436'
       Strict-Transport-Security:
       - max-age=631152000; includeSubDomains; preload
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        H4sIAAAAAAAAAC2Ly3KbMABF9/2KjtZe8JID3QEGO0UyFg8j6HQ6IGCQQ0QQKC6Tyb/Xncny3HPPB5hk28k/nVgl7xbw4/uvj6+Jtw8ChuHHdCiL6ubxd0Ir1iYqCUxMmBWCHXjv5MIn8XjqOzBOrF4f9JWiny4xYIYTYgYH8Pl7B5iSyyT/O88eNmkofYjdKqqCt/Ap9SdM7GFlYW1PDkUyt5ZtIJfD1WlMKLb6XqVeCLlBR1m6gtilMiPu1+d8MzUKTTFujX6GEvaM9uQ1pteEu0OPhKsv2U1dacAhR+dWkVQ0EEUME6Wam45cbCR/8804jfaevfh7tTnxjPS1fNNLXUu1Pvfmtp+zSGjRvvPRQRZMrhZGlf3y5Hq5mR95ccoiVmfPZuX1lxmHBbnw12G534tGdLCPg2U80uLoPDfEwZGF+Jzi8HCPaytw9pWHha1p7ikAn9/+AVgIke2RAQAA
-  recorded_at: Thu, 04 Nov 2021 15:13:22 GMT
+        H4sIAAAAAAAAAMWUX2/aMBTF3/cpkJ/pFKeh/Hnc1qJqQDugzcJUWSa5BaPEDvYNNEN899kJk/aApgWpmhQpdvw79tE9Nz4QpRPQZNA6EJHYF0nuw/B1Em3L/Whj+g8o8wmu5t2pCZeLiLRJqmKOQklW46PhZBpcf45md9+jZ7csJDCBkBm7+uNAihq7Wff24afZdLFJt+LrLBlnZfTT4tuCSxRYOobaueQZuPGDc9VChTy1X5fcAMu1iIFlSkJZ2eWZKiTaIaWe57VJXGgNMq62epp9Icc2WWllDDM8BdNMWB3MkL+dk/1NkggTO6yprpG7HdeizqAWX1AZlxDDMq+KfT+/HZPjiwU1cISEcScmvufTK2ofb06Dge8POt2PQXCzsIEUefJvoEHLVYE+3k7sfAfaWOPOW5toeAVnDE69NO11uj4Net0e+Q8RoMjfNbVaYkDvXFrxmuvV2dDOqyUgqxFT4ZcYaFLLC6rYpH6XlcEJVaFjqNDfd4VRqUgK+5/by0QDQzDI/milo9vIoMpAn/psEdI1D/flt+FzEIV0vxw+FZHfR3vAh1+vlxYeEQUAAA==
+  recorded_at: Wed, 10 Nov 2021 14:22:57 GMT
 - request:
     method: get
-    uri: https://connect.squareupsandbox.com/v2/orders/22COXhYWZjBivQXZcdRuRE3MQc4F
+    uri: https://connect.squareupsandbox.com/v2/orders/dIWWfNYqywLjs9OtnpNtgT7RsWbZY
     body:
       encoding: US-ASCII
       string: ''
@@ -74,7 +123,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Thu, 04 Nov 2021 15:13:24 GMT
+      - Wed, 10 Nov 2021 14:22:58 GMT
       Frame-Options:
       - DENY
       X-Frame-Options:
@@ -92,12 +141,12 @@ http_interactions:
       Content-Encoding:
       - gzip
       Content-Length:
-      - '449'
+      - '436'
       Strict-Transport-Security:
       - max-age=631152000; includeSubDomains; preload
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        H4sIAAAAAAAAAMWUUW/aMBSF3/crkJ9hitNE03hrV2gLY10CLSXTZBnnUjwRO9g3FIT632sn3RuaFqRpT7Hj7+QenWPlSLTJwZB+50hk7h4kDL/cP60X8+zXldwlT5nI0yodXEwSEQ1Jl2y04Ci1Yg39dXSZhPFskiYXg2t/LBUwiVBYd/rjSKoG00hpsVyMx9vpeD8aPeLhLssdvq24QokHz1C3V7wAv773pjqokW/c2yW3wEojBbBCKzjUbnmhK4VuSWkQBF0iKmNAifpTD9Nr8tolz0ZbyyzfgG0nrAcz5PtTsj9JcmmFx9rqWrnbcSObDhrxGcn4hhgeyjrsu9lgQl5/OtAAR8gZx/oiBCHtUdoLohmN+nHcDz99jGKauUKqMv870KLj6kK/D765/Q6Mdca9ty4xsAJvDN7vUhqHQRxQSiPyHypAWf7T1hqJBbPzbYk1N88nSzutVoCsQWyNn2OgTZZnpNgmv/Ni8EJdGQE1+vtfMeUqX+p9Z6VNx24DmZe9ob68YunQZLd6tRpjUkzpbZb4waKyqAsw71cum9M1n7/sk5vHaDGnL8ubh2oRfkY368Mbz9E8fBsFAAA=
-  recorded_at: Thu, 04 Nov 2021 15:13:24 GMT
+        H4sIAAAAAAAAAMWUX2/aMBTF3/cpkJ/pFKeh/Hnc1qJqQDugzcJUWSa5BaPEDvYNNEN899kJk/aApgWpmhQpdvw79tE9Nz4QpRPQZNA6EJHYF0nuw/B1Em3L/Whj+g8o8wmu5t2pCZeLiLRJqmKOQklW46PhZBpcf45md9+jZ7csJDCBkBm7+uNAihq7Wff24afZdLFJt+LrLBlnZfTT4tuCSxRYOobaueQZuPGDc9VChTy1X5fcAMu1iIFlSkJZ2eWZKiTaIaWe57VJXGgNMq62epp9Icc2WWllDDM8BdNMWB3MkL+dk/1NkggTO6yprpG7HdeizqAWX1AZlxDDMq+KfT+/HZPjiwU1cISEcScmvufTK2ofb06Dge8POt2PQXCzsIEUefJvoEHLVYE+3k7sfAfaWOPOW5toeAVnDE69NO11uj4Net0e+Q8RoMjfNbVaYkDvXFrxmuvV2dDOqyUgqxFT4ZcYaFLLC6rYpH6XlcEJVaFjqNDfd4VRqUgK+5/by0QDQzDI/milo9vIoMpAn/psEdI1D/flt+FzEIV0vxw+FZHfR3vAh1+vlxYeEQUAAA==
+  recorded_at: Wed, 10 Nov 2021 14:22:58 GMT
 recorded_with: VCR 6.0.0

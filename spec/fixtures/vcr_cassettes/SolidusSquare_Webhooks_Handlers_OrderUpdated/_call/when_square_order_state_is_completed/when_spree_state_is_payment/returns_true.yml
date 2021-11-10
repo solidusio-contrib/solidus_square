@@ -25,7 +25,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 10 Nov 2021 08:30:37 GMT
+      - Wed, 10 Nov 2021 14:23:01 GMT
       Frame-Options:
       - DENY
       X-Frame-Options:
@@ -49,8 +49,8 @@ http_interactions:
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        H4sIAAAAAAAAAC2Ly26CQABF9/2KZtYuhBHE7hQQBNRhUASapuFpBpSBAUQw/ntt4vLcc88DUJak7DctW0bSBnx9fj/eE0leBAQaQDgcLD7aOFZNhqTLl4ndDUgOAh9MwC1lDaHl68pNwIXGYfuid2tpOzyDsu+sPd8Fz58JiDvWUPbvnJy6vLJDkuGSzagZRSVCIVbvSr/sw2Sqn+tp6OHFyhUWxDNlsy2ElJqnve6eaXRajWVhNBnRRjR6GXIqJ7Sb0D7NOydPLcWI7ZEpZQCn+HotOa3fqHDLcM1FAjl69TyGa5gFDvF1NvI5wgdOopl4kGcqvuUz1zOqbW2ZKedtcSzRQkYo49uO8hGmQaVnl0qs+uMwJqiR1jshv6nReSmKkbWXwfPjD12qgcVTAQAA
-  recorded_at: Wed, 10 Nov 2021 08:30:37 GMT
+        H4sIAAAAAAAAAC2Ly3KCMABF9/2KTtYuQECkOwV8NQFByQCdToe3PDQmPGpw/PfaGZfnnnvugLA0Yz/ZpWNl1oKP96/7ayrTJwGFhJLEj3Aabw+Qljztq0Xq9Hyvh2EAJmDIWFuSy/MqTkBDkqh70quFa8uVJT04rPwAg8f3BCQ9awn7dxqeqtiIpEKPiSGfPU3Qq4GVZD6K0cxUb1Q9DqcE5pXXCApUV8LIK0MMFWLU5kBFGXPXyZ0OLSy1D8wMdfkRxhW55hSdeCzXeAhGxIN2lTQpJvbat0KzIYZlyd48qpc4u+Ll2T/pSfjp2c3mYHU1rv19ga5NGrWy69hmKRTb5XCGPlvPFkasOXRjeLJGcuF3jzQ+KlBhlJq2l9Cbsitw6FZoBx5vfxjssFlUAQAA
+  recorded_at: Wed, 10 Nov 2021 14:23:01 GMT
 - request:
     method: get
     uri: https://connect.squareupsandbox.com/v2/orders/5oZ33yTL2bISLqiydujAdQuyPCZZY
@@ -74,7 +74,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 10 Nov 2021 08:30:38 GMT
+      - Wed, 10 Nov 2021 14:23:02 GMT
       Frame-Options:
       - DENY
       X-Frame-Options:
@@ -99,5 +99,5 @@ http_interactions:
       encoding: ASCII-8BIT
       string: !binary |-
         H4sIAAAAAAAAAMWUS0/jMBSF9/wK5HUZxQkU2h0qnarQYeiDlmQ0stzkAmaSOLWvC1HV/46dgMSiQqQSmlX8+I59dM+NN0SqBBTpHm6ISOyHnMgoCMrZyF8Op6OVKBPzdJ6MTXnTi6KQtEgqY45C5qzGR4PryXHQC6c/78K52xY5MIGQabv7Z0NMjf3zLu+GZR/SZTzXq1Gpr+ik6Fl+ZXiOAksHUTvPeQZu/NvZOkSJPLWrS66BFUrEwDKZQ1n55Zk0OdohpZ7ntUhslII8ro66nV6QbYs8KKk10zwF3UxYXcyQv+ySfSZJhI4d1lTXyN2aK1GHUIv3qIyLiGFZVMUezvq/yPavBRVwhIRxJya+59MjSo+8zoyedIN21z/70aY0soGYIvkaqNFyVaA3/Ws7X4PS1rjz1iIK7sEZg7dmmnRo55SettsB+Q8RoCi+NbVaokGtXVrxI1cPO0Pbrc4BWY3oCt/HQJNa7lHFJvXbrwxOKI2KoULf3wotU5EY+5/bx0QBQ9DIPrTS1h2kUWag3vosWtBHvnh+GQ/mx+GCPi8Htyb0O2gvOHgFqOpzDBIFAAA=
-  recorded_at: Wed, 10 Nov 2021 08:30:38 GMT
+  recorded_at: Wed, 10 Nov 2021 14:23:02 GMT
 recorded_with: VCR 6.0.0

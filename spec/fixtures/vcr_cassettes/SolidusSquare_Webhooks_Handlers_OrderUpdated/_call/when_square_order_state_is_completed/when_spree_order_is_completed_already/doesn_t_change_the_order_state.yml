@@ -2,59 +2,6 @@
 http_interactions:
 - request:
     method: post
-    uri: https://connect.squareupsandbox.com/v2/orders
-    body:
-      encoding: UTF-8
-      string: '{"idempotency_key":"fb3aaa39-0618-4484-8ab9-f6ee5f79ad63","order":{"location_id":"LOCATION_ID","reference_id":"R919717663","customer_id":"ZW1haWwxQGV4YW1wbGUuY29t","source":{"name":"solidus_square_test_R919717663"},"line_items":[{"name":"Order
-        total","quantity":"1","base_price_money":{"amount":11000,"currency":"USD"}}]}}'
-    headers:
-      Accept:
-      - application/json
-      Content-Type:
-      - application/json; charset=utf-8
-      Authorization:
-      - "<BEARER_TOKEN>"
-      User-Agent:
-      - Square-Ruby-SDK/14.1.0.20210915
-      Square-Version:
-      - '2021-09-15'
-      Accept-Encoding:
-      - gzip,deflate
-  response:
-    status:
-      code: 401
-      message: Unauthorized
-    headers:
-      Date:
-      - Tue, 09 Nov 2021 16:57:09 GMT
-      Frame-Options:
-      - DENY
-      X-Frame-Options:
-      - DENY
-      X-Content-Type-Options:
-      - nosniff
-      X-Xss-Protection:
-      - 1; mode=block
-      Content-Type:
-      - application/json;charset=utf-8
-      Content-Length:
-      - '574'
-      Strict-Transport-Security:
-      - max-age=631152000; includeSubDomains; preload
-    body:
-      encoding: UTF-8
-      string: '{"errors": [{"code": "UNAUTHORIZED","detail": "The `Authorization`
-        http header of your request was malformed. The header value is expected to
-        be of the format \"Bearer TOKEN\" (without quotation marks), where TOKEN is
-        to be replaced with your access token (e.g. \"Bearer ABC123def456GHI789jkl0\").
-        For more information, see https://docs.connect.squareup.com/api/connect/v2/#requestandresponseheaders.
-        If you are seeing this error message while using one of our officially supported
-        SDKs, please report this to developers@squareup.com.","category": "AUTHENTICATION_ERROR"}]}
-
-        '
-  recorded_at: Tue, 09 Nov 2021 16:57:09 GMT
-- request:
-    method: post
     uri: https://connect.squareupsandbox.com/v2/orders/search
     body:
       encoding: UTF-8
@@ -78,7 +25,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 10 Nov 2021 08:30:32 GMT
+      - Wed, 10 Nov 2021 14:23:08 GMT
       Frame-Options:
       - DENY
       X-Frame-Options:
@@ -96,14 +43,14 @@ http_interactions:
       Content-Encoding:
       - gzip
       Content-Length:
-      - '308'
+      - '306'
       Strict-Transport-Security:
       - max-age=631152000; includeSubDomains; preload
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        H4sIAAAAAAAAAC2LyXKCQAAF7/mK1Jw9gLKE3BiQLezIOJBKpdgkIGZkEAUt/z2mymO/fn0DhJYV/a5+T7SpBvD++nl7Tk35IMCTdLWaN/YyNyO7b+ZybOUyGGdfSdMELMC5okNDfh9XdgE6UmSnBz1bW3dDbqUkkYYTBO5fC1CMdCD03znSludyfkIGC/WzElvNRRG70ZiQ0LIKtKODKFz8EQepyqAj9lpzmeleFyjQ5PI6ZpY1GwrGTm60TV3CbS46GZR7PwyLUbOwKxzFKLxOyaAVXYmIp2M3XXdEdV0ufsv2EFVHBA/4RynSj9jrjMg97dEe+7Vz7Mps4MLAWzdMbcLzwcZUF2Q1l4LeUGNOIjvm4jvSfOVtnvb92ouLfuKtGqVh61jg/vIHR2EyNVQBAAA=
-  recorded_at: Wed, 10 Nov 2021 08:30:32 GMT
+        H4sIAAAAAAAAAC2LyXKCQAAF7/mK1Jw9qMwYyY0dlVXCmkql2FTWgWFRsPz3mCqP/fr1HWCSpOQ3rXuSpR34fP++v6YseRJAOKCo6UtZRztLabMpGXImMYfJ4ILABwswpqTLcP28rhagxHHYP+nVKpJ2hBTnW6LnO+DxswDxQDpM/t0pvF4qvxbsfcywUD/kvL/SIsNdU2tK5vjeO9jC0twQqnERM+tRlYssNRRiUhfEdj/o7ZYgS5OVXkQS41a3mC3wKb+Y0Gi4OYKFM/qzOvmdGJeJg3XJ0wKhxLymQXsbFqyTNg5beRcuDg62XsqW1hdO4RlntSmTsINHUxey5XnHjpXiEWnD8BFttjJvQxqflldDpacZKYi0raDbcXtD+7MTHHN1Dx5vf5qzmsRUAQAA
+  recorded_at: Wed, 10 Nov 2021 14:23:08 GMT
 - request:
     method: get
     uri: https://connect.squareupsandbox.com/v2/orders/5oZ33yTL2bISLqiydujAdQuyPCZZY
@@ -127,7 +74,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 10 Nov 2021 08:30:32 GMT
+      - Wed, 10 Nov 2021 14:23:09 GMT
       Frame-Options:
       - DENY
       X-Frame-Options:
@@ -152,5 +99,5 @@ http_interactions:
       encoding: ASCII-8BIT
       string: !binary |-
         H4sIAAAAAAAAAMWUS0/jMBSF9/wK5HUZxQkU2h0qnarQYeiDlmQ0stzkAmaSOLWvC1HV/46dgMSiQqQSmlX8+I59dM+NN0SqBBTpHm6ISOyHnMgoCMrZyF8Op6OVKBPzdJ6MTXnTi6KQtEgqY45C5qzGR4PryXHQC6c/78K52xY5MIGQabv7Z0NMjf3zLu+GZR/SZTzXq1Gpr+ik6Fl+ZXiOAksHUTvPeQZu/NvZOkSJPLWrS66BFUrEwDKZQ1n55Zk0OdohpZ7ntUhslII8ro66nV6QbYs8KKk10zwF3UxYXcyQv+ySfSZJhI4d1lTXyN2aK1GHUIv3qIyLiGFZVMUezvq/yPavBRVwhIRxJya+59MjSo+8zoyedIN21z/70aY0soGYIvkaqNFyVaA3/Ws7X4PS1rjz1iIK7sEZg7dmmnRo55SettsB+Q8RoCi+NbVaokGtXVrxI1cPO0Pbrc4BWY3oCt/HQJNa7lHFJvXbrwxOKI2KoULf3wotU5EY+5/bx0QBQ9DIPrTS1h2kUWag3vosWtBHvnh+GQ/mx+GCPi8Htyb0O2gvOHgFqOpzDBIFAAA=
-  recorded_at: Wed, 10 Nov 2021 08:30:32 GMT
+  recorded_at: Wed, 10 Nov 2021 14:23:09 GMT
 recorded_with: VCR 6.0.0

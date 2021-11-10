@@ -25,7 +25,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 10 Nov 2021 08:30:40 GMT
+      - Wed, 10 Nov 2021 14:23:04 GMT
       Frame-Options:
       - DENY
       X-Frame-Options:
@@ -43,14 +43,14 @@ http_interactions:
       Content-Encoding:
       - gzip
       Content-Length:
-      - '308'
+      - '306'
       Strict-Transport-Security:
       - max-age=631152000; includeSubDomains; preload
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        H4sIAAAAAAAAAC2LyXKCQAAF7/mK1Jw9oIBKboKAGEAWGZZUKsUyEnB0YNi1/PeYKo/9+vUdEJoh+oOuLS1QAz7ev+6vqcieBHgSsex01BeJ5up1MWVducnsbrKkKArBDPSINgW5Pq/zGcAkjdsnvVpdNR2OlUJXCUIIHt8zkHa0IfTfTfaitxSfkWE556CmiOTkemhlGauA0JvlD6rk0wjVk5VjFsf5XNJE6CdMyS53VOmTdkRrt+r3qj8chXYYr92kJhcVE+KdksBcVivXuY1ho6Q4g+SgBmYkY7I1Tc5bx2cRogqKl+BXSqNP74B3rtme4TmwcqPCWdxwjn2QCybXxP6iB1RdbraJYNe7rccJ5MQMliFMN17naV3LBy+tR36fw8gpjT14vP0BeUazHlQBAAA=
-  recorded_at: Wed, 10 Nov 2021 08:30:40 GMT
+        H4sIAAAAAAAAAC2Ly3KCMABF9/2KTtYuylPpTlNBKrQQjCXpdDoCgYEKIUGg6PjvtTMuzz33XACXGZPfrDnJknXg+fHzcp/K7EbA4FTTpp2nJm7kiXLK+mqZhf0UQEoJmIGBya7kze2qzMCRp4fTje6t57whXYMksmOyB9evGUh72XH5716aFZlkMJ3NbAwNi1QDy+3iI8Uwz+hYYObEpNdXyNsSMY7cF2ntEquutwWbh81wnNvCNn6tpHVxYESOl1tLeqhl1Vr4EBqkh3joqPaE6rpRnNFda75EQkmMEsdinmq2ltOoJBt5VqsA7ZQFz80d1NdoqPR9/Nr6wtsyJfZRuuA/MAhy9dRzNUGctpv82JrtiKdzFnQL+82ohnVSLE0z8d4huD78AYJuL/9TAQAA
+  recorded_at: Wed, 10 Nov 2021 14:23:04 GMT
 - request:
     method: get
     uri: https://connect.squareupsandbox.com/v2/orders/5oZ33yTL2bISLqiydujAdQuyPCZZY
@@ -74,7 +74,7 @@ http_interactions:
       message: OK
     headers:
       Date:
-      - Wed, 10 Nov 2021 08:30:41 GMT
+      - Wed, 10 Nov 2021 14:23:05 GMT
       Frame-Options:
       - DENY
       X-Frame-Options:
@@ -99,5 +99,5 @@ http_interactions:
       encoding: ASCII-8BIT
       string: !binary |-
         H4sIAAAAAAAAAMWUS0/jMBSF9/wK5HUZxQkU2h0qnarQYeiDlmQ0stzkAmaSOLWvC1HV/46dgMSiQqQSmlX8+I59dM+NN0SqBBTpHm6ISOyHnMgoCMrZyF8Op6OVKBPzdJ6MTXnTi6KQtEgqY45C5qzGR4PryXHQC6c/78K52xY5MIGQabv7Z0NMjf3zLu+GZR/SZTzXq1Gpr+ik6Fl+ZXiOAksHUTvPeQZu/NvZOkSJPLWrS66BFUrEwDKZQ1n55Zk0OdohpZ7ntUhslII8ro66nV6QbYs8KKk10zwF3UxYXcyQv+ySfSZJhI4d1lTXyN2aK1GHUIv3qIyLiGFZVMUezvq/yPavBRVwhIRxJya+59MjSo+8zoyedIN21z/70aY0soGYIvkaqNFyVaA3/Ws7X4PS1rjz1iIK7sEZg7dmmnRo55SettsB+Q8RoCi+NbVaokGtXVrxI1cPO0Pbrc4BWY3oCt/HQJNa7lHFJvXbrwxOKI2KoULf3wotU5EY+5/bx0QBQ9DIPrTS1h2kUWag3vosWtBHvnh+GQ/mx+GCPi8Htyb0O2gvOHgFqOpzDBIFAAA=
-  recorded_at: Wed, 10 Nov 2021 08:30:41 GMT
+  recorded_at: Wed, 10 Nov 2021 14:23:05 GMT
 recorded_with: VCR 6.0.0
