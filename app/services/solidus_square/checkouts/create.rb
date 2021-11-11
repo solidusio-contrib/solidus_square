@@ -56,7 +56,7 @@ module SolidusSquare
               }
             },
             pre_populate_buyer_email: order.email,
-            redirect_url: SolidusSquare.config.square_payment_method.preferred_redirect_url
+            redirect_url: redirect_url
           }
         }
       end

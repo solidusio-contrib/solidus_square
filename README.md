@@ -83,6 +83,7 @@ To activate the Square hosted checkout workflow, copy the endpoint in the `confi
 ```ruby
 Spree::Core::Engine.routes.draw do
     get 'square_checkout', to: '/solidus_square/callback_actions#square_checkout'
+    get 'complete_checkout', to: '/solidus_square/callback_actions#complete_checkout'
 end
 ```
 
@@ -97,6 +98,10 @@ deface file.
 ```
 
 When the Square hosted checkout finish, Square will redirect you automatically to the redirect URL given in the preferences of the `Square` payment method.
+
+Uncomment the `config.square_payment_method = Spree::PaymentMethod.find(ENV['SQUARE_PAYMENT_METHOD_ID'])` line in `config/initializers/solidus_square.rb` file,
+
+And set the `SQUARE_PAYMENT_METHOD` in order to find the preferred square payment.
 ### How to set the order updated webhook
 
 1. Visit the [SquareDeveloper](https://developer.squareup.com/apps) website.

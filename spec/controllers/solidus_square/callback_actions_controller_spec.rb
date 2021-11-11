@@ -3,19 +3,28 @@
 require 'spec_helper'
 
 RSpec.describe 'SolidusSquare::CallbackActionsController', type: :request do
+  let(:order) { create(:order_with_line_items) }
+  let(:payment_method) { create(:square_payment_method, preferred_redirect_url: redirect_url) }
+  let(:redirect_url) { "https://github.com" }
+
   around do |test|
     Rails.application.routes.draw do
       post 'square_checkout', to: 'solidus_square/callback_actions#square_checkout'
+      get "complete_checkout", to: "solidus_square/callback_actions#complete_checkout"
       mount Spree::Core::Engine, at: '/'
     end
     test.run
     Rails.application.reload_routes!
   end
 
-  describe '#square_checkout', vcr: true do
-    let(:order) { create(:order_with_line_items) }
-    let(:payment_method) { create(:square_payment_method) }
+  before do
+    # rubocop:disable RSpec/AnyInstance
+    allow_any_instance_of(Spree::Core::ControllerHelpers::Order).to receive(:current_order).and_return(order)
+    # rubocop:enable RSpec/AnyInstance
+    allow(::SolidusSquare.config).to receive(:square_payment_method).and_return(payment_method)
+  end
 
+  describe '#square_checkout', vcr: true do
     before do
       payment_method.preferred_redirect_url = "https://github.com"
       payment_method.save!
@@ -34,6 +43,26 @@ RSpec.describe 'SolidusSquare::CallbackActionsController', type: :request do
         expect(response.status).to eq(302)
         expect(response.location).to match %r/https:\/\/connect.squareupsandbox.com\/v2\/checkout\?/
       end
+    end
+  end
+
+  describe "#complete_checkout" do
+    before do
+      get complete_checkout_path(order_number: order.number)
+    end
+
+    it "returns the checkout_page_url" do
+      expect(response.location).to match(redirect_url)
+    end
+
+    it "creates a new order" do
+      expect(Spree::Order.all.size).to eq(2)
+    end
+
+    it "creates a new order with the same user_id and guest token" do
+      new_order = Spree::Order.last
+      expect(order.user_id).to eq(new_order.user_id)
+      expect(order).not_to eq(new_order)
     end
   end
 end
