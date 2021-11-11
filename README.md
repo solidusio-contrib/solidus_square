@@ -86,7 +86,15 @@ Spree::Core::Engine.routes.draw do
 end
 ```
 
-and create a button to bring the user at that page, or call the API to start the checkout Flow.
+and create a button to bring the user at that page, or call the API to start the checkout Flow or add the following
+deface file.
+
+`app/overrides/spree/checkout/_payment/add_hosted_checkout.html.erb.deface`
+```ruby
+<!-- insert_top "fieldset[id='payment']" -->
+
+<%= link_to 'Square Hosted Checkout', square_checkout_path %>
+```
 
 When the Square hosted checkout finish, Square will redirect you automatically to the redirect URL given in the preferences of the `Square` payment method.
 ### How to set the order updated webhook
@@ -101,7 +109,7 @@ When the Square hosted checkout finish, Square will redirect you automatically t
 
 5. Click on `Add Endpoiont`.
 
-6. Paste `<domain>/solidus_square/square_update` in the URL field, eg. `https://www.solidus.com/solidus_square/square_update`.
+6. Paste `<domain>/webhooks/square` in the URL field, eg. `https://www.solidus.com/webhooks/square`.
 
 7. Select/check `order.updated` from the Events.
 
@@ -113,12 +121,6 @@ Spree::Core::Engine.routes.draw do
     patch "webhooks/square", to: '/solidus_square/webhooks#update'
 end
 ```
-
-
-
-
-<!-- Explain how to use your extension once it's been installed. -->
-
 ## Development
 
 Create a Square Developer Account
