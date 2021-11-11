@@ -12,6 +12,7 @@ describe ::SolidusSquare::Checkouts::Create do
     )
   end
 
+  let(:payment_method) { create(:square_payment_method) }
   let(:spree_user) { create(:user_with_addresses) }
   let(:spree_address) { spree_user.addresses.first }
   let(:spree_order) { create(:order_with_line_items, user: spree_user, shipping_address: spree_address) }
@@ -22,8 +23,28 @@ describe ::SolidusSquare::Checkouts::Create do
     instance_double(Square::ApiResponse, success?: true, data: OpenStruct.new(checkout: { 'id' => 111 }))
   end
 
-  it 'returns checkout data' do
-    expect(service['id']).to eq 111
+  before do
+    allow(SolidusSquare.config).to receive(:square_payment_method).and_return(payment_method)
+  end
+
+  context "with a successfull response" do
+    it 'returns checkout data' do
+      expect(service['id']).to eq 111
+    end
+
+    it "makes a request with the correct data" do
+      service
+      expect(checkout_api).to have_received(:create_checkout)
+        .with(hash_including(
+          body: hash_including(
+            order: hash_including(
+              order: hash_including(
+                customer_id: Digest::MD5.hexdigest(spree_order.email)
+              )
+            )
+          )
+        ))
+    end
   end
 
   context 'when the server fails with an error' do

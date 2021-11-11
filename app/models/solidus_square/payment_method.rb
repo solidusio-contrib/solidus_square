@@ -10,5 +10,13 @@ module SolidusSquare
     def gateway_class
       ::SolidusSquare::Gateway
     end
+
+    def payment_source_class
+      ::SolidusSquare::PaymentSource
+    end
+
+    def partial_name
+      "square"
+    end
   end
 end

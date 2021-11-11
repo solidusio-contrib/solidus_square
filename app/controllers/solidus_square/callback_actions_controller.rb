@@ -2,6 +2,10 @@
 
 module SolidusSquare
   class CallbackActionsController < SolidusSquare::BaseController
+    include Spree::Core::ControllerHelpers::Order
+
+    helper 'spree/orders'
+
     def square_checkout
       checkout_page_url = SolidusSquare::Gateway.new(
         access_token: SolidusSquare.config.square_access_token,
@@ -11,14 +15,13 @@ module SolidusSquare
 
       respond_to do |format|
         format.html { redirect_to checkout_page_url }
-        format.json { render json: { redirect_url: checkout_page_url } }
       end
     end
 
     private
 
     def order
-      @order ||= Spree::Order.find_by(number: params[:order_number])
+      @order ||= current_order
     end
 
     def redirect_url

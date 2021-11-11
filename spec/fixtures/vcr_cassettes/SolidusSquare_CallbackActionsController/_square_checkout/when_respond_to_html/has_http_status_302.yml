@@ -5,7 +5,7 @@ http_interactions:
     uri: https://connect.squareupsandbox.com/v2/locations/LOCATION_ID/checkouts
     body:
       encoding: UTF-8
-      string: '{"idempotency_key":"79ca40d7-d133-48ed-8f94-6dfc3935b45b","order":{"order":{"location_id":"LOCATION_ID","reference_id":"R480216419","customer_id":"1","line_items":[{"name":"Order
+      string: '{"idempotency_key":"9351d36c-91f5-47fc-af29-1398367de333","order":{"order":{"location_id":"LOCATION_ID","reference_id":"R503885575","customer_id":"b5c0c86c701a1b4b7c188c43df1593f5","line_items":[{"name":"Order
         total","quantity":"1","base_price_money":{"amount":11000,"currency":"USD"}}]}},"pre_populate_buyer_email":"email1@example.com","redirect_url":"https://github.com"}'
     headers:
       Accept:
@@ -42,18 +42,18 @@ http_interactions:
       X-Permitted-Cross-Domain-Policies:
       - none
       X-Speleo-Traceid:
-      - McMADWgHfYRQg
+      - NAPBHYFVhPWVR
       X-Xss-Protection:
       - 1; mode=block
       Date:
-      - Wed, 27 Oct 2021 21:16:37 GMT
+      - Wed, 10 Nov 2021 14:22:55 GMT
       Content-Length:
-      - '585'
+      - '614'
       Strict-Transport-Security:
       - max-age=631152000; includeSubDomains; preload
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        H4sIAAAAAAAA/7yS308aTxTF/xVzn0eZXRF1E/P9AlJjKmpFWrFtJsPsBSbszozzYwsh/O/NsOqDNQYe2qd92M+595xzZwVihmKug4dsBTKHDLqd9qB3RR+q3jyfy2FLPsj5uH/Z6V/OgbzizPApsmALyGDmvXFZoyG0Uij8gXsK3GIwjqt8rBcHQpeNKm28SP8TZx/s+BEoTVvF2dXF9V3zsDsafHoYfQUC3M3ZRFvmZtIYqaaM57lF5yCb8MIhAWORGW1CwT2ycViiZVhyGQ1uvsn/uOClKTD6AQIWc2lR+DchptLPwviZ0TZH+9pMPrgKR9Qvzkf+21110vO5alfXQ3pzgY8jIFBowb3Uim3otwEsTtCiElj/vmue0DRpNZNTIOB0sALjIsVLhAwGdXV7E2333BOVudlv92Vim18mRyNJh5+nKnQuwrINawIiOK9LtPXgJDqRCpn0WDrIvq8gbH70lqe/ys7QeHXbVaI46lb20HSBvOy8iWH3vPa8AAJPgSsv/fJ5YhzG/NJE8PK+1wcCY+6QGSsFslIrXEb7vNRBeciShFIandkYOQ4ZDs6j14pbWZe0WbSzfmq1c8zxAt0OqnqX54s/NR/wuXQiQjuJtjW1/klAoWc15qJitwEEts+zaxJptiQd2ioeUMy4nb5zx/eCExAWuceccQ8ZpDRN9hO6nx7fp0mWtLLD44NmSh+BQDD5Vpzz3G9e8G3vGghUaJ3UCrJk16P805eyfcs1/3e6foT1+ncAAAD//zjR4EEGBgAA
-  recorded_at: Wed, 27 Oct 2021 21:16:37 GMT
+        H4sIAAAAAAAA/7yST1MqRxTFv4p1161MAyPjVFkJELSMQoyoEZNUV9Nzh2mdmW76D0Isvnuq4enCZ1mweG81i/mde885t19BFCielXeQvoLMIIV+rzse9B5flF4mo5e7K9/vL/onk1Fr0QbyjjPNZ8i8KSGFwjlt00ZDqLpG4Y7s3HODXlteZ1O1PBKqaiyajTfpL+L0ix3/+ChqHpenV+ejm3arPxmfPUzugQC3zyxXhtlCai3rGeNZZtBaSHNeWiSgDTKttC+5Qzb1KzQMKy6Dwc2X/opLXukSgx8gYDCTBoX7EGImXeGn3xhlMjTvzfxX6MFDEV3cn8wvnvL+zWW0HHaRFsPrZDIBAqUS3ElVsw39MYDBHA3WAre/b+KolSRx3ImBgFXeCAyLal4hpDDeVneQK3Ng55HM9GF3KKlp/5nHExndXc5q3zv3qy6sCQhvnarQbAdPYxGJ5Fh0IsrptD3tCJokot3KchqftPKwrpQ1MumwspD+/Qp+o7O9xP111jfx77OzutRPYjzueCBvjv4IVRw45XgJBOae1066FaRAgUCYxdxKB/DidjAEAlNukWkjBbJK1bgK4XilfO0gpTSKouDbhELCkLvxbyHJghu5rXCzaG/9zChrmeUl2j1U212OL7/XfMFn0ooA7SXa1dT6XwI1OrbFbFDsN4DA7nn2TSL1jqRFswgHFAU3s0/u+FlwAsIgd5gx7iCFZtSkh5Qe0uiWttNmM43joySJHoGA19lOnHXcbV7w9WAEBBZorFQ1pHTfo/zUl7J7y1v+x3T9COv1/wEAAP//Rzq9jCQGAAA=
+  recorded_at: Wed, 10 Nov 2021 14:22:55 GMT
 recorded_with: VCR 6.0.0

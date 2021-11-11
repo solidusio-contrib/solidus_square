@@ -1,0 +1,152 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://connect.squareupsandbox.com/v2/orders/search
+    body:
+      encoding: UTF-8
+      string: '{"location_ids":["LOCATION_ID"],"limit":1,"return_entries":true,"query":{"filter":{"source_filter":{"source_names":["solidus_square_test_R857214878"]}}}}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Authorization:
+      - "<BEARER_TOKEN>"
+      User-Agent:
+      - Square-Ruby-SDK/14.1.0.20210915
+      Square-Version:
+      - '2021-09-15'
+      Accept-Encoding:
+      - gzip,deflate
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 10 Nov 2021 14:22:56 GMT
+      Frame-Options:
+      - DENY
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/json;charset=utf-8
+      Square-Version:
+      - '2021-09-15'
+      Vary:
+      - Accept-Encoding, User-Agent
+      Content-Length:
+      - '3'
+      Strict-Transport-Security:
+      - max-age=631152000; includeSubDomains; preload
+    body:
+      encoding: UTF-8
+      string: "{}\n"
+  recorded_at: Wed, 10 Nov 2021 14:22:56 GMT
+- request:
+    method: post
+    uri: https://connect.squareupsandbox.com/v2/orders
+    body:
+      encoding: UTF-8
+      string: '{"idempotency_key":"3920db15-4650-403c-8769-8ca2b546bec8","order":{"location_id":"LOCATION_ID","reference_id":"R857214878","customer_id":"ZW1haWwyQGV4YW1wbGUuY29t","source":{"name":"solidus_square_test_R857214878"},"line_items":[{"name":"Order
+        total","quantity":"1","base_price_money":{"amount":11000,"currency":"USD"}}]}}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Authorization:
+      - "<BEARER_TOKEN>"
+      User-Agent:
+      - Square-Ruby-SDK/14.1.0.20210915
+      Square-Version:
+      - '2021-09-15'
+      Accept-Encoding:
+      - gzip,deflate
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 10 Nov 2021 14:22:57 GMT
+      Frame-Options:
+      - DENY
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/json;charset=utf-8
+      Square-Version:
+      - '2021-09-15'
+      Vary:
+      - Accept-Encoding, User-Agent
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '436'
+      Strict-Transport-Security:
+      - max-age=631152000; includeSubDomains; preload
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAAMWUX2/aMBTF3/cpkJ/pFKeh/Hnc1qJqQDugzcJUWSa5BaPEDvYNNEN899kJk/aApgWpmhQpdvw79tE9Nz4QpRPQZNA6EJHYF0nuw/B1Em3L/Whj+g8o8wmu5t2pCZeLiLRJqmKOQklW46PhZBpcf45md9+jZ7csJDCBkBm7+uNAihq7Wff24afZdLFJt+LrLBlnZfTT4tuCSxRYOobaueQZuPGDc9VChTy1X5fcAMu1iIFlSkJZ2eWZKiTaIaWe57VJXGgNMq62epp9Icc2WWllDDM8BdNMWB3MkL+dk/1NkggTO6yprpG7HdeizqAWX1AZlxDDMq+KfT+/HZPjiwU1cISEcScmvufTK2ofb06Dge8POt2PQXCzsIEUefJvoEHLVYE+3k7sfAfaWOPOW5toeAVnDE69NO11uj4Net0e+Q8RoMjfNbVaYkDvXFrxmuvV2dDOqyUgqxFT4ZcYaFLLC6rYpH6XlcEJVaFjqNDfd4VRqUgK+5/by0QDQzDI/milo9vIoMpAn/psEdI1D/flt+FzEIV0vxw+FZHfR3vAh1+vlxYeEQUAAA==
+  recorded_at: Wed, 10 Nov 2021 14:22:57 GMT
+- request:
+    method: get
+    uri: https://connect.squareupsandbox.com/v2/orders/dIWWfNYqywLjs9OtnpNtgT7RsWbZY
+    body:
+      encoding: US-ASCII
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Authorization:
+      - "<BEARER_TOKEN>"
+      User-Agent:
+      - Square-Ruby-SDK/14.1.0.20210915
+      Square-Version:
+      - '2021-09-15'
+      Accept-Encoding:
+      - gzip,deflate
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 10 Nov 2021 14:22:58 GMT
+      Frame-Options:
+      - DENY
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/json;charset=utf-8
+      Square-Version:
+      - '2021-09-15'
+      Vary:
+      - Accept-Encoding, User-Agent
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '436'
+      Strict-Transport-Security:
+      - max-age=631152000; includeSubDomains; preload
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAAMWUX2/aMBTF3/cpkJ/pFKeh/Hnc1qJqQDugzcJUWSa5BaPEDvYNNEN899kJk/aApgWpmhQpdvw79tE9Nz4QpRPQZNA6EJHYF0nuw/B1Em3L/Whj+g8o8wmu5t2pCZeLiLRJqmKOQklW46PhZBpcf45md9+jZ7csJDCBkBm7+uNAihq7Wff24afZdLFJt+LrLBlnZfTT4tuCSxRYOobaueQZuPGDc9VChTy1X5fcAMu1iIFlSkJZ2eWZKiTaIaWe57VJXGgNMq62epp9Icc2WWllDDM8BdNMWB3MkL+dk/1NkggTO6yprpG7HdeizqAWX1AZlxDDMq+KfT+/HZPjiwU1cISEcScmvufTK2ofb06Dge8POt2PQXCzsIEUefJvoEHLVYE+3k7sfAfaWOPOW5toeAVnDE69NO11uj4Net0e+Q8RoMjfNbVaYkDvXFrxmuvV2dDOqyUgqxFT4ZcYaFLLC6rYpH6XlcEJVaFjqNDfd4VRqUgK+5/by0QDQzDI/milo9vIoMpAn/psEdI1D/flt+FzEIV0vxw+FZHfR3vAh1+vlxYeEQUAAA==
+  recorded_at: Wed, 10 Nov 2021 14:22:58 GMT
+recorded_with: VCR 6.0.0
