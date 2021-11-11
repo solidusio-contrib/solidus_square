@@ -42,6 +42,9 @@ module SolidusSquare
             idempotency_key: idempotency_key,
             order: {
               order: {
+                metadata: {
+                  hosted_checkout: "true"
+                },
                 location_id: location_id,
                 reference_id: order.number,
                 customer_id: customer_id,

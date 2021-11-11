@@ -5,8 +5,8 @@ http_interactions:
     uri: https://connect.squareupsandbox.com/v2/locations/LOCATION_ID/checkouts
     body:
       encoding: UTF-8
-      string: '{"idempotency_key":"9351d36c-91f5-47fc-af29-1398367de333","order":{"order":{"location_id":"LOCATION_ID","reference_id":"R503885575","customer_id":"b5c0c86c701a1b4b7c188c43df1593f5","line_items":[{"name":"Order
-        total","quantity":"1","base_price_money":{"amount":11000,"currency":"USD"}}]}},"pre_populate_buyer_email":"email1@example.com","redirect_url":"https://github.com"}'
+      string: '{"idempotency_key":"b1838df7-8edb-4f6c-a9fc-614bd5418662","order":{"order":{"hosted_checkout":true,"location_id":"LOCATION_ID","reference_id":"R248679335","customer_id":"9b8eda6829bcad1a56e5e5e0458b7a7e","line_items":[{"name":"Order
+        total","quantity":"1","base_price_money":{"amount":11000,"currency":"USD"}}]}},"pre_populate_buyer_email":"email4@example.com","redirect_url":"http://www.example.com/complete_checkout"}'
     headers:
       Accept:
       - application/json
@@ -42,18 +42,18 @@ http_interactions:
       X-Permitted-Cross-Domain-Policies:
       - none
       X-Speleo-Traceid:
-      - NAPBHYFVhPWVR
+      - QBHHbgCaTjjcg
       X-Xss-Protection:
       - 1; mode=block
       Date:
-      - Wed, 10 Nov 2021 14:22:55 GMT
+      - Thu, 11 Nov 2021 15:53:11 GMT
       Content-Length:
-      - '614'
+      - '622'
       Strict-Transport-Security:
       - max-age=631152000; includeSubDomains; preload
     body:
       encoding: ASCII-8BIT
       string: !binary |-
-        H4sIAAAAAAAA/7yST1MqRxTFv4p1161MAyPjVFkJELSMQoyoEZNUV9Nzh2mdmW76D0Isvnuq4enCZ1mweG81i/mde885t19BFCielXeQvoLMIIV+rzse9B5flF4mo5e7K9/vL/onk1Fr0QbyjjPNZ8i8KSGFwjlt00ZDqLpG4Y7s3HODXlteZ1O1PBKqaiyajTfpL+L0ix3/+ChqHpenV+ejm3arPxmfPUzugQC3zyxXhtlCai3rGeNZZtBaSHNeWiSgDTKttC+5Qzb1KzQMKy6Dwc2X/opLXukSgx8gYDCTBoX7EGImXeGn3xhlMjTvzfxX6MFDEV3cn8wvnvL+zWW0HHaRFsPrZDIBAqUS3ElVsw39MYDBHA3WAre/b+KolSRx3ImBgFXeCAyLal4hpDDeVneQK3Ng55HM9GF3KKlp/5nHExndXc5q3zv3qy6sCQhvnarQbAdPYxGJ5Fh0IsrptD3tCJokot3KchqftPKwrpQ1MumwspD+/Qp+o7O9xP111jfx77OzutRPYjzueCBvjv4IVRw45XgJBOae1066FaRAgUCYxdxKB/DidjAEAlNukWkjBbJK1bgK4XilfO0gpTSKouDbhELCkLvxbyHJghu5rXCzaG/9zChrmeUl2j1U212OL7/XfMFn0ooA7SXa1dT6XwI1OrbFbFDsN4DA7nn2TSL1jqRFswgHFAU3s0/u+FlwAsIgd5gx7iCFZtSkh5Qe0uiWttNmM43joySJHoGA19lOnHXcbV7w9WAEBBZorFQ1pHTfo/zUl7J7y1v+x3T9COv1/wEAAP//Rzq9jCQGAAA=
-  recorded_at: Wed, 10 Nov 2021 14:22:55 GMT
+        H4sIAAAAAAAA/7yS/0/iShTF/xVzfx6hLRShiXkPBPTpQ0XYmGV3MxmmFxhtO8N8AdHwv2+GRmN2jYEfdpMmbdLPufecM/MCfIH8UToLyQuIFBI467RHvctsNehf0VbU/7psDUyQinN9vwbyhlPF5kidziCBhbXKJNUql0WB3FbM0jGNThlWpFP5VOEyr66i6qv0H376yY7vLgiiRnb6/2V7GMXjwd2w1usCAWYe6UxqahZCKVHMKUtTjcZAMmOZQQJKI1VSuYxZpFO3QU0xZ8Ib3L3r/+ITy1WG3g8Q0JgKjdy+C5FUq+v1uvKOq3LpPy3St54ISJ2ifuvrPuguguC2N3p8GHaW+fMgOxsGaff6gdX7QCCTnFkhC7qDf02lcYYaC47l77uo3myctGq1GAgY6TRHv6dgOUICo7LPo5nUR2YZiFQd92W7Q+/6enIhZ7MrO8xH4cVkCFsC3Bkrc9Tl4Na0iSlrNKPWlLM0ZHEDY4wxqMfN6Qk7QW9UFEiFxdxA8u0F3E7nVrwRz2e5fXbGtc+n4/41v+kAebV046s4stKyDAgsHSussBtIIAQCfhi1G+XB/8a9ARCYMoNUacGR5rLAjU/HcukKC0kYBkHgjWvfiB/yZdT1UVZMi7LD3aKD9XMtjaGGZWgOUJW7LHv6XfMJnwrDPXSQaF9T2x8ECrS0xIxXHDaAwP55Dk0i1J6kQb3yB8gXTM8/OMePghPgGpnFlDILCURBFB6H/hmHcRLXkjCsRM1wAgScSvfijGV2d4Nve9dAYIXaCFlAEh56KH/1puzfcsn/ma4nsN3+DAAA//86Xhf6OgYAAA==
+  recorded_at: Thu, 11 Nov 2021 15:53:11 GMT
 recorded_with: VCR 6.0.0
