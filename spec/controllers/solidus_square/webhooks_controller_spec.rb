@@ -4,11 +4,11 @@ require 'spec_helper'
 
 RSpec.describe 'SolidusSquare::WebhooksController', type: :request do
   describe '#update' do
-    subject(:endpoint_call) { patch "/webhooks/square", params: params }
+    subject(:endpoint_call) { post "/webhooks/square", params: params }
 
     around do |test|
       Rails.application.routes.draw do
-        patch "webhooks/square", to: 'solidus_square/webhooks#update'
+        post "webhooks/square", to: 'solidus_square/webhooks#update'
         mount Spree::Core::Engine, at: '/'
       end
       test.run

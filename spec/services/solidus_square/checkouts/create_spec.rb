@@ -39,7 +39,10 @@ describe ::SolidusSquare::Checkouts::Create do
           body: hash_including(
             order: hash_including(
               order: hash_including(
-                customer_id: Digest::MD5.hexdigest(spree_order.email)
+                customer_id: Digest::MD5.hexdigest(spree_order.email),
+                metadata: hash_including(
+                  hosted_checkout: "true"
+                )
               )
             )
           )

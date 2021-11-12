@@ -123,7 +123,7 @@ And set the `SQUARE_PAYMENT_METHOD` in order to find the preferred square paymen
 9. Navigate to the `routes.rb` file and paste the endpoint for the `order.updated` webhook.
 ```ruby
 Spree::Core::Engine.routes.draw do
-    patch "webhooks/square", to: '/solidus_square/webhooks#update'
+    post "webhooks/square", to: '/solidus_square/webhooks#update'
 end
 ```
 ## Development

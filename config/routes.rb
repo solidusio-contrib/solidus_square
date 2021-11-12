@@ -9,5 +9,5 @@ SolidusSquare::Engine.routes.draw do
   # get 'complete_checkout', to: '/solidus_square/callback_actions#complete_checkout'
 
   # Uncomment this line to activate the endpoint for the Square order.updated Webhook
-  # patch "webhooks/square", to: '/solidus_square/webhooks#update'
+  # post "webhooks/square", to: '/solidus_square/webhooks#update'
 end
