@@ -102,7 +102,7 @@ When the Square hosted checkout finish, Square will redirect you automatically t
 Uncomment the `config.square_payment_method = Spree::PaymentMethod.find(ENV['SQUARE_PAYMENT_METHOD_ID'])` line in `config/initializers/solidus_square.rb` file,
 
 And set the `SQUARE_PAYMENT_METHOD` in order to find the preferred square payment.
-### How to set the order updated webhook
+### How to set the webhooks
 
 1. Visit the [SquareDeveloper](https://developer.squareup.com/apps) website.
 
@@ -116,11 +116,11 @@ And set the `SQUARE_PAYMENT_METHOD` in order to find the preferred square paymen
 
 6. Paste `<domain>/webhooks/square` in the URL field, eg. `https://www.solidus.com/webhooks/square`.
 
-7. Select/check `order.updated` from the Events.
+7. Select/check `payment.created` and `payment.updated` from the Events.
 
 8. Click on `Save`.
 
-9. Navigate to the `routes.rb` file and paste the endpoint for the `order.updated` webhook.
+9. Navigate to the `routes.rb` file and paste the endpoint for the webhooks.
 ```ruby
 Spree::Core::Engine.routes.draw do
     post "webhooks/square", to: '/solidus_square/webhooks#update'
