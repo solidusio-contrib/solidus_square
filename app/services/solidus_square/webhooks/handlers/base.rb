@@ -18,12 +18,6 @@ module SolidusSquare
         def call
           raise NotImplementedError, 'Missing #call method on class'
         end
-
-        private
-
-        def square_payment_method
-          SolidusSquare.config.square_payment_method
-        end
       end
     end
   end
