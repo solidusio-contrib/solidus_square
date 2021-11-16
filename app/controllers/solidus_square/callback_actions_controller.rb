@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 module SolidusSquare
-  class CallbackActionsController < SolidusSquare::BaseController
+  class CallbackActionsController < BaseController
     include Spree::Core::ControllerHelpers::Order
 
+    helper_method :spree_current_user
     helper 'spree/orders'
 
     def square_checkout
@@ -19,7 +20,7 @@ module SolidusSquare
     end
 
     def complete_checkout
-      @current_order = ::Spree::Order.create(user_id: current_order.user_id)
+      @current_order = ::Spree::Order.create(user_id: spree_current_user&.id)
       cookies.signed[:guest_token] = current_order.guest_token
       redirect_to preferred_redirect_url
     end

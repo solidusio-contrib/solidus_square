@@ -3,7 +3,8 @@
 require 'spec_helper'
 
 RSpec.describe 'SolidusSquare::CallbackActionsController', type: :request do
-  let(:order) { create(:order_with_line_items) }
+  let(:current_user) { create(:user) }
+  let(:order) { create(:order_with_line_items, user: current_user) }
   let(:payment_method) { create(:square_payment_method, preferred_redirect_url: redirect_url) }
   let(:redirect_url) { "https://github.com" }
 
@@ -28,9 +29,6 @@ RSpec.describe 'SolidusSquare::CallbackActionsController', type: :request do
     before do
       payment_method.preferred_redirect_url = "https://github.com"
       payment_method.save!
-      # rubocop:disable RSpec/AnyInstance
-      allow_any_instance_of(Spree::Core::ControllerHelpers::Order).to receive(:current_order).and_return(order)
-      # rubocop:enable RSpec/AnyInstance
       allow(SolidusSquare.config).to receive(:square_payment_method).and_return(payment_method)
     end
 
@@ -48,6 +46,10 @@ RSpec.describe 'SolidusSquare::CallbackActionsController', type: :request do
 
   describe "#complete_checkout" do
     before do
+      # rubocop:disable RSpec/AnyInstance
+      allow_any_instance_of(SolidusSquare::CallbackActionsController).to receive(:spree_current_user)
+        .and_return(current_user)
+      # rubocop:enable RSpec/AnyInstance
       get complete_checkout_path(order_number: order.number)
     end
 
@@ -59,7 +61,7 @@ RSpec.describe 'SolidusSquare::CallbackActionsController', type: :request do
       expect(Spree::Order.all.size).to eq(2)
     end
 
-    it "creates a new order with the same user_id and guest token" do
+    it "creates a new order with the same user_id" do
       new_order = Spree::Order.last
       expect(order.user_id).to eq(new_order.user_id)
       expect(order).not_to eq(new_order)
