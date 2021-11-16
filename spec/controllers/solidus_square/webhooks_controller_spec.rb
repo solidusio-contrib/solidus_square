@@ -6,6 +6,36 @@ RSpec.describe 'SolidusSquare::WebhooksController', type: :request do
   describe '#update' do
     subject(:endpoint_call) { post "/webhooks/square", params: params }
 
+    let(:params) do
+      {
+        type: "payment.updated",
+        data: {
+          object: {
+            payment: {
+              amount_money: {
+                amount: "123"
+              },
+              card_details: {
+                status: "CAPTURED",
+                card: {
+                  card_brand: "MASTERCARD",
+                  # rubocop:disable Naming/VariableNumber
+                  last_4: "9029",
+                  # rubocop:enable Naming/VariableNumber
+                  exp_month: "11",
+                  exp_year: "2022",
+                  card_type: "CREDIT"
+                },
+                avs_status: "AVS_ACCEPTED",
+              },
+              order_id: "1234",
+              version: "3"
+            }
+          }
+        }
+      }
+    end
+
     around do |test|
       Rails.application.routes.draw do
         post "webhooks/square", to: 'solidus_square/webhooks#update'
@@ -15,71 +45,32 @@ RSpec.describe 'SolidusSquare::WebhooksController', type: :request do
       Rails.application.reload_routes!
     end
 
-    let(:options) {
-      { access_token: ENV['SQUARE_ACCESS_TOKEN'] || "abcde", environment: 'sandbox', location_id: 'location' }
-    }
-    let(:gateway) { SolidusSquare::Gateway.new(options) }
-    let(:payment_method) { create(:square_payment_method) }
-    let!(:order) { create(:order_ready_to_complete, number: "R919717663", state: 'payment', payment_state: nil) }
-    let(:square_order_id) { find_or_create_square_order_id_on_sandbox(order) }
-    let(:params) do
-      {
-        type: "order.updated",
-        data: {
-          id: square_order_id,
-          object: {
-            order_updated: {
-              state: 'COMPLETED'
-            }
-          }
-        }
-      }
-    end
-
-    context "when valid", vcr: true do
-      let(:payment) { order.payments.last }
+    context "when valid" do
+      let(:expected_params) { ActionController::Parameters.new(params) }
 
       before do
-        allow(payment_method).to receive(:gateway).and_return(gateway)
-        allow(SolidusSquare.config).to receive(:square_payment_method).and_return(payment_method)
-      end
-
-      it "creates a Spree::Payment" do
-        expect { endpoint_call }.to change { order.reload.payments.count }.by(1)
-
-        expect(payment).to be_an_instance_of(Spree::Payment)
-        expect(payment).to have_attributes(amount: order.total)
-      end
-
-      it "updates the order state to complete" do
-        expect { endpoint_call }.to change { order.reload.state }.from('payment').to('complete')
+        allow(::SolidusSquare::Webhooks::Sorter).to receive(:call)
+        endpoint_call
+        expected_params[:controller] = "solidus_square/webhooks"
+        expected_params[:action] = "update"
       end
 
       it "have http status success" do
-        endpoint_call
-
         expect(response).to have_http_status(:success)
+      end
+
+      it "calls the webhook sorter with the correct params" do
+        expect(SolidusSquare::Webhooks::Sorter).to have_received(:call).with(expected_params)
       end
     end
 
-    context "when not valid", vcr: true do
+    context "when not valid" do
       before do
         allow(::SolidusSquare::Webhooks::Sorter).to receive(:call).and_raise(ActiveRecord::RecordInvalid)
-      end
-
-      it "does not create a Spree::Payment" do
-        expect { endpoint_call }.not_to(change { order.payments.count })
-      end
-
-      it "does not updates the order state to complete" do
         endpoint_call
-
-        expect(order).not_to be_complete
       end
 
       it "have http status unprocessable entity" do
-        endpoint_call
-
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
