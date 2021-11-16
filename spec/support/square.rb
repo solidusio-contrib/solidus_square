@@ -7,7 +7,7 @@ SolidusSquare.configure do |config|
 end
 
 module SquareHelpers
-  def find_or_create_square_order_id_on_sandbox(order)
+  def find_or_create_square_order_id_on_sandbox(order:, hosted_checkout: false)
     client = ::Square::Client.new(
       access_token: SolidusSquare.config.square_access_token,
       environment: "sandbox"
@@ -15,7 +15,9 @@ module SquareHelpers
     square_order = detect_order_by_order_number(client, order.number)
     return square_order if square_order.present?
 
-    client.orders.create_order(body: order_payload(order)).data.order[:id]
+    order_payload = order_payload(order)
+    order_payload[:order][:metadata] = { hosted_checkout: "true" } if hosted_checkout
+    client.orders.create_order(body: order_payload).data.order[:id]
   end
 
   def detect_order_by_order_number(client, order_number)
