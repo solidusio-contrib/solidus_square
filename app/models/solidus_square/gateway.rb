@@ -33,5 +33,12 @@ module SolidusSquare
         order_id: order_id
       )
     end
+
+    def get_payment(payment_id)
+      ::SolidusSquare::Payments::Retrieve.call(
+        client: client,
+        payment_id: payment_id
+      )
+    end
   end
 end

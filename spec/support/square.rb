@@ -7,7 +7,7 @@ SolidusSquare.configure do |config|
 end
 
 module SquareHelpers
-  def find_or_create_square_order_id_on_sandbox(order)
+  def find_or_create_square_order_id_on_sandbox(order:, hosted_checkout: false)
     client = ::Square::Client.new(
       access_token: SolidusSquare.config.square_access_token,
       environment: "sandbox"
@@ -15,7 +15,9 @@ module SquareHelpers
     square_order = detect_order_by_order_number(client, order.number)
     return square_order if square_order.present?
 
-    client.orders.create_order(body: order_payload(order)).data.order[:id]
+    order_payload = order_payload(order)
+    order_payload[:order][:metadata] = { hosted_checkout: "true" } if hosted_checkout
+    client.orders.create_order(body: order_payload).data.order[:id]
   end
 
   def detect_order_by_order_number(client, order_number)
@@ -61,6 +63,26 @@ module SquareHelpers
           }
         }
       }
+    }
+  end
+
+  def create_square_payment_id_on_sandbox
+    client = ::Square::Client.new(
+      access_token: SolidusSquare.config.square_access_token,
+      environment: "sandbox"
+    )
+    client.payments.create_payment(body: create_payment_payload).data.payment[:id]
+  end
+
+  def create_payment_payload
+    external_details = { type: "CHECK", source: "Food Delivery Service" }
+    idempotency_key = rand(1_000_000_000_000_000).to_s
+    amount_money = { amount: 123, currency: "USD" }
+    {
+      idempotency_key: idempotency_key,
+      amount_money: amount_money,
+      source_id: "EXTERNAL",
+      external_details: external_details
     }
   end
 end
