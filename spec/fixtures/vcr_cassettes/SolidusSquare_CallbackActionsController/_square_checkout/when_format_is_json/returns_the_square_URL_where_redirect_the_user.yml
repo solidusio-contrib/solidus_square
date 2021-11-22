@@ -1,0 +1,59 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://connect.squareupsandbox.com/v2/locations/LOCATION_ID/checkouts
+    body:
+      encoding: UTF-8
+      string: '{"idempotency_key":"482dc887-4031-4530-a92c-1ba789e2a37f","order":{"order":{"metadata":{"hosted_checkout":"true"},"location_id":"LOCATION_ID","reference_id":"R905952606","customer_id":"b5c0c86c701a1b4b7c188c43df1593f5","line_items":[{"name":"Order
+        total","quantity":"1","base_price_money":{"amount":11000,"currency":"USD"}}]}},"pre_populate_buyer_email":"email1@example.com","redirect_url":"http://www.example.com/complete_checkout"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Authorization:
+      - "<BEARER_TOKEN>"
+      User-Agent:
+      - Square-Ruby-SDK/14.1.0.20210915
+      Square-Version:
+      - '2021-09-15'
+      Accept-Encoding:
+      - gzip,deflate
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Square-Version:
+      - '2021-09-15'
+      Vary:
+      - Origin, Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Speleo-Traceid:
+      - ASYKFXFReHgTM
+      X-Xss-Protection:
+      - 1; mode=block
+      Date:
+      - Fri, 19 Nov 2021 08:27:01 GMT
+      Content-Length:
+      - '648'
+      Strict-Transport-Security:
+      - max-age=631152000; includeSubDomains; preload
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAA/7yTb28iNxDGv0o0rx2wlz+BlU4tx3FRencpPUgv0FaW8Q7gZNc2/gOhEd+9Mihp1EYp9MW92tX698zM84z3EeQS5b2JAfJHUAXk0H/fGw16V6vyyn5c98cduRm0aX85HFAK5BnnViyQR1dCDssQrM/rdWm0RhlqfhWFw2i90MXMPNSkqerrrP4k/UG+e6PH75HSrF2++3x5/bXZ6E9GH28nvwIB4e/53Djul8papRdcFIVD7yGfi9IjAeuQW2NjKQLyWdyi41gJlQbcP9mP+CAqW2KaBwg4LJRDGV6YyOv1zWZTe8HVpUmvAflzTgSMK9A953X3E8vcuKgm08/j29Fo62x1c5f9SdWn4XQCBEojRVBG8z39T1sO5+hQSzwcf+3SVreVtWkbCHgTncTUSIsKIYfRIdCzuXFnfkVVYc97XxRzzV/mrYmiN58WOr6/jNse7AjI6IOp0B0Kz1qSyk5bXlAm2Kw5u5Cs05HNRjFnrW5j3kqDKo1cBaw85L89QtzrKjld62/XePmtP5z2dbNoRH3/AcjTSD+nLM6CCaIEAqsodFBhCzkwIJCK8bC1CbwaD74AgZnwyK1TEnllNG6TO1GZqAPkjFFK0+AuJZKK3Iw+JCtr4dQhw32jk/ULZ7znXpToT1AdegXx8G/NG3yhvEzQSaJjh9r9QUBj4AfMJ8VpBQgc7+dUJ8oeSXp067RAuRRu8coeXzNOoMIgChFEIpfGByz+/idzCC7i/tY7FOlIpI8Zzdg5Y+esO6adPLvIKauxRjYFAtEWR3E+iLC/58PBNRBYo/PKaMjZqav7rvfp+F0c+P+3kf/Kegq73V8BAAD//8VSeFdhBgAA
+  recorded_at: Fri, 19 Nov 2021 08:27:01 GMT
+recorded_with: VCR 6.0.0
