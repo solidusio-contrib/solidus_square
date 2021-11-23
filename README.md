@@ -82,6 +82,8 @@ SolidusSquare::PaymentMethod.new(
 To activate the Square hosted checkout workflow, copy the endpoint in the `config/routes.rb` file,
 ```ruby
 Spree::Core::Engine.routes.draw do
+    # post '/api/checkouts/:id/square', to: 'solidus_square/api/checkout#create', as: 'api_checkouts_square' # API
+
     get 'square_checkout', to: '/solidus_square/callback_actions#square_checkout'
     get 'complete_checkout', to: '/solidus_square/callback_actions#complete_checkout'
 end

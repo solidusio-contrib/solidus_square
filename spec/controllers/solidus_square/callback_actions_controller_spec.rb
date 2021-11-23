@@ -10,8 +10,10 @@ RSpec.describe 'SolidusSquare::CallbackActionsController', type: :request do
 
   around do |test|
     Rails.application.routes.draw do
-      post 'square_checkout', to: 'solidus_square/callback_actions#square_checkout'
-      get "complete_checkout", to: "solidus_square/callback_actions#complete_checkout"
+      post '/checkout/start_square', to: 'solidus_square/callback_actions#square_checkout', as: :square_checkout
+      get '/checkout/complete_square', to: 'solidus_square/callback_actions#complete_checkout',
+                                       as: :square_checkout_complete
+
       mount Spree::Core::Engine, at: '/'
     end
     test.run
@@ -19,10 +21,11 @@ RSpec.describe 'SolidusSquare::CallbackActionsController', type: :request do
   end
 
   before do
-    # rubocop:disable RSpec/AnyInstance
-    allow_any_instance_of(Spree::Core::ControllerHelpers::Order).to receive(:current_order).and_return(order)
-    # rubocop:enable RSpec/AnyInstance
     allow(::SolidusSquare.config).to receive(:square_payment_method).and_return(payment_method)
+    # rubocop:disable RSpec/AnyInstance
+    allow_any_instance_of(SolidusSquare::CallbackActionsController).to receive(:spree_current_user)
+      .and_return(current_user)
+    # rubocop:enable RSpec/AnyInstance
   end
 
   describe '#square_checkout', vcr: true do
@@ -34,6 +37,9 @@ RSpec.describe 'SolidusSquare::CallbackActionsController', type: :request do
 
     context "when respond to html", vcr: true do
       before do
+        # rubocop:disable RSpec/AnyInstance
+        allow_any_instance_of(Spree::Core::ControllerHelpers::Order).to receive(:current_order).and_return(order)
+        # rubocop:enable RSpec/AnyInstance
         post square_checkout_path(order_number: order.number)
       end
 
@@ -46,11 +52,7 @@ RSpec.describe 'SolidusSquare::CallbackActionsController', type: :request do
 
   describe "#complete_checkout" do
     before do
-      # rubocop:disable RSpec/AnyInstance
-      allow_any_instance_of(SolidusSquare::CallbackActionsController).to receive(:spree_current_user)
-        .and_return(current_user)
-      # rubocop:enable RSpec/AnyInstance
-      get complete_checkout_path(order_number: order.number)
+      get square_checkout_complete_path(order_number: order.number)
     end
 
     it "returns the checkout_page_url" do
