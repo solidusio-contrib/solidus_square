@@ -3,20 +3,14 @@
 module SolidusSquare
   class CallbackActionsController < BaseController
     include Spree::Core::ControllerHelpers::Order
+    helper 'solidus_square/checkout'
 
     before_action :load_order, only: [:square_checkout]
-
-    helper_method :spree_current_user
-    helper 'spree/orders'
 
     def square_checkout
       authorize! :update, @order, order_token
 
-      checkout_page_url = SolidusSquare::Gateway.new(
-        access_token: SolidusSquare.config.square_access_token,
-        environment: SolidusSquare.config.square_environment,
-        location_id: SolidusSquare.config.square_location_id
-      ).checkout(@order, redirect_url)[:checkout_page_url]
+      checkout_page_url = helpers.solidus_square_gateway.checkout(@order, redirect_url)[:checkout_page_url]
 
       respond_to do |format|
         format.html { redirect_to checkout_page_url }
