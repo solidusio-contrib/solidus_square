@@ -8,7 +8,7 @@ module SolidusSquare
     before_action :load_order, only: [:square_checkout]
 
     def square_checkout
-      authorize! :update, @order, order_token
+      authorize! :update, @order, cookies.signed[:guest_token]
 
       checkout_page_url = helpers.solidus_square_gateway.checkout(@order, redirect_url)[:checkout_page_url]
 
@@ -25,16 +25,12 @@ module SolidusSquare
 
     private
 
-    def order_token
-      request.headers["X-Spree-Order-Token"] || params[:order_token]
-    end
-
     def load_order
       @order = current_order
     end
 
     def redirect_url
-      square_checkout_complete_url
+      complete_checkout_url
     end
 
     def preferred_redirect_url
