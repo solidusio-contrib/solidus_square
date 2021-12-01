@@ -16,7 +16,7 @@ module SolidusSquare
       create_square_payment!
 
       update_payment_source!
-      payment.complete! if payment_source_captured? && !payment.completed?
+      payment.complete! if payment_source.captured? && !payment.completed?
 
       complete_order!
     end
@@ -79,10 +79,6 @@ module SolidusSquare
 
     def payment_source
       @payment_source ||= ::SolidusSquare::PaymentSource.find_by!(token: square_order_id)
-    end
-
-    def payment_source_captured?
-      payment_source.status == "CAPTURED"
     end
 
     def create_square_payment!
