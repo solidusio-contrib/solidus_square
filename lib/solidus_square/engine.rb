@@ -18,6 +18,7 @@ module SolidusSquare
           access_token: SolidusSquare.config.square_access_token,
           environment: SolidusSquare.config.square_environment,
           location_id: SolidusSquare.config.square_location_id,
+          app_id: SolidusSquare.config.square_app_id,
           redirect_url: ENV['SQUARE_REDIRECT_URL']
         }
       )

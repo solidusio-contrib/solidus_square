@@ -5,6 +5,7 @@ module SolidusSquare
     preference :access_token, :string
     preference :environment, :string
     preference :location_id, :string
+    preference :app_id, :string
     preference :redirect_url, :string
 
     def gateway_class
