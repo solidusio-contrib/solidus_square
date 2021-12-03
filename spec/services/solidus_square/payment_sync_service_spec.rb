@@ -17,26 +17,7 @@ RSpec.describe SolidusSquare::PaymentSyncService do
       type: "payment.updated",
       data: {
         object: {
-          payment: {
-            amount_money: {
-              amount: order.total
-            },
-            card_details: {
-              status: "CAPTURED",
-              card: {
-                card_brand: "MASTERCARD",
-                # rubocop:disable Naming/VariableNumber
-                last_4: "9029",
-                # rubocop:enable Naming/VariableNumber
-                exp_month: 11,
-                exp_year: 2022,
-                card_type: "CREDIT"
-              },
-              avs_status: "AVS_ACCEPTED",
-            },
-            order_id: square_order_id,
-            version: 3
-          }
+          payment: square_payment_response(amount: order.total, order_id: square_order_id)
         }
       }
     }

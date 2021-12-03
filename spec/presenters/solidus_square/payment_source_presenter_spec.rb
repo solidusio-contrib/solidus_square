@@ -9,24 +9,7 @@ RSpec.describe SolidusSquare::PaymentSourcePresenter do
     {
       data: {
         object: {
-          payment: {
-            id: 123,
-            card_details: {
-              status: "CAPTURED",
-              card: {
-                card_brand: "MASTERCARD",
-                # rubocop:disable Naming/VariableNumber
-                last_4: "9029",
-                # rubocop:enable Naming/VariableNumber
-                exp_month: 11,
-                exp_year: 2022,
-                card_type: "CREDIT"
-              },
-              avs_status: "AVS_ACCEPTED",
-            },
-            version: 3,
-            order_id: 12
-          }
+          payment: square_payment_response
         }
       }
     }

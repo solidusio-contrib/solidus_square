@@ -85,4 +85,26 @@ module SquareHelpers
       external_details: external_details
     }
   end
+
+  def square_payment_response(amount: 100, status: "CAPTURED", order_id: 12)
+    {
+      id: 123,
+      amount_money: {
+        amount: amount
+      },
+      card_details: {
+        status: status,
+        card: {
+          card_brand: "MASTERCARD",
+          last_4: "9029", # rubocop:disable Naming/VariableNumber
+          exp_month: 11,
+          exp_year: 2022,
+          card_type: "CREDIT"
+        },
+        avs_status: "AVS_ACCEPTED",
+      },
+      order_id: order_id,
+      version: 3
+    }
+  end
 end

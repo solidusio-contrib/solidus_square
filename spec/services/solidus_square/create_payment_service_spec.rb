@@ -11,26 +11,7 @@ RSpec.describe SolidusSquare::CreatePaymentService do
   let(:gateway) { SolidusSquare::Gateway.new(options) }
   let!(:order) { create(:order_ready_to_complete, number: "R919717664", state: 'delivery', payment_state: nil) }
   let(:status) { "CAPTURED" }
-  let(:square_response) do
-    {
-      amount_money: {
-        amount: order.total
-      },
-      card_details: {
-        status: status,
-        card: {
-          card_brand: "MASTERCARD",
-          last_4: "9029", # rubocop:disable Naming/VariableNumber
-          exp_month: 11,
-          exp_year: 2022,
-          card_type: "CREDIT"
-        },
-        avs_status: "AVS_ACCEPTED",
-      },
-      order_id: 12,
-      version_token: 12_345
-    }
-  end
+  let(:square_response) { square_payment_response(amount: order.total, status: status) }
 
   before do
     allow(Spree::PaymentMethod).to receive(:find).with(payment_method.id).and_return(payment_method)
