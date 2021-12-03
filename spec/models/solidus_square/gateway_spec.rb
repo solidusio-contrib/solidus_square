@@ -15,6 +15,19 @@ RSpec.describe SolidusSquare::Gateway do
     end
   end
 
+  describe '#capture_payment' do
+    subject(:capture_payment) { described_instance.capture_payment(12_345) }
+
+    before do
+      allow(SolidusSquare::Payments::Capture).to receive(:call)
+      capture_payment
+    end
+
+    it "calls the SolidusSquare::Payments::Capture service" do
+      expect(SolidusSquare::Payments::Capture).to have_received(:call).with(client: gateway.client, payment_id: 12_345)
+    end
+  end
+
   describe '#create_customer' do
     before do
       allow(::SolidusSquare::Customers::Create).to receive(:call)

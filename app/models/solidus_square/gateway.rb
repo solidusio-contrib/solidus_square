@@ -48,5 +48,12 @@ module SolidusSquare
         source_id: source_id
       )
     end
+
+    def capture_payment(payment_id)
+      ::SolidusSquare::Payments::Capture.call(
+        client: client,
+        payment_id: payment_id
+      )
+    end
   end
 end
