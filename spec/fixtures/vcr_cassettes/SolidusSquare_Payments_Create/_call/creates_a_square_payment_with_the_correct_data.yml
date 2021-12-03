@@ -1,0 +1,57 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://connect.squareupsandbox.com/v2/payments
+    body:
+      encoding: UTF-8
+      string: '{"idempotency_key":"586528318154160","amount_money":{"amount":1999,"currency":"USD"},"source_id":"EXTERNAL","external_details":{"type":"CHECK","source":"Food
+        Delivery Service"}}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Authorization:
+      - "<BEARER_TOKEN>"
+      User-Agent:
+      - Square-Ruby-SDK/14.1.0.20210915
+      Square-Version:
+      - '2021-09-15'
+      Accept-Encoding:
+      - gzip,deflate
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 02 Dec 2021 08:58:44 GMT
+      Frame-Options:
+      - DENY
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/json
+      Square-Version:
+      - '2021-09-15'
+      Squareup--Connect--V2--Common--Versionmetadata-Bin:
+      - CgoyMDIxLTA5LTE1
+      Vary:
+      - Accept-Encoding, User-Agent
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '495'
+      Strict-Transport-Security:
+      - max-age=631152000; includeSubDomains; preload
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAAJVS25KaMBi+71M4udZVEY93ClHpKqAL66HTYQJJNRYSDEHX3fHdN3honfai06tkvtN8f/58gBSdEsIk6JU+AMXqAO5On8gDtQd2U9oj9mNcn8ejhoVfXxfrFSiDSBAkCQ5QYQJaTatX6lqlpnm1Tq/Z6en6U0tvrZUQJTxnMkg4I6dL/hVQ13q321VBuRCERQUH/BcTnMsgk0jmWQEYztSdQA+aKijjuYhIIE8pKSi49ODc7k8UE/MIScpZcK0++dqfaU1vOp81LkYuMBE3jo+f9aV/mswcOMPtLe6+b6zFoO4aoT5UUskliv+ra4RSFNKYSkqKxt8ANC0v6E8d3/YC31WZj4DpLOw75Fnu37oH8KL9XgbkTRLBVC1MJKJxdil2fwVjDI3nX49TIEPOcckkMT0QcSq9EHGgilBNBYkITWXA8iQk4r5j8JvIRVygWynTrFetZvscCZKnGWI45G9PEU+qN2k1FeRAybH6r1+C0jSmt+U81r9mB6ngOI8uPwiqVU/h3IBB37X+cF5Xd+tRyfY1isNKM5vTUHtfbfy1Ztmaoy92a3wsBlWDZ4VN8p+EFU6rZQz0tufWjsze7Q1/1RqN2sttY7PTzXFzGOXtDk7glg49t8XB+fzlEyeCpj8RAwAA
+  recorded_at: Thu, 02 Dec 2021 08:58:44 GMT
+recorded_with: VCR 6.0.0

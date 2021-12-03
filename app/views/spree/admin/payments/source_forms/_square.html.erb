@@ -1,0 +1,16 @@
+ <%= render partial: 'solidus_square/square_javascript'%>
+
+<form id="payment-form">
+  <div id="card-container"></div>
+  <button id="square-card-button" type="button">Pay</button>
+</form>
+
+<div id="payment-status-container"></div>
+<div
+  id="square-checkout-payload"
+  data-location-id="<%= SolidusSquare.config.square_location_id %>"
+  data-app-id="<%= SolidusSquare.config.square_app_id %>"
+  data-order-number="<%= @order.number %>"
+  data-order-token="<%= @order.guest_token %>"
+  >
+</div>

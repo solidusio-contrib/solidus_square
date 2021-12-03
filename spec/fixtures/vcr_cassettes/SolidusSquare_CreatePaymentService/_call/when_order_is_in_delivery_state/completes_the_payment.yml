@@ -1,0 +1,54 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://connect.squareupsandbox.com/v2/orders/search
+    body:
+      encoding: UTF-8
+      string: '{"location_ids":["LOCATION_ID"],"limit":1,"return_entries":true,"query":{"filter":{"source_filter":{"source_names":["solidus_square_test_R919717664"]}}}}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Authorization:
+      - "<BEARER_TOKEN>"
+      User-Agent:
+      - Square-Ruby-SDK/14.1.0.20210915
+      Square-Version:
+      - '2021-09-15'
+      Accept-Encoding:
+      - gzip,deflate
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Mon, 29 Nov 2021 17:42:22 GMT
+      Frame-Options:
+      - DENY
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/json;charset=utf-8
+      Square-Version:
+      - '2021-09-15'
+      Vary:
+      - Accept-Encoding, User-Agent
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '303'
+      Strict-Transport-Security:
+      - max-age=631152000; includeSubDomains; preload
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAAC2Ly3KCMABF9/2KTtYueAiE7gADytsH2tLpdALyiEIyBhTR8d9rZ1yee+65A8b3Bf8taM9J0YGP9+/7ayL7JwHr1BBjEZTXlMbOyMbVuHay23Bt86kNJuBS8I4w+nyKE9CwHPdPeqW+aywlZROsljKagcfPBORn3jH+7+JIdUWupT3z1yVtcZ2FuWsOdKt9zZCiIy85evgmdAlUVzLNEKEO2vXSVZPPsRZDaMRectmUkR6gPd2IPiv9ZhEdQiqJrSWvoc/RUZjyVnBTQzI6dGJCdHTnHDcG7W2rYlIdJZWDp9ElwyJrlEGCo5mf0p2PgznRFRZC4VwdbMeslL753JqJDr1Ar0JSx2FCLTnWht2SyI5Ze4FKqGovwOPtD2P2ceZPAQAA
+  recorded_at: Mon, 29 Nov 2021 17:42:22 GMT
+recorded_with: VCR 6.0.0

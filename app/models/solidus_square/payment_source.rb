@@ -11,5 +11,9 @@ module SolidusSquare
       status = result[:card_details][:status]
       status != "CAPTURED"
     end
+
+    def captured?
+      status == "CAPTURED"
+    end
   end
 end

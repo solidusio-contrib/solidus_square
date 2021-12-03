@@ -5,7 +5,7 @@ module SolidusSquare
     # Define here the settings for this extension, e.g.:
     #
     # attr_accessor :my_setting
-    attr_accessor :square_access_token, :square_environment, :square_location_id, :square_payment_method
+    attr_accessor :square_access_token, :square_environment, :square_location_id, :square_payment_method, :square_app_id
   end
 
   class << self

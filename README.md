@@ -34,6 +34,7 @@ SolidusSquare.configure do |config|
   config.square_access_token = ENV['SQUARE_ACCESS_TOKEN']
   config.square_environment = ENV['SQUARE_ENVIRONMENT']
   config.square_location_id = ENV['SQUARE_LOCATION_ID']
+  config.square_app_id = ENV['SQUARE_APP_ID']
   config.square_payment_method = Spree::PaymentMethod.find(ENV['SQUARE_PAYMENT_METHOD_ID'])
 end
 
@@ -44,6 +45,7 @@ Spree::Config.configure do |config|
       access_token: SolidusSquare.config.square_access_token,
       environment: SolidusSquare.config.square_environment,
       location_id: SolidusSquare.config.square_location_id,
+      app_id: SolidusSquare.config.square_app_id,
       redirect_url: ENV['SQUARE_REDIRECT_URL']
     }
   )
@@ -65,7 +67,7 @@ SolidusSquare::PaymentMethod.new(
 ).save
 ```
 
-### How to retrieve the location ID
+### How to retrieve the App ID, Access Token and Location ID
 
 1. Visit the [SquareDeveloper](https://developer.squareup.com/apps) website
 
@@ -73,7 +75,8 @@ SolidusSquare::PaymentMethod.new(
 
 3. Create or open an existing app.
 
-4. Navigate on the left side navigation bar to `Locations`.
+> For the location ID
+ Navigate on the left side navigation bar to `Locations`.
 
 ## **Square Hosted Checkout**
 

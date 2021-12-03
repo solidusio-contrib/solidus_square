@@ -40,5 +40,13 @@ module SolidusSquare
         payment_id: payment_id
       )
     end
+
+    def create_payment(amount, source_id)
+      ::SolidusSquare::Payments::Create.call(
+        client: client,
+        amount: amount,
+        source_id: source_id
+      )
+    end
   end
 end

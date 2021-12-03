@@ -16,7 +16,7 @@ module SolidusSquare
       create_square_payment!
 
       update_payment_source!
-      payment.complete! if payment_source_captured? && !payment.completed?
+      payment.complete! if payment_source.captured? && !payment.completed?
 
       complete_order!
     end
@@ -81,10 +81,6 @@ module SolidusSquare
       @payment_source ||= ::SolidusSquare::PaymentSource.find_by!(token: square_order_id)
     end
 
-    def payment_source_captured?
-      payment_source.status == "CAPTURED"
-    end
-
     def create_square_payment!
       order.payments.find_or_create_by!(response_code: square_order_id) do |payment|
         payment.amount = order_amount
@@ -96,7 +92,11 @@ module SolidusSquare
     # Square Order information
 
     def order_info
-      @order_info ||= square_payment_method.gateway.retrieve_order(square_order_id)
+      @order_info ||= gateway.retrieve_order(square_order_id)
+    end
+
+    def gateway
+      square_payment_method.gateway
     end
 
     def square_payment_method

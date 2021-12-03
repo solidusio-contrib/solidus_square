@@ -2,7 +2,7 @@
 
 module SolidusSquare
   class BaseController < ::Spree::BaseController
-    protect_from_forgery unless: -> { request.format.json? }
+    protect_from_forgery
 
     rescue_from ::ActiveRecord::RecordNotFound, with: :resource_not_found
     rescue_from ::CanCan::AccessDenied, with: :unauthorized
@@ -12,14 +12,12 @@ module SolidusSquare
     def resource_not_found
       respond_to do |format|
         format.html { redirect_to spree.cart_path, notice: I18n.t('solidus_square.resource_not_found') }
-        format.json { render json: { error: I18n.t('solidus_square.resource_not_found') }, status: :not_found }
       end
     end
 
     def unauthorized
       respond_to do |format|
         format.html { redirect_to spree.cart_path, notice: I18n.t('solidus_square.unauthorized') }
-        format.json { render json: { error: I18n.t('solidus_square.unauthorized') }, status: :unauthorized }
       end
     end
   end

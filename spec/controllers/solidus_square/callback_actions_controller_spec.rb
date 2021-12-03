@@ -10,9 +10,8 @@ RSpec.describe 'SolidusSquare::CallbackActionsController', type: :request do
 
   around do |test|
     Rails.application.routes.draw do
-      post '/checkout/start_square', to: 'solidus_square/callback_actions#square_checkout', as: :square_checkout
-      get '/checkout/complete_square', to: 'solidus_square/callback_actions#complete_checkout',
-                                       as: :square_checkout_complete
+      get 'square_checkout', to: 'solidus_square/callback_actions#square_checkout'
+      get 'complete_checkout', to: 'solidus_square/callback_actions#complete_checkout'
 
       mount Spree::Core::Engine, at: '/'
     end
@@ -40,7 +39,7 @@ RSpec.describe 'SolidusSquare::CallbackActionsController', type: :request do
         # rubocop:disable RSpec/AnyInstance
         allow_any_instance_of(Spree::Core::ControllerHelpers::Order).to receive(:current_order).and_return(order)
         # rubocop:enable RSpec/AnyInstance
-        post square_checkout_path(order_number: order.number)
+        get square_checkout_path(order_number: order.number)
       end
 
       it "has http status 302" do
@@ -52,7 +51,7 @@ RSpec.describe 'SolidusSquare::CallbackActionsController', type: :request do
 
   describe "#complete_checkout" do
     before do
-      get square_checkout_complete_path(order_number: order.number)
+      get complete_checkout_path(order_number: order.number)
     end
 
     it "returns the checkout_page_url" do

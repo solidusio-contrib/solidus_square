@@ -27,16 +27,17 @@ module SolidusSquare
         card_brand: card_details[:card_brand],
         card_type: card_details[:card_type],
         status: payment_data[:card_details][:status],
-        square_payment_id: payment_data[:id]
+        square_payment_id: payment_data[:id],
+        token: payment_data[:order_id]
       }
     end
 
     def version
-      payment_data[:version]
+      payment_data[:version].to_i
     end
 
     def payment_data
-      params[:data][:object][:payment]
+      params.dig(:data, :object, :payment) || params
     end
 
     def card_details

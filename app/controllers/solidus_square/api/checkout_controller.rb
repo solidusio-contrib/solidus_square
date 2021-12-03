@@ -20,10 +20,6 @@ module SolidusSquare
 
       private
 
-      def order_token
-        request.headers["X-Spree-Order-Token"] || params[:order_token]
-      end
-
       def load_order
         @order = ::Spree::Order.find_by!(number: params[:id])
       end
