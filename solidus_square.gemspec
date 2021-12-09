@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency 'solidus_core', ['>= 2.0.0', '< 4']
   spec.add_dependency 'solidus_support', '~> 0.5'
-  spec.add_dependency 'square.rb'
+  spec.add_dependency 'square.rb', '~> 14.0'
 
   spec.add_development_dependency 'pry'
   spec.add_development_dependency 'shoulda-matchers', '~> 4.5'

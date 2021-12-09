@@ -14,6 +14,17 @@ module SolidusSquare
       )
     end
 
+    def capture(_amount, _response_code, options)
+      payment = options[:originator]
+      payment_source = payment.source
+      square_payment_id = payment_source.square_payment_id
+      response = capture_payment(square_payment_id)
+
+      payment_source.update!(payment_source_constructor(response))
+
+      ActiveMerchant::Billing::Response.new(true, 'Transaction captured', response, authorization: square_payment_id)
+    end
+
     def create_customer(user, address)
       ::SolidusSquare::Customers::Create.call(client: client, spree_user: user, spree_address: address)
     end
@@ -47,6 +58,17 @@ module SolidusSquare
         amount: amount,
         source_id: source_id
       )
+    end
+
+    def capture_payment(payment_id)
+      ::SolidusSquare::Payments::Capture.call(
+        client: client,
+        payment_id: payment_id
+      )
+    end
+
+    def payment_source_constructor(data)
+      SolidusSquare::PaymentSourcePresenter.square_payload(data)
     end
   end
 end

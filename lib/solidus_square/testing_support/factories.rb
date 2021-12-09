@@ -4,4 +4,9 @@ FactoryBot.define do
   factory :square_payment_method, class: SolidusSquare::PaymentMethod do
     name { 'Square' }
   end
+
+  factory :square_payment_source, class: SolidusSquare::PaymentSource do
+    token { "token" }
+    square_payment_id { "123" }
+  end
 end
