@@ -5,7 +5,7 @@ RSpec.describe SolidusSquare::Payments::Capture, type: :request do
     described_class.new(client: client, payment_id: square_payment_id)
   }
 
-  let(:square_payment_id) { create_square_payment_id_on_sandbox }
+  let(:square_payment_id) { create_authorized_square_payment_id_on_sandbox }
   let(:client) do
     ::Square::Client.new(
       access_token: SolidusSquare.config.square_access_token,
