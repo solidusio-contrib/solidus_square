@@ -14,29 +14,25 @@ module SolidusSquare
       )
     end
 
-    def capture(_amount, _response_code, options)
-      payment = options[:originator]
-      payment_source = payment.source
-      square_payment_id = payment_source.square_payment_id
-      response = capture_payment(square_payment_id)
+    def capture(_amount, response_code, options)
+      payment_source = options[:originator].source
+      response = capture_payment(response_code)
 
       payment_source.update!(payment_source_constructor(response))
 
-      ActiveMerchant::Billing::Response.new(true, 'Transaction captured', response, authorization: square_payment_id)
+      ActiveMerchant::Billing::Response.new(true, 'Transaction captured', response, authorization: response_code)
     end
 
-    def credit(amount, response_code, options)
-      square_payment_id = options[:originator].payment.source.square_payment_id
-      response = refund_payment(amount, square_payment_id)
+    def credit(amount, response_code, _options)
+      response = refund_payment(amount, response_code)
 
       ActiveMerchant::Billing::Response.new(true, "Transaction Credited with #{amount}", response,
         authorization: response_code)
     end
 
-    def void(_response_code, options)
+    def void(response_code, options)
       payment_source = options[:originator].source
-      payment_id = payment_source.square_payment_id
-      response = cancel_payment(payment_id)
+      response = cancel_payment(response_code)
       payment_source.update!(status: response[:status])
 
       ActiveMerchant::Billing::Response.new(true, 'Transaction voided', response, authorization: response[:id])
