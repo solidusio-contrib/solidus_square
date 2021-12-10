@@ -38,6 +38,10 @@ module SolidusSquare
       payment_source.update!(construct_payment_source) if new_data?
     end
 
+    def square_payment_id
+      payment_data[:id]
+    end
+
     def square_order_id
       payment_data[:order_id]
     end
@@ -74,7 +78,7 @@ module SolidusSquare
     # Spree Payment information
 
     def payment
-      @payment ||= order.payments.find_by!(response_code: square_order_id)
+      @payment ||= order.payments.find_by!(response_code: square_payment_id)
     end
 
     def payment_source
@@ -82,7 +86,7 @@ module SolidusSquare
     end
 
     def create_square_payment!
-      order.payments.find_or_create_by!(response_code: square_order_id) do |payment|
+      order.payments.find_or_create_by!(response_code: square_payment_id) do |payment|
         payment.amount = order_amount
         payment.source = ::SolidusSquare::PaymentSource.create!(token: square_order_id, version: version)
         payment.payment_method_id = square_payment_method.id

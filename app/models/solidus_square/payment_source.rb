@@ -7,7 +7,7 @@ module SolidusSquare
     validates :token, presence: true
 
     def can_void?(payment)
-      result = payment.payment_method.gateway.get_payment(payment.source.square_payment_id)
+      result = payment.payment_method.gateway.get_payment(payment.response_code)
       status = result[:card_details][:status]
       status != "CAPTURED"
     end
