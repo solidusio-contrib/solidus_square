@@ -74,6 +74,15 @@ module SquareHelpers
     client.payments.create_payment(body: create_payment_payload).data.payment[:id]
   end
 
+  def create_and_capture_payment_on_sandbox
+    client = ::Square::Client.new(
+      access_token: SolidusSquare.config.square_access_token,
+      environment: "sandbox"
+    )
+
+    client.payments.complete_payment(payment_id: create_square_payment_id_on_sandbox).body.payment
+  end
+
   def create_payment_payload
     external_details = { type: "CHECK", source: "Food Delivery Service" }
     idempotency_key = rand(1_000_000_000_000_000).to_s

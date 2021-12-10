@@ -1,0 +1,163 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://connect.squareupsandbox.com/v2/payments
+    body:
+      encoding: UTF-8
+      string: '{"idempotency_key":"549047647769381","amount_money":{"amount":123,"currency":"USD"},"source_id":"EXTERNAL","external_details":{"type":"CHECK","source":"Food
+        Delivery Service"}}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Authorization:
+      - "<BEARER_TOKEN>"
+      User-Agent:
+      - Square-Ruby-SDK/14.1.0.20210915
+      Square-Version:
+      - '2021-09-15'
+      Accept-Encoding:
+      - gzip,deflate
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 09 Dec 2021 12:58:22 GMT
+      Frame-Options:
+      - DENY
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/json
+      Square-Version:
+      - '2021-09-15'
+      Squareup--Connect--V2--Common--Versionmetadata-Bin:
+      - CgoyMDIxLTA5LTE1
+      Vary:
+      - Accept-Encoding, User-Agent
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '493'
+      Strict-Transport-Security:
+      - max-age=631152000; includeSubDomains; preload
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAAJVSW3OiMBR+31/h5FmrUHGsb4g4UlFRod2ys8MEOEPTAsEkoLTjf2/wsuvsPuzsUzLfbb6Tk09U4DqDXKBR6xORWB7INweask5mM5/N0vHTo68p4/7ACMdva/8FtVHEAAuIA9yYkNpTlY6idnoPrqKOtOFIVe80pe9LIc5omYsgoznUp/wzIK+Kei9zSsYgjxoKedsJOrYRF1iUvAGM1cKxTdecyBxOSxZBIOoCGsr87pqbpW5LJqURFoTmwbm5/aivVc1dbNb3JyNlMbALl80NjU4TJ9rqdv06fF/Md7ynkHWC+1MpFVTg9H+qRrjAIUmJINAU/oHMieUG+mLlLd3Ac2TkLTBZPS+vkGs5f+tuwJP2ZxvBQQDLZasYBCYpP/W6PoIxM435r7dpkCmlcWsCKamA1a0tsIpIQjZlEAEpRJCXWQjsumH0myhZ2qCvQhR81O3yXYkZlAXHeRzSw11Es+5F2i0YVAT23X/9EVwUKbns5rb+OTsoGI3L6PR/TLnphbkxzEB3rD+c581denT4rkfisKPxDQnVj5fE81Vrqa76z29+vG8GlYPzxiboO+SNc6kkvnXQS29Ybae25Y6Laug8hZ4N9cNsTG282X4kfLpPoRxQdDx++wLp+nzTDwMAAA==
+  recorded_at: Thu, 09 Dec 2021 12:58:22 GMT
+- request:
+    method: post
+    uri: https://connect.squareupsandbox.com/v2/payments/ZE651QgHHZrHlBVJZ51B46CbBjQZY/complete
+    body:
+      encoding: UTF-8
+      string: ''
+    headers:
+      Accept:
+      - application/json
+      Authorization:
+      - "<BEARER_TOKEN>"
+      User-Agent:
+      - Square-Ruby-SDK/14.1.0.20210915
+      Square-Version:
+      - '2021-09-15'
+      Accept-Encoding:
+      - gzip,deflate
+      Content-Type:
+      - application/x-www-form-urlencoded
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 09 Dec 2021 12:58:23 GMT
+      Frame-Options:
+      - DENY
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/json
+      Square-Version:
+      - '2021-09-15'
+      Squareup--Connect--V2--Common--Versionmetadata-Bin:
+      - CgoyMDIxLTA5LTE1
+      Vary:
+      - Accept-Encoding, User-Agent
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '493'
+      Strict-Transport-Security:
+      - max-age=631152000; includeSubDomains; preload
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAAJVSW3OiMBR+31/h5FmrUHGsb4g4UlFRod2ys8MEOEPTAsEkoLTjf2/wsuvsPuzsUzLfbb6Tk09U4DqDXKBR6xORWB7INweask5mM5/N0vHTo68p4/7ACMdva/8FtVHEAAuIA9yYkNpTlY6idnoPrqKOtOFIVe80pe9LIc5omYsgoznUp/wzIK+Kei9zSsYgjxoKedsJOrYRF1iUvAGM1cKxTdecyBxOSxZBIOoCGsr87pqbpW5LJqURFoTmwbm5/aivVc1dbNb3JyNlMbALl80NjU4TJ9rqdv06fF/Md7ynkHWC+1MpFVTg9H+qRrjAIUmJINAU/oHMieUG+mLlLd3Ac2TkLTBZPS+vkGs5f+tuwJP2ZxvBQQDLZasYBCYpP/W6PoIxM435r7dpkCmlcWsCKamA1a0tsIpIQjZlEAEpRJCXWQjsumH0myhZ2qCvQhR81O3yXYkZlAXHeRzSw11Es+5F2i0YVAT23X/9EVwUKbns5rb+OTsoGI3L6PR/TLnphbkxzEB3rD+c581denT4rkfisKPxDQnVj5fE81Vrqa76z29+vG8GlYPzxiboO+SNc6kkvnXQS29Ybae25Y6Laug8hZ4N9cNsTG282X4kfLpPoRxQdDx++wLp+nzTDwMAAA==
+  recorded_at: Thu, 09 Dec 2021 12:58:23 GMT
+- request:
+    method: post
+    uri: https://connect.squareupsandbox.com/v2/refunds
+    body:
+      encoding: UTF-8
+      string: '{"payment_id":"ZE651QgHHZrHlBVJZ51B46CbBjQZY","amount_money":{"amount":123,"currency":"USD"},"idempotency_key":"811d9e40-dfda-40a4-aa83-3e07bba7840a"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Authorization:
+      - "<BEARER_TOKEN>"
+      User-Agent:
+      - Square-Ruby-SDK/14.1.0.20210915
+      Square-Version:
+      - '2021-09-15'
+      Accept-Encoding:
+      - gzip,deflate
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 09 Dec 2021 12:58:23 GMT
+      Frame-Options:
+      - DENY
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/json
+      Square-Version:
+      - '2021-09-15'
+      Squareup--Connect--V2--Common--Versionmetadata-Bin:
+      - CgoyMDIxLTA5LTE1
+      Vary:
+      - Accept-Encoding, User-Agent
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '272'
+      Strict-Transport-Security:
+      - max-age=631152000; includeSubDomains; preload
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAAI2Py3KCQBBF9/mK1Kwx5QwPlZ0E5BFiADHE2VADjAZqeGSEsijLf8+Q+AGuuuv26Xu7r4DT49AUQH++gnIqAFuaCsOT42DuMOPTwyo0FO01M6oQH1LXYRmFRsUO5/r4hfOsWkT+bj1+xEnnXuph4bF9vuxtG78BCZx70g/nyTWwtqa7tYVG6nZo+rRuGzr+xf4LooVIlkA+cE6bfBqB/c4ENwl0ZKypWHngPuHf8oLyO0vaJCHfJq/LqHPZpgh8yDR6+gkyZSPQnFPS0yIlUzpAcwRnEM3mqxgiXV3qSH5ZKRALcOiKx0DW5qQv2+ae73vrEKnxexTKlnjl9vQL+Np1vHABAAA=
+  recorded_at: Thu, 09 Dec 2021 12:58:24 GMT
+recorded_with: VCR 6.0.0

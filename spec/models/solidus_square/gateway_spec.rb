@@ -7,6 +7,12 @@ RSpec.describe SolidusSquare::Gateway do
   let(:spree_address) { spree_user.addresses.first }
   let(:options) { { access_token: 'abcde', environment: 'sandbox', location_id: 'location' } }
   let(:gateway) { described_class.new(options) }
+  let(:payment) { create(:payment) }
+  let(:payment_source) { create(:square_payment_source) }
+
+  before do
+    payment.source = payment_source
+  end
 
   describe '#initialize' do
     it 'initialize options and client params' do
@@ -47,8 +53,6 @@ RSpec.describe SolidusSquare::Gateway do
   describe "#capture" do
     subject(:capture) { gateway.capture(nil, nil, gateway_options) }
 
-    let(:payment) { create(:payment) }
-    let(:payment_source) { create(:square_payment_source) }
     let(:gateway_options) { { originator: payment } }
     let(:square_response) { square_payment_response }
     let(:capture_params) do
@@ -81,6 +85,49 @@ RSpec.describe SolidusSquare::Gateway do
 
     it "updates the payment_source" do
       expect(payment_source).to have_attributes(expected_attributes)
+    end
+  end
+
+  describe "#refund_payment" do
+    subject(:refund_payment) { gateway.refund_payment(1234, "payment_id") }
+
+    before do
+      allow(SolidusSquare::Refunds::Create).to receive(:call)
+      refund_payment
+    end
+
+    it "calls the SolidusSquare::Refunds::Create service" do
+      expect(SolidusSquare::Refunds::Create).to have_received(:call).with(client: gateway.client, amount: 1234,
+        payment_id: "payment_id")
+    end
+  end
+
+  describe "#credit" do
+    subject(:credit) { gateway.credit(123, "response_code", gateway_options) }
+
+    let(:gateway_options) { { originator: OpenStruct.new(payment: payment) } }
+    let(:square_response) do
+      OpenStruct.new(body: OpenStruct.new(refund: {} ))
+    end
+    let(:credit_params) do
+      {
+        client: gateway.client,
+        amount: 123,
+        payment_id: payment_source.square_payment_id
+      }
+    end
+
+    before do
+      allow(gateway).to receive(:refund_payment).and_return(square_response)
+      credit
+    end
+
+    it "returns an ActiveMerchant::Billing::Response " do
+      expect(credit).to be_an_instance_of(ActiveMerchant::Billing::Response)
+    end
+
+    it "returns a successfull response" do
+      expect(credit).to be_success
     end
   end
 end

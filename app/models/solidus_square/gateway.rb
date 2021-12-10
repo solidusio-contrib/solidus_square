@@ -25,6 +25,14 @@ module SolidusSquare
       ActiveMerchant::Billing::Response.new(true, 'Transaction captured', response, authorization: square_payment_id)
     end
 
+    def credit(amount, response_code, options)
+      square_payment_id = options[:originator].payment.source.square_payment_id
+      response = refund_payment(amount, square_payment_id)
+
+      ActiveMerchant::Billing::Response.new(true, "Transaction Credited with #{amount}", response,
+        authorization: response_code)
+    end
+
     def create_customer(user, address)
       ::SolidusSquare::Customers::Create.call(client: client, spree_user: user, spree_address: address)
     end
@@ -63,6 +71,14 @@ module SolidusSquare
     def capture_payment(payment_id)
       ::SolidusSquare::Payments::Capture.call(
         client: client,
+        payment_id: payment_id
+      )
+    end
+
+    def refund_payment(amount, payment_id)
+      ::SolidusSquare::Refunds::Create.call(
+        client: client,
+        amount: amount,
         payment_id: payment_id
       )
     end
