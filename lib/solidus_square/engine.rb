@@ -24,6 +24,7 @@ module SolidusSquare
       )
 
       app.config.spree.payment_methods << SolidusSquare::PaymentMethod
+      Spree::PermittedAttributes.source_attributes.concat [:nonce]
     end
 
     # use rspec for tests
