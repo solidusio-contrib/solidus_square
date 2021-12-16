@@ -1,0 +1,6 @@
+
+  <p>Status: <b><%= @payment.source.status %></b></p>
+  <p>Card Number: <b>XXXX-XXXX-XXXX-<%= @payment.source.last_digits %></b></p>
+  <p>Card Brand:<b> <%= @payment.source.card_brand %></b></p>
+  <p>Card Type:<b> <%= @payment.source.card_type %></b></p>
+  <p>Expiration:<b> <%= @payment.source.expiration_date %></b></p>
