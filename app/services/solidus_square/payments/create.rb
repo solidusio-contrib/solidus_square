@@ -30,15 +30,11 @@ module SolidusSquare
           idempotency_key: idempotency_key,
           source_id: source_id,
           amount_money: {
-            amount: total_amount,
+            amount: amount,
             currency: "USD"
           },
           autocomplete: false
         }
-      end
-
-      def total_amount
-        (amount * 100).round
       end
     end
   end
