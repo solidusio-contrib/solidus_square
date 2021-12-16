@@ -2,6 +2,7 @@ let appId;
 let locationId;
 let orderNumber;
 let orderToken;
+let frontend;
 
 document.addEventListener('DOMContentLoaded', async function () {
   const checkoutPayload = document.getElementById(
@@ -12,8 +13,54 @@ document.addEventListener('DOMContentLoaded', async function () {
     locationId = checkoutPayload.dataset.locationId;
     orderNumber = checkoutPayload.dataset.orderNumber;
     orderToken = checkoutPayload.dataset.orderToken;
+    orderTotal = checkoutPayload.dataset.orderTotal;
+    advanceCheckoutUrl = checkoutPayload.dataset.advanceCheckoutUrl;
+    frontend = checkoutPayload.dataset.frontend == "true" ? true : false;
   }
 })
+
+async function advanceOrder(){
+  await fetch(advanceCheckoutUrl, {
+    method: "PUT",
+    headers: {
+      'Content-Type': 'application/json',
+      "X-Spree-Order-Token": orderToken
+    },
+    data: {
+      order_token: orderToken
+    }
+  })
+}
+
+async function createSolidusPayment(token){
+  let payment_method_id;
+  if (frontend) {
+    payment_method_id = document.querySelector('[name="order[payments_attributes][][payment_method_id]"]:checked').value
+  } else {
+    payment_method_id = document.querySelector('[name="payment[payment_method_id]"]:checked').value
+  }
+  
+  const body = JSON.stringify({
+    order_token: orderToken,
+    payment: {
+      amount: orderTotal,
+      payment_method_id: payment_method_id,
+      source_attributes: {
+        nonce: token
+      }
+    }
+  });
+  const resp = await fetch('/api/checkouts/' + orderNumber + '/payments', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      "X-Spree-Order-Token": orderToken
+    },
+    body,
+  });
+
+  return resp
+}
 
 async function initializeCard(payments) {
   const card = await payments.card();
@@ -23,25 +70,20 @@ async function initializeCard(payments) {
 // Call this function to send a payment token, buyer name, and other details
 // to the project server code so that a payment can be created with
 // Payments API
-async function createPayment(token) {
-  const body = JSON.stringify({
-    source_id: token,
-    order_number: orderNumber,
-    payment_method_id: document.querySelector('[name="payment[payment_method_id]"]:checked').value
-  });
-  const paymentResponse = await fetch('/solidus_square/api/payments/square', {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
-      "X-Spree-Order-Token": orderToken
-    },
-    body,
-  });
+async function createPayment(token) {  
+  const paymentResponse = await createSolidusPayment(token)
   const paymentStatusDiv = document.getElementById('payment-status-container');
   if (paymentResponse.ok) {
     document.getElementById("card-container").remove()
     document.getElementById("square-card-button").remove()
     paymentStatusDiv.innerHTML = "Payment Successfully"
+    await advanceOrder()
+
+    if (frontend) {
+      window.location.href = '/checkout';
+    } else {
+      window.location.href = `/admin/orders/${orderNumber}/payments`
+    }
     return paymentResponse.json();
   } else {
     paymentStatusDiv.innerHTML = "Payment Failed"

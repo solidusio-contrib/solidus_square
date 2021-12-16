@@ -13,7 +13,7 @@
   data-order-number="<%= @order.number %>"
   data-order-token="<%= @order.guest_token %>"
   data-order-total="<%= @order.total.to_f %>"
-  data-checkout-url="<%= checkout_state_url("confirm") %>"
+  data-advance-checkout-url="<%= advance_api_checkout_url(id: @order.number) %>"
   data-frontend="<%= frontend %>"
   >
 </div>
