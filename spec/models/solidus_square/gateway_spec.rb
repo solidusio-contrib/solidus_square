@@ -8,7 +8,19 @@ RSpec.describe SolidusSquare::Gateway do
   let(:options) { { access_token: 'abcde', environment: 'sandbox', location_id: 'location' } }
   let(:gateway) { described_class.new(options) }
   let(:payment) { create(:payment) }
-  let(:payment_source) { create(:square_payment_source) }
+  let(:payment_source) { create(:square_payment_source, nonce: 'nonce') }
+  let(:square_response) { square_payment_response }
+  let(:expected_attributes) do
+    {
+      version: 3,
+      avs_status: "AVS_ACCEPTED",
+      expiration_date: "11/2022",
+      last_digits: "9029",
+      card_brand: "MASTERCARD",
+      card_type: "CREDIT",
+      status: "CAPTURED"
+    }
+  end
 
   before do
     payment.source = payment_source
@@ -54,22 +66,11 @@ RSpec.describe SolidusSquare::Gateway do
     subject(:capture) { gateway.capture(nil, nil, gateway_options) }
 
     let(:gateway_options) { { originator: payment } }
-    let(:square_response) { square_payment_response }
+
     let(:capture_params) do
       {
         client: gateway.client,
         payment_id: payment.response_code
-      }
-    end
-    let(:expected_attributes) do
-      {
-        version: 3,
-        avs_status: "AVS_ACCEPTED",
-        expiration_date: "11/2022",
-        last_digits: "9029",
-        card_brand: "MASTERCARD",
-        card_type: "CREDIT",
-        status: "CAPTURED"
       }
     end
 
@@ -169,6 +170,40 @@ RSpec.describe SolidusSquare::Gateway do
 
     it "returns a successfull response" do
       expect(void).to be_success
+    end
+  end
+
+  describe '#autorize' do
+    subject(:authorize) { gateway.authorize(123, payment_source, nil) }
+
+    context "when valid" do
+      before do
+        allow(gateway).to receive(:create_payment).with(123, 'nonce').and_return(square_response)
+      end
+
+      it "updates the payment source attributes" do
+        authorize
+        expect(payment_source).to have_attributes(expected_attributes)
+      end
+
+      it "returns an ActiveMerchant::Billing::Response " do
+        expect(authorize).to be_an_instance_of(ActiveMerchant::Billing::Response)
+      end
+
+      it "returns a successfull response" do
+        expect(authorize).to be_success
+      end
+    end
+
+    context "when not valid" do
+      before do
+        allow(gateway).to receive(:create_payment).with(123, 'nonce').and_raise(StandardError, "test error")
+      end
+
+      it "returns an ActiveMerchant::Billing::Response with the correct message" do
+        expect(authorize).to be_an_instance_of(ActiveMerchant::Billing::Response)
+        expect(authorize.message).to eq 'test error'
+      end
     end
   end
 end

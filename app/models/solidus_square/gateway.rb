@@ -14,6 +14,17 @@ module SolidusSquare
       )
     end
 
+    def authorize(amount, payment_source, _gateway_options)
+      source_id = payment_source.nonce
+      square_payment = create_payment(amount, source_id)
+      payment_source.update!(payment_source_constructor(square_payment))
+
+      ActiveMerchant::Billing::Response.new(true, 'Transaction approved', square_payment,
+        authorization: square_payment[:id])
+    rescue StandardError => e
+      ActiveMerchant::Billing::Response.new(false, e.message, {})
+    end
+
     def capture(_amount, response_code, options)
       payment_source = options[:originator].source
       response = capture_payment(response_code)

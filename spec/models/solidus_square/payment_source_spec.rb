@@ -7,10 +7,6 @@ RSpec.describe SolidusSquare::PaymentSource, type: :model do
   let(:payment) { instance_double(Spree::Payment) }
   let(:gateway) { instance_double(SolidusSquare::Gateway) }
 
-  describe 'validations' do
-    it { is_expected.to validate_presence_of(:token) }
-  end
-
   describe "#can_void?" do
     subject(:can_void?) { payment_source.can_void?(payment) }
 

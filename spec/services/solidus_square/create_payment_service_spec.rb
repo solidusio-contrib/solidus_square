@@ -12,6 +12,8 @@ RSpec.describe SolidusSquare::CreatePaymentService do
   let!(:order) { create(:order_ready_to_complete, number: "R919717664", state: 'delivery', payment_state: nil) }
   let(:status) { "CAPTURED" }
   let(:square_response) { square_payment_response(amount: order.total, status: status) }
+  let(:payment) { order.reload.payments.last }
+  let(:payment_source) { payment.source }
 
   before do
     allow(Spree::PaymentMethod).to receive(:find).with(payment_method.id).and_return(payment_method)
@@ -20,8 +22,6 @@ RSpec.describe SolidusSquare::CreatePaymentService do
   end
 
   describe "#call" do
-    let(:payment) { order.reload.payments.last }
-
     context "when order is in delivery state", vcr: true do
       it "creates a Spree::Payment" do
         expect { handler.call }.to change { order.reload.payments.count }.by(1)
@@ -43,13 +43,9 @@ RSpec.describe SolidusSquare::CreatePaymentService do
       end
     end
 
-    context "when the payment is not captured", vcr: true do
-      let(:status) { "AUTHORIZED" }
-
-      it "doesn't completes the payment" do
-        handler.call
-        expect(payment).not_to be_completed
-      end
+    it "add the nonce to the payment source" do
+      handler.call
+      expect(payment_source.nonce).to eq('nonce')
     end
   end
 end
