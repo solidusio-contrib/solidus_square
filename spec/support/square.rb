@@ -66,7 +66,7 @@ module SquareHelpers
     }
   end
 
-  def create_square_payment_id_on_sandbox
+  def create_authorized_square_payment_id_on_sandbox
     client = ::Square::Client.new(
       access_token: SolidusSquare.config.square_access_token,
       environment: "sandbox"
@@ -80,7 +80,7 @@ module SquareHelpers
       environment: "sandbox"
     )
 
-    client.payments.complete_payment(payment_id: create_square_payment_id_on_sandbox).body.payment
+    client.payments.complete_payment(payment_id: create_authorized_square_payment_id_on_sandbox).body.payment
   end
 
   def create_payment_payload
@@ -91,7 +91,8 @@ module SquareHelpers
       idempotency_key: idempotency_key,
       amount_money: amount_money,
       source_id: "EXTERNAL",
-      external_details: external_details
+      external_details: external_details,
+      autocomplete: false
     }
   end
 

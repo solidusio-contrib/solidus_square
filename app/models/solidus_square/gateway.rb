@@ -33,6 +33,15 @@ module SolidusSquare
         authorization: response_code)
     end
 
+    def void(_response_code, options)
+      payment_source = options[:originator].source
+      payment_id = payment_source.square_payment_id
+      response = cancel_payment(payment_id)
+      payment_source.update!(status: response[:status])
+
+      ActiveMerchant::Billing::Response.new(true, 'Transaction voided', response, authorization: response[:id])
+    end
+
     def create_customer(user, address)
       ::SolidusSquare::Customers::Create.call(client: client, spree_user: user, spree_address: address)
     end
@@ -70,6 +79,13 @@ module SolidusSquare
 
     def capture_payment(payment_id)
       ::SolidusSquare::Payments::Capture.call(
+        client: client,
+        payment_id: payment_id
+      )
+    end
+
+    def cancel_payment(payment_id)
+      ::SolidusSquare::Payments::Void.call(
         client: client,
         payment_id: payment_id
       )

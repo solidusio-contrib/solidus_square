@@ -130,4 +130,45 @@ RSpec.describe SolidusSquare::Gateway do
       expect(credit).to be_success
     end
   end
+
+  describe '#cancel_payment' do
+    subject(:cancel_payment) { gateway.cancel_payment(1234) }
+
+    before do
+      allow(SolidusSquare::Payments::Void).to receive(:call)
+      cancel_payment
+    end
+
+    it "calls the SolidusSquare::Payments::Void service" do
+      expect(SolidusSquare::Payments::Void).to have_received(:call).with(client: gateway.client, payment_id: 1234)
+    end
+  end
+
+  describe '#void' do
+    subject(:void) { gateway.void("response_code", gateway_options) }
+
+    let(:gateway_options) { { originator: payment } }
+    let(:voided_square_response) do
+      {
+        status: "CANCELED"
+      }
+    end
+
+    before do
+      allow(gateway).to receive(:cancel_payment).and_return(voided_square_response)
+      void
+    end
+
+    it "updates the payment source status" do
+      expect(payment_source.status).to eq('CANCELED')
+    end
+
+    it "returns an ActiveMerchant::Billing::Response " do
+      expect(void).to be_an_instance_of(ActiveMerchant::Billing::Response)
+    end
+
+    it "returns a successfull response" do
+      expect(void).to be_success
+    end
+  end
 end
