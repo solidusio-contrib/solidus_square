@@ -73,7 +73,7 @@ RSpec.describe SolidusSquare::PaymentSyncService do
     end
 
     context "when the version number is higher than the params", vcr: true do
-      let(:payment_source) { order.payments.find_by(response_code: square_order_id).source }
+      let(:payment_source) {  SolidusSquare::PaymentSource.find_by(token: square_order_id) }
 
       before do
         handler.call

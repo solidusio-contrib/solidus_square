@@ -16,7 +16,7 @@ RSpec.describe SolidusSquare::PaymentSource, type: :model do
 
     before do
       allow(payment).to receive(:payment_method).and_return(payment_method)
-      allow(payment).to receive(:source).and_return(OpenStruct.new(square_payment_id: "12345"))
+      allow(payment).to receive(:response_code).and_return("12345")
       allow(payment_method).to receive(:gateway).and_return(gateway)
       allow(gateway).to receive(:get_payment).and_return({ card_details: { status: status } })
     end

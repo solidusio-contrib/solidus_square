@@ -19,8 +19,8 @@ module SolidusSquare
 
     private
 
-    def square_order_id
-      square_payment_response[:order_id]
+    def square_payment_id
+      square_payment_response[:id]
     end
 
     def square_payment_response
@@ -28,7 +28,7 @@ module SolidusSquare
     end
 
     def create_payment!
-      order.payments.find_or_create_by!(response_code: square_order_id) do |payment|
+      order.payments.find_or_create_by!(response_code: square_payment_id) do |payment|
         payment.amount = payment_amount
         payment.source = ::SolidusSquare::PaymentSource.create!(construct_payment_source)
         payment.payment_method_id = payment_method_id

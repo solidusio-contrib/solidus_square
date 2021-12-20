@@ -58,7 +58,7 @@ RSpec.describe SolidusSquare::Gateway do
     let(:capture_params) do
       {
         client: gateway.client,
-        payment_id: payment_source.square_payment_id
+        payment_id: payment.response_code
       }
     end
     let(:expected_attributes) do
@@ -113,7 +113,7 @@ RSpec.describe SolidusSquare::Gateway do
       {
         client: gateway.client,
         amount: 123,
-        payment_id: payment_source.square_payment_id
+        payment_id: payment.response_code
       }
     end
 

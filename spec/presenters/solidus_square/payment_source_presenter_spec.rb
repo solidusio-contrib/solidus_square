@@ -29,7 +29,6 @@ RSpec.describe SolidusSquare::PaymentSourcePresenter do
         card_brand: "MASTERCARD",
         card_type: "CREDIT",
         status: "CAPTURED",
-        square_payment_id: 123,
         token: 12
       }
     end

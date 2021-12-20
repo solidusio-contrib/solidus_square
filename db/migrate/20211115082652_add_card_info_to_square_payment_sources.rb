@@ -6,6 +6,5 @@ class AddCardInfoToSquarePaymentSources < ActiveRecord::Migration[6.1]
     add_column :solidus_square_payment_sources, :card_brand, :string
     add_column :solidus_square_payment_sources, :card_type, :string
     add_column :solidus_square_payment_sources, :status, :string
-    add_column :solidus_square_payment_sources, :square_payment_id, :string
   end
 end

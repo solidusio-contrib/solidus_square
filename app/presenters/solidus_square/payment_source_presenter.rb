@@ -21,13 +21,10 @@ module SolidusSquare
         version: version,
         avs_status: payment_data[:card_details][:avs_status],
         expiration_date: expiration_date,
-        # rubocop:disable Naming/VariableNumber
-        last_digits: card_details[:last_4],
-        # rubocop:enable Naming/VariableNumber
+        last_digits: card_details[:last_4], # rubocop:disable Naming/VariableNumber
         card_brand: card_details[:card_brand],
         card_type: card_details[:card_type],
         status: payment_data[:card_details][:status],
-        square_payment_id: payment_data[:id],
         token: payment_data[:order_id]
       }
     end
