@@ -8,6 +8,8 @@ module SolidusSquare
     preference :app_id, :string
     preference :redirect_url, :string
 
+    NOT_VOIDABLE_STATUSES = %w[CAPTURED VOIDED].freeze
+
     def gateway_class
       ::SolidusSquare::Gateway
     end

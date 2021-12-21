@@ -5,9 +5,12 @@ module SolidusSquare
     self.table_name = 'solidus_square_payment_sources'
 
     def can_void?(payment)
+      return false unless payment.response_code
+
       result = payment.payment_method.gateway.get_payment(payment.response_code)
       status = result[:card_details][:status]
-      status != "CAPTURED"
+
+      !SolidusSquare::PaymentMethod::NOT_VOIDABLE_STATUSES.include?(status)
     end
 
     def captured?

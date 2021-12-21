@@ -21,6 +21,12 @@ RSpec.describe SolidusSquare::PaymentSource, type: :model do
       it { expect(can_void?).to be_falsy }
     end
 
+    context "when payment is voided" do
+      let(:status) { "VOIDED" }
+
+      it { expect(can_void?).to be_falsy }
+    end
+
     context "when payment is not captured yet" do
       let(:status) { "AUTHORIZED" }
 
