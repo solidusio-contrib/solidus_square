@@ -7,7 +7,7 @@ RSpec.describe SolidusSquare::Gateway do
   let(:spree_address) { spree_user.addresses.first }
   let(:options) { { access_token: 'abcde', environment: 'sandbox', location_id: 'location' } }
   let(:gateway) { described_class.new(options) }
-  let(:payment) { create(:payment) }
+  let(:payment) { create(:payment, response_code: nil) }
   let(:payment_source) { create(:square_payment_source, nonce: 'nonce') }
   let(:square_response) { square_payment_response }
   let(:expected_attributes) do
@@ -174,7 +174,7 @@ RSpec.describe SolidusSquare::Gateway do
   end
 
   describe '#autorize' do
-    subject(:authorize) { gateway.authorize(123, payment_source, nil) }
+    subject(:authorize) { gateway.authorize(123, payment_source, { originator: payment }) }
 
     context "when valid" do
       before do
@@ -192,6 +192,11 @@ RSpec.describe SolidusSquare::Gateway do
 
       it "returns a successfull response" do
         expect(authorize).to be_success
+      end
+
+      it "updates the payment response code" do
+        authorize
+        expect(payment.response_code).to eq '123'
       end
     end
 
