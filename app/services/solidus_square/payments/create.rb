@@ -3,10 +3,11 @@
 module SolidusSquare
   module Payments
     class Create < ::SolidusSquare::Base
-      def initialize(client:, source_id:, amount:)
+      def initialize(client:, source_id:, amount:, auto_capture:)
         @client = client
         @source_id = source_id
         @amount = amount
+        @auto_capture = auto_capture ? true : false
 
         super
       end
@@ -17,7 +18,7 @@ module SolidusSquare
 
       private
 
-      attr_reader :client, :source_id, :amount
+      attr_reader :client, :source_id, :amount, :auto_capture
 
       def create_payment
         handle_square_result(client.payments.create_payment(body: payment_payload)) do |result|
@@ -33,7 +34,7 @@ module SolidusSquare
             amount: amount,
             currency: "USD"
           },
-          autocomplete: false
+          autocomplete: auto_capture
         }
       end
     end
