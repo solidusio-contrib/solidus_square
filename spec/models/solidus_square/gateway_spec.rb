@@ -173,42 +173,52 @@ RSpec.describe SolidusSquare::Gateway do
     end
   end
 
-  describe '#autorize' do
-    subject(:authorize) { gateway.authorize(123, payment_source, { originator: payment }) }
-
+  RSpec.shared_examples "#create_payment_on_square" do
     context "when valid" do
       before do
-        allow(gateway).to receive(:create_payment).with(123, 'nonce').and_return(square_response)
+        allow(gateway).to receive(:create_payment).with(123, 'nonce', nil).and_return(square_response)
       end
 
       it "updates the payment source attributes" do
-        authorize
+        method
         expect(payment_source).to have_attributes(expected_attributes)
       end
 
       it "returns an ActiveMerchant::Billing::Response " do
-        expect(authorize).to be_an_instance_of(ActiveMerchant::Billing::Response)
+        expect(method).to be_an_instance_of(ActiveMerchant::Billing::Response)
       end
 
       it "returns a successfull response" do
-        expect(authorize).to be_success
+        expect(method).to be_success
       end
 
       it "updates the payment response code" do
-        authorize
+        method
         expect(payment.response_code).to eq '123'
       end
     end
 
     context "when not valid" do
       before do
-        allow(gateway).to receive(:create_payment).with(123, 'nonce').and_raise(StandardError, "test error")
+        allow(gateway).to receive(:create_payment).with(123, 'nonce', nil).and_raise(StandardError, "test error")
       end
 
       it "returns an ActiveMerchant::Billing::Response with the correct message" do
-        expect(authorize).to be_an_instance_of(ActiveMerchant::Billing::Response)
-        expect(authorize.message).to eq 'test error'
+        expect(method).to be_an_instance_of(ActiveMerchant::Billing::Response)
+        expect(method.message).to eq 'test error'
       end
+    end
+  end
+
+  describe '#autorize' do
+    it_behaves_like "#create_payment_on_square" do
+      let(:method) {  gateway.authorize(123, payment_source, { originator: payment }) }
+    end
+  end
+
+  describe "#purchase" do
+    it_behaves_like "#create_payment_on_square" do
+      let(:method) {  gateway.purchase(123, payment_source, { originator: payment }) }
     end
   end
 end

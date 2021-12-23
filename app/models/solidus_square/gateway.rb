@@ -15,16 +15,7 @@ module SolidusSquare
     end
 
     def authorize(amount, payment_source, gateway_options)
-      payment = gateway_options[:originator]
-      source_id = payment_source.nonce
-      square_payment = create_payment(amount, source_id)
-      payment.response_code = square_payment[:id]
-      payment_source.update!(payment_source_constructor(square_payment))
-
-      ActiveMerchant::Billing::Response.new(true, 'Transaction approved', square_payment,
-        authorization: square_payment[:id])
-    rescue StandardError => e
-      ActiveMerchant::Billing::Response.new(false, e.message, {})
+      create_payment_on_square(amount, payment_source, gateway_options)
     end
 
     def capture(_amount, response_code, options)
@@ -55,6 +46,10 @@ module SolidusSquare
       ::SolidusSquare::Customers::Create.call(client: client, spree_user: user, spree_address: address)
     end
 
+    def purchase(amount, payment_source, gateway_options)
+      create_payment_on_square(amount, payment_source, gateway_options)
+    end
+
     def checkout(order, redirect_url)
       ::SolidusSquare::Checkouts::Create.call(
         client: client,
@@ -78,11 +73,12 @@ module SolidusSquare
       )
     end
 
-    def create_payment(amount, source_id)
+    def create_payment(amount, source_id, auto_capture)
       ::SolidusSquare::Payments::Create.call(
         client: client,
         amount: amount,
-        source_id: source_id
+        source_id: source_id,
+        auto_capture: auto_capture
       )
     end
 
@@ -110,6 +106,22 @@ module SolidusSquare
 
     def payment_source_constructor(data)
       SolidusSquare::PaymentSourcePresenter.square_payload(data)
+    end
+
+    private
+
+    def create_payment_on_square(amount, payment_source, gateway_options)
+      payment = gateway_options[:originator]
+      source_id = payment_source.nonce
+      auto_capture = payment.payment_method.auto_capture
+      square_payment = create_payment(amount, source_id, auto_capture)
+      payment.response_code = square_payment[:id]
+      payment_source.update!(payment_source_constructor(square_payment))
+
+      ActiveMerchant::Billing::Response.new(true, 'Transaction approved', square_payment,
+        authorization: square_payment[:id])
+    rescue StandardError => e
+      ActiveMerchant::Billing::Response.new(false, e.message, {})
     end
   end
 end

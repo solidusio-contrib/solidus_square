@@ -2,7 +2,7 @@
 
 RSpec.describe SolidusSquare::Payments::Create, type: :request do
   subject(:create_payment) {
-    described_class.new(client: client, source_id: "nonce", amount: 19.99)
+    described_class.new(client: client, source_id: "nonce", amount: 19.99, auto_capture: false)
   }
 
   let(:client) do
