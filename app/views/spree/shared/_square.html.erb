@@ -6,10 +6,11 @@
 </form>
 
 <div id="payment-status-container"></div>
+
 <div
   id="square-checkout-payload"
-  data-location-id="<%= SolidusSquare.config.square_location_id %>"
-  data-app-id="<%= SolidusSquare.config.square_app_id %>"
+  data-location-id="<%= payment_method.preferred_location_id %>"
+  data-app-id="<%= payment_method.preferred_app_id %>"
   data-order-number="<%= @order.number %>"
   data-order-token="<%= @order.guest_token %>"
   data-order-total="<%= @order.total.to_f %>"
