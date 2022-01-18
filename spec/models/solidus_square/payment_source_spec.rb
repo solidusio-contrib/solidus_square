@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe SolidusSquare::PaymentSource, type: :model do
@@ -45,6 +47,12 @@ RSpec.describe SolidusSquare::PaymentSource, type: :model do
       let(:status) { "AUTHORIZED" }
 
       it { expect(payment_source).not_to be_captured }
+    end
+  end
+
+  describe '#reusable?' do
+    it 'return true' do
+      expect(described_class.new).to be_reusable
     end
   end
 end

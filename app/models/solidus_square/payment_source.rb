@@ -15,6 +15,10 @@ module SolidusSquare
       !SolidusSquare::PaymentMethod::NOT_VOIDABLE_STATUSES.include?(status)
     end
 
+    def reusable?
+      true
+    end
+
     def captured?
       status == "CAPTURED"
     end
