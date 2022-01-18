@@ -221,4 +221,53 @@ RSpec.describe SolidusSquare::Gateway do
       let(:method) {  gateway.purchase(123, payment_source, { originator: payment }) }
     end
   end
+
+  describe '#create_profile' do
+    subject(:create_profile) { gateway.create_profile(payment) }
+
+    before do
+      allow(SolidusSquare::Customers::Create).to receive(:call).and_return(id: 'square-customer-id')
+    end
+
+    it 'creates a new square profile on square' do
+      create_profile
+
+      expect(SolidusSquare::Customers::Create).to have_received(:call).with(
+        client: gateway.client, spree_user: payment.order.user, spree_address: payment.order.bill_address
+      )
+    end
+
+    it 'creates SolidusSquare::Customer' do
+      expect(payment.source.customer).to be_nil
+
+      create_profile
+
+      expect(payment.source.customer).to be_kind_of SolidusSquare::Customer
+      expect(payment.source.customer).to have_attributes(
+        square_customer_ref: 'square-customer-id',
+        user: payment.order.user
+      )
+    end
+
+    context 'when the order.user is nil' do
+      before do
+        payment.order.update_column(:user_id, nil) # rubocop:disable Rails/SkipsModelValidations
+      end
+
+      it "doesn't create the square customer" do
+        create_profile
+
+        expect(SolidusSquare::Customers::Create).not_to have_received(:call)
+      end
+    end
+
+    context 'when the customer.square_customer_ref is present' do
+      before { payment.order.user.create_square_customer(user: payment.order.user, square_customer_ref: 'a') }
+
+      it "doesn't create the square customer" do
+        create_profile
+        expect(SolidusSquare::Customers::Create).not_to have_received(:call)
+      end
+    end
+  end
 end

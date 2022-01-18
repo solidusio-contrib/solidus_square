@@ -108,6 +108,21 @@ module SolidusSquare
       SolidusSquare::PaymentSourcePresenter.square_payload(data)
     end
 
+    def create_profile(payment)
+      user = payment.order.user
+      return if user.nil?
+      return if user&.square_customer&.square_customer_ref
+
+      square_customer = SolidusSquare::Customers::Create.call(
+        client: client, spree_user: payment.order.user, spree_address: payment.order.bill_address
+      )
+
+      payment.source.create_customer(
+        square_customer_ref: square_customer[:id],
+        user: payment.order.user
+      )
+    end
+
     private
 
     def create_payment_on_square(amount, payment_source, gateway_options)
