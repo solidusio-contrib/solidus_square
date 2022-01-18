@@ -11,8 +11,9 @@ RSpec.describe 'SolidusSquare::Api::CheckoutController', type: :request do
   around do |test|
     Rails.application.routes.draw do
       post '/api/checkouts/:id/square', to: 'solidus_square/api/checkout#create', as: 'api_checkouts_square'
-      get '/checkout/square/complete', to: 'solidus_square/callback_actions#complete_checkout',
-                                       as: :square_checkout_complete
+      get '/checkout/square/complete',
+        to: 'solidus_square/callback_actions#complete_checkout',
+        as: :square_checkout_complete
 
       mount Spree::Core::Engine, at: '/'
     end
