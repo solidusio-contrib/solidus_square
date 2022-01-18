@@ -1,8 +1,9 @@
 # frozen_string_literal: true
 
+require_dependency 'solidus_square'
+
 module SolidusSquare
   class PaymentSource < SolidusSupport.payment_source_parent_class
-    self.table_name = 'solidus_square_payment_sources'
 
     def can_void?(payment)
       return false unless payment.response_code
