@@ -7,6 +7,8 @@ RSpec.describe SolidusSquare::PaymentSource, type: :model do
   let(:payment) { instance_double(Spree::Payment) }
   let(:gateway) { instance_double(SolidusSquare::Gateway) }
 
+  it { is_expected.to belong_to(:customer).class_name('SolidusSquare::Customer').optional }
+
   describe "#can_void?" do
     subject(:can_void?) { payment_source.can_void?(payment) }
 

@@ -4,6 +4,7 @@ require_dependency 'solidus_square'
 
 module SolidusSquare
   class PaymentSource < SolidusSupport.payment_source_parent_class
+    belongs_to :customer, class_name: 'SolidusSquare::Customer', optional: true
 
     def can_void?(payment)
       return false unless payment.response_code
