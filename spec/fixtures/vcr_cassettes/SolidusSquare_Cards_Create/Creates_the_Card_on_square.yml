@@ -1,0 +1,166 @@
+---
+http_interactions:
+- request:
+    method: post
+    uri: https://connect.squareupsandbox.com/v2/payments
+    body:
+      encoding: UTF-8
+      string: '{"idempotency_key":"990400584936853","amount_money":{"amount":123,"currency":"USD"},"source_id":"cnon:card-nonce-ok","external_details":{"type":"CHECK","source":"Food
+        Delivery Service"},"autocomplete":false}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Authorization:
+      - "<BEARER_TOKEN>"
+      User-Agent:
+      - Square-Ruby-SDK/14.1.0.20210915
+      Square-Version:
+      - '2021-09-15'
+      Accept-Encoding:
+      - gzip,deflate
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Jan 2022 19:14:37 GMT
+      Frame-Options:
+      - DENY
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/json
+      Square-Version:
+      - '2021-09-15'
+      Squareup--Connect--V2--Common--Versionmetadata-Bin:
+      - CgoyMDIxLTA5LTE1
+      Vary:
+      - Accept-Encoding, User-Agent
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '760'
+      Strict-Transport-Security:
+      - max-age=631152000; includeSubDomains; preload
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAAJVUXXOiMBR931/h8LhTd8QvtG+IWFk/QIi2urOTCRA0FQFDULHT/74JSutuH7p9Us65l9xz7gkvUoLyHY6YdF95kYjPf6RNR6VdNxhMzIfFptvWBwP2c+8c98F4uVpKd5JHMWLYh0g0SfVavV6tyVW5C+Tuvdy8byg/OrXaihdmif9JYbemiEK0i7OIwV0c4bwY5ALwv3K9wQ/MKMWRJyhp7vSl1zspZYhlqQBUy7LNhd7nr/FxiHLoZxQxEkeCtIDc7gw5lcYZ9TBkeYIFrqm2aPAQ9aGPGSJhWpx789o5GJq2sdLLuoIvGlyKosKoheGonA1RymBTAK1Oq8MBfEqEFrYRAi6POUaUP3EPmndSQKI1pgklhUQp3Vfl6k8TzMK6slFaIAVGFiujs19FQxuE/iRIj0Z7dTz6S9/U10p1q4JHNaCqFXRO7snUGgMZWrNSz5tGW+8bgKMJxQki78TUBNCydUs1hDaXFE41W4260hLW8jDQHO4w28SFypG+vJhwOMB3f7TFAqqaplugINEhvSHVhXNLCgKLkHGvU4+SpFyPM6t87+sDdT4GFaA7oMKbzPkUlFKu2YSM7HBIInzJRsYno+T8ebBeuZow9oo0wEu2xw9Tu9nQls7gabngx8TUx/TKPfthMuwpi3l7vMFe4hhgS7RVNhnNgiL3lKRbiA8ozMp8vfzHXbhGvGgO8QGHlxXYE3Us3GYxQ+FXko+ShMYHfuQXejyUIJeEhBEs9vNLEsmA6kR4DecWH+8W6JuP0xIChvWx7gYsan9zedjDfK8wynYupuVX5O1OIq9cuaZONX1cElwGn5yEt+bV2x8+JFxzSK57/Ou67jNEMeSG+JlXbEDXzMlEtzUdqpbxT+dlyym/vG58qqb7GvHdquG1lfM52Do50fLjqLNPzifzKEw7YJqKNhZvcTH6+pypx02LeTiddVN7uX46kgdydv2kd+jJwanVQlZv+5zMH/N2zMP37Q88l8g1XQUAAA==
+  recorded_at: Wed, 19 Jan 2022 19:14:37 GMT
+- request:
+    method: post
+    uri: https://connect.squareupsandbox.com/v2/customers
+    body:
+      encoding: UTF-8
+      string: '{"given_name":"John","family_name":"Doe","email_address":"john.doe@gmail.com"}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Authorization:
+      - "<BEARER_TOKEN>"
+      User-Agent:
+      - Square-Ruby-SDK/14.1.0.20210915
+      Square-Version:
+      - '2021-09-15'
+      Accept-Encoding:
+      - gzip,deflate
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Wed, 19 Jan 2022 19:14:39 GMT
+      Frame-Options:
+      - DENY
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/json
+      Square-Version:
+      - '2021-09-15'
+      Squareup--Connect--V2--Common--Versionmetadata-Bin:
+      - CgoyMDIxLTA5LTE1
+      Vary:
+      - Accept-Encoding, User-Agent
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '235'
+      Strict-Transport-Security:
+      - max-age=631152000; includeSubDomains; preload
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAAH2PXUvDMBSG7/0VkmtXkuqQ9sqtFb8QpJat7iZkyemMNMlImoGM/ndPNvHSqwPP+5xzeI9ExjA6A56Ul0eiFQ7S0eJ9tayq29euW9GqeZnfb9jDel1X5IpID2IExcWY1Jzm+YyyGStaVpTsprwusjnNNyjGvfpfTNJOH8ByKwwk6dl9WoS9MHr4/qO1A4RghB64UMpDCAl/oZwpB3e7lGTSGbT2HnrwYCWEU6HzVrQhboP0egupYC+GANNvFe0sDy56efrVPj41NX9bNO0HXjuAD5hjQKfp4gdtG0LvLAEAAA==
+  recorded_at: Wed, 19 Jan 2022 19:14:39 GMT
+- request:
+    method: post
+    uri: https://connect.squareupsandbox.com/v2/cards
+    body:
+      encoding: UTF-8
+      string: '{"idempotency_key":"af1888de-948b-4967-8e59-a7ec2f709d83","source_id":"h8Ar9bfFMOGVh96EFFtJqSwqfLYZY","card":{"cardholder_name":"John
+        Von Doe","customer_id":"X09SVBCC7MXXV0CRK5EZ1GWWDC"}}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Authorization:
+      - "<BEARER_TOKEN>"
+      User-Agent:
+      - Square-Ruby-SDK/14.1.0.20210915
+      Square-Version:
+      - '2021-09-15'
+      Accept-Encoding:
+      - gzip,deflate
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Content-Encoding:
+      - gzip
+      Content-Type:
+      - application/json
+      Square-Version:
+      - '2021-09-15'
+      Vary:
+      - Origin, Accept-Encoding
+      X-Content-Type-Options:
+      - nosniff
+      X-Download-Options:
+      - noopen
+      X-Frame-Options:
+      - SAMEORIGIN
+      X-Permitted-Cross-Domain-Policies:
+      - none
+      X-Speleo-Traceid:
+      - JZaBCVKWbHTbP
+      X-Xss-Protection:
+      - 1; mode=block
+      Date:
+      - Wed, 19 Jan 2022 19:14:45 GMT
+      Content-Length:
+      - '326'
+      Strict-Transport-Security:
+      - max-age=631152000; includeSubDomains; preload
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAA/ySQ3a6iMBRGX+VkX0NC+TlI7zgcddQY/CHocNMUWoSZ2jotRGaM7z6pXu5k5cta+wEN1QzwA3oGGJpGtXjDxqqe8mMTdIX6tVuEyy9wXhypNZWWK1fHFBwQ1AwkBAzRLJqBA3y6kauSQwcYva+/nGrAvueH74VOCcY1kfTKAcNadfKjVPLjW3FwoO6F6OWFUMY0N8Za3ZQZqCCNYpZPQuQF8HSg7eWF65vu5QAYzB8Xueu82As/7uKoMMVqVPHmH3Ppj0Mh2LY199Vndb+znyyfX2L3d1qc0lanu3Y21VOeBQtEdnsbOZpBXbkmr2+cveRYfmVZvD2fSy87bKJ5hZan03dmWyWtBWeABz1y6y4BQxgFfhzZIc3pwBmh1s/3fN/1kIuSAiUYhTj8rOD5/B8AAP//C4ZsMHwBAAA=
+  recorded_at: Wed, 19 Jan 2022 19:14:45 GMT
+recorded_with: VCR 6.0.0
