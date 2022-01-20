@@ -1,0 +1,8 @@
+<tr id="<%= dom_id(wallet_payment_source, 'spree')%>" class="<%= cycle('even', 'odd') %>">
+  <td><%= wallet_payment_source.payment_source.card_brand %></td>
+  <td><%= wallet_payment_source.payment_source.last_digits %></td>
+  <td><%= wallet_payment_source.payment_source.expiration_date %></td>
+  <td>
+    <%= radio_button_tag "order[wallet_payment_source_id]", wallet_payment_source.id, default, class: "existing-cc-radio" %>
+  </td>
+</tr>
