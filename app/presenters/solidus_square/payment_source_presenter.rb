@@ -24,8 +24,7 @@ module SolidusSquare
         last_digits: card_details[:last_4], # rubocop:disable Naming/VariableNumber
         card_brand: card_details[:card_brand],
         card_type: card_details[:card_type],
-        status: payment_data[:card_details][:status],
-        token: payment_data[:order_id]
+        status: payment_data[:card_details][:status]
       }
     end
 

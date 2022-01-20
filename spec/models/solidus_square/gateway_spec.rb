@@ -8,7 +8,7 @@ RSpec.describe SolidusSquare::Gateway do
   let(:options) { { access_token: 'abcde', environment: 'sandbox', location_id: 'location' } }
   let(:gateway) { described_class.new(options) }
   let(:payment) { create(:payment, response_code: nil) }
-  let(:payment_source) { create(:square_payment_source, nonce: 'nonce') }
+  let(:payment_source) { create(:square_payment_source, nonce: 'nonce', token: nil) }
   let(:square_response) { square_payment_response }
   let(:expected_attributes) do
     {
@@ -174,9 +174,16 @@ RSpec.describe SolidusSquare::Gateway do
   end
 
   RSpec.shared_examples "#create_payment_on_square" do
+    before do
+      allow(SolidusSquare::Cards::Create).to receive(:call).and_return(id: 'token-card-id')
+    end
+
     context "when valid" do
+      let(:customer_id) { 'sq-customer-id' }
+
       before do
-        allow(gateway).to receive(:create_payment).with(123, 'nonce', nil).and_return(square_response)
+        allow(gateway).to receive(:create_payment).with(123, 'nonce', nil, nil).and_return(square_response)
+        payment.order.user.create_square_customer(square_customer_ref: customer_id)
       end
 
       it "updates the payment source attributes" do
@@ -196,16 +203,40 @@ RSpec.describe SolidusSquare::Gateway do
         method
         expect(payment.response_code).to eq '123'
       end
+
+      it 'calls the SolidusSquare::Cards::Create service' do
+        method
+
+        expect(SolidusSquare::Cards::Create).to have_received(:call).with(
+          client: gateway.client, source_id: 123, bill_address: payment.order.bill_address, customer_id: customer_id
+        )
+      end
     end
 
     context "when not valid" do
       before do
-        allow(gateway).to receive(:create_payment).with(123, 'nonce', nil).and_raise(StandardError, "test error")
+        allow(gateway).to receive(:create_payment).with(123, 'nonce', nil, nil).and_raise(StandardError, "test error")
       end
 
       it "returns an ActiveMerchant::Billing::Response with the correct message" do
         expect(method).to be_an_instance_of(ActiveMerchant::Billing::Response)
         expect(method.message).to eq 'test error'
+      end
+    end
+
+    context 'when the payment_source contains token and customer_id' do
+      let(:payment_source) do
+        create(:square_payment_source, nonce: 'nonce', token: 'token', customer_id: 'customer_id')
+      end
+
+      before do
+        allow(gateway).to receive(:create_payment).with(123, 'token', nil, nil).and_return(square_response)
+      end
+
+      it 'does not call the SolidusSquare::Cards::Create service' do
+        method
+
+        expect(SolidusSquare::Cards::Create).not_to have_received(:call)
       end
     end
   end
