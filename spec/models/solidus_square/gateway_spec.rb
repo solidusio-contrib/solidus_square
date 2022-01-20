@@ -224,6 +224,29 @@ RSpec.describe SolidusSquare::Gateway do
       end
     end
 
+    context 'when the user is guest' do
+      before do
+        allow(gateway).to receive(:create_payment).with(123, 'nonce', nil, nil).and_return(square_response)
+        payment.order.user.delete
+        payment.order.reload
+      end
+
+      it 'does not call the SolidusSquare::Cards::Create service' do
+        method
+
+        expect(SolidusSquare::Cards::Create).not_to have_received(:call)
+      end
+
+      it "returns a successfull response" do
+        expect(method).to be_success
+      end
+
+      it "updates the payment response code" do
+        method
+        expect(payment.response_code).to eq '123'
+      end
+    end
+
     context 'when the payment_source contains token and customer_id' do
       let(:payment_source) do
         create(:square_payment_source, nonce: 'nonce', token: 'token', customer_id: 'customer_id')
