@@ -3,11 +3,13 @@
 RSpec.describe SolidusSquare::PaymentSyncService do
   subject(:handler) { described_class.new(params) }
 
-  let(:options) {
-    { access_token: ENV['SQUARE_ACCESS_TOKEN'] || "abcde", environment: 'sandbox',
-      location_id: ENV['SQUARE_LOCATION_ID'] || 'location' }
-  }
-  let(:payment_method) { create(:square_payment_method) }
+  let(:options) do
+    {
+      access_token: SolidusSquare.config.square_access_token,
+      environment: "sandbox"
+    }
+  end
+  let(:payment_method) { create(:square_payment_method, preferences: options) }
   let(:gateway) { SolidusSquare::Gateway.new(options) }
   let!(:order) { create(:order_ready_to_complete, number: "R919717664", state: 'payment', payment_state: nil) }
   let(:square_order_id) { find_or_create_square_order_id_on_sandbox(order: order, hosted_checkout: true) }
@@ -24,7 +26,6 @@ RSpec.describe SolidusSquare::PaymentSyncService do
   end
 
   before do
-    allow(payment_method).to receive(:gateway).and_return(gateway)
     allow(SolidusSquare.config).to receive(:square_payment_method).and_return(payment_method)
   end
 
