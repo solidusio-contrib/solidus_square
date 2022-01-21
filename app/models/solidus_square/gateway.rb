@@ -145,7 +145,7 @@ module SolidusSquare
         source_id = payment_source.nonce
         square_payment = create_payment(amount, source_id, auto_capture)
 
-        if order.user.present?
+        if payment.payment_method.payment_profiles_supported? && order.user.present?
           card = create_card(square_payment[:id], order.bill_address, square_customer_ref(order))
           payment_source.update!(token: card[:id])
         end

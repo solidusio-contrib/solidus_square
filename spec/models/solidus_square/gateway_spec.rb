@@ -226,6 +226,16 @@ RSpec.describe SolidusSquare::Gateway do
       end
     end
 
+    context 'when Spree::PaymentMethod#payment_profiles_supported? is false' do
+      before { allow(payment.payment_method).to receive(:payment_profiles_supported?).and_return(false) }
+
+      it 'does not call the SolidusSquare::Cards::Create service' do
+        method
+
+        expect(SolidusSquare::Cards::Create).not_to have_received(:call)
+      end
+    end
+
     context 'when the user is guest' do
       before do
         payment.order.user.delete
