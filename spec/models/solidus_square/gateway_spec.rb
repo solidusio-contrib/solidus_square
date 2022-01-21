@@ -176,13 +176,14 @@ RSpec.describe SolidusSquare::Gateway do
   RSpec.shared_examples "#create_payment_on_square" do
     before do
       allow(SolidusSquare::Cards::Create).to receive(:call).and_return(id: 'token-card-id')
+      allow(gateway).to receive(:create_payment).with(123, 'nonce', nil).and_return(square_response)
+      allow(gateway).to receive(:create_payment).with(123, 'nonce', nil, nil).and_return(square_response)
     end
 
     context "when valid" do
       let(:customer_id) { 'sq-customer-id' }
 
       before do
-        allow(gateway).to receive(:create_payment).with(123, 'nonce', nil, nil).and_return(square_response)
         payment.order.user.create_square_customer(square_customer_ref: customer_id)
       end
 
@@ -215,6 +216,7 @@ RSpec.describe SolidusSquare::Gateway do
 
     context "when not valid" do
       before do
+        allow(gateway).to receive(:create_payment).with(123, 'nonce', nil).and_raise(StandardError, "test error")
         allow(gateway).to receive(:create_payment).with(123, 'nonce', nil, nil).and_raise(StandardError, "test error")
       end
 
@@ -226,7 +228,6 @@ RSpec.describe SolidusSquare::Gateway do
 
     context 'when the user is guest' do
       before do
-        allow(gateway).to receive(:create_payment).with(123, 'nonce', nil, nil).and_return(square_response)
         payment.order.user.delete
         payment.order.reload
       end

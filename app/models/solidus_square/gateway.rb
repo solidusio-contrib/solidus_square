@@ -134,18 +134,25 @@ module SolidusSquare
 
     def create_payment_on_square(amount, payment_source, gateway_options)
       payment = gateway_options[:originator]
-      source_id = payment_source.token || payment_source.nonce
       order = payment.order
-      customer_id = payment_source.token.present? ? square_customer_ref(order) : nil
-
       auto_capture = payment.payment_method.auto_capture
-      square_payment = create_payment(amount, source_id, auto_capture, customer_id)
-      payment.response_code = square_payment[:id]
-      if payment_source.token.nil? && order.user.present?
-        card = create_card(square_payment[:id], order.bill_address, square_customer_ref(order))
-        payment_source.update!(token: card[:id])
+
+      if payment_source.token
+        source_id = payment_source.token
+        customer_id = square_customer_ref(order)
+        square_payment = create_payment(amount, source_id, auto_capture, customer_id)
+      else
+        source_id = payment_source.nonce
+        square_payment = create_payment(amount, source_id, auto_capture)
+
+        if order.user.present?
+          card = create_card(square_payment[:id], order.bill_address, square_customer_ref(order))
+          payment_source.update!(token: card[:id])
+        end
+        payment_source.update!(payment_source_constructor(square_payment))
       end
-      payment_source.update!(payment_source_constructor(square_payment))
+
+      payment.response_code = square_payment[:id]
 
       ActiveMerchant::Billing::Response.new(true, 'Transaction approved', square_payment,
         authorization: square_payment[:id])
