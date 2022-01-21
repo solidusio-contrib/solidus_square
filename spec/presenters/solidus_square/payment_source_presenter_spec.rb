@@ -28,8 +28,7 @@ RSpec.describe SolidusSquare::PaymentSourcePresenter do
         last_digits: "9029",
         card_brand: "MASTERCARD",
         card_type: "CREDIT",
-        status: "CAPTURED",
-        token: 12
+        status: "CAPTURED"
       }
     end
 

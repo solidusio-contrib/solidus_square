@@ -10,12 +10,18 @@ module SolidusSquare
 
     NOT_VOIDABLE_STATUSES = %w[CAPTURED VOIDED].freeze
 
+    delegate :create_profile, to: :gateway
+
     def gateway_class
       ::SolidusSquare::Gateway
     end
 
     def payment_source_class
       ::SolidusSquare::PaymentSource
+    end
+
+    def payment_profiles_supported?
+      true
     end
 
     def partial_name

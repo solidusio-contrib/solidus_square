@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'spec_helper'
 
 RSpec.describe SolidusSquare::PaymentSource, type: :model do
@@ -6,6 +8,8 @@ RSpec.describe SolidusSquare::PaymentSource, type: :model do
   let(:payment_method) { create(:square_payment_method) }
   let(:payment) { instance_double(Spree::Payment) }
   let(:gateway) { instance_double(SolidusSquare::Gateway) }
+
+  it { is_expected.to belong_to(:customer).class_name('SolidusSquare::Customer').optional }
 
   describe "#can_void?" do
     subject(:can_void?) { payment_source.can_void?(payment) }
@@ -43,6 +47,12 @@ RSpec.describe SolidusSquare::PaymentSource, type: :model do
       let(:status) { "AUTHORIZED" }
 
       it { expect(payment_source).not_to be_captured }
+    end
+  end
+
+  describe '#reusable?' do
+    it 'return true' do
+      expect(described_class.new).to be_reusable
     end
   end
 end

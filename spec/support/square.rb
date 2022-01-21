@@ -66,12 +66,42 @@ module SquareHelpers
     }
   end
 
-  def create_authorized_square_payment_id_on_sandbox
+  def create_card_id_on_sandbox(customer_id: nil, source_id: 'cnon:card-nonce-ok')
+    customer_id = create_customer_id_on_sandbox if customer_id.nil?
+    payment_token = create_authorized_square_payment_id_on_sandbox(source_id: source_id)
+
     client = ::Square::Client.new(
       access_token: SolidusSquare.config.square_access_token,
       environment: "sandbox"
     )
-    client.payments.create_payment(body: create_payment_payload).data.payment[:id]
+    client.cards.create_card(body: {
+      idempotency_key: rand(1_000_000_000_000_000).to_s,
+      source_id: payment_token,
+      card: {
+        customer_id: customer_id,
+        cardholder_name: 'John Doe'
+      }
+    }).data.card[:id]
+  end
+
+  def create_customer_id_on_sandbox
+    client = ::Square::Client.new(
+      access_token: SolidusSquare.config.square_access_token,
+      environment: "sandbox"
+    )
+    client.customers.create_customer(body: {
+      given_name: 'John',
+      family_name: 'Doe',
+      email_address: 'john.doe@gmail.com',
+    }).data.customer[:id]
+  end
+
+  def create_authorized_square_payment_id_on_sandbox(source_id: nil)
+    client = ::Square::Client.new(
+      access_token: SolidusSquare.config.square_access_token,
+      environment: "sandbox"
+    )
+    client.payments.create_payment(body: create_payment_payload(source_id: source_id)).data.payment[:id]
   end
 
   def create_and_capture_payment_on_sandbox
@@ -83,14 +113,14 @@ module SquareHelpers
     client.payments.complete_payment(payment_id: create_authorized_square_payment_id_on_sandbox).body.payment
   end
 
-  def create_payment_payload
+  def create_payment_payload(source_id: 'EXTERNAL')
     external_details = { type: "CHECK", source: "Food Delivery Service" }
     idempotency_key = rand(1_000_000_000_000_000).to_s
     amount_money = { amount: 123, currency: "USD" }
     {
       idempotency_key: idempotency_key,
       amount_money: amount_money,
-      source_id: "EXTERNAL",
+      source_id: source_id,
       external_details: external_details,
       autocomplete: false
     }

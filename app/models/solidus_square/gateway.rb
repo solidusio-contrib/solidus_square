@@ -73,12 +73,13 @@ module SolidusSquare
       )
     end
 
-    def create_payment(amount, source_id, auto_capture)
+    def create_payment(amount, source_id, auto_capture, customer_id)
       ::SolidusSquare::Payments::Create.call(
         client: client,
         amount: amount,
         source_id: source_id,
-        auto_capture: auto_capture
+        auto_capture: auto_capture,
+        customer_id: customer_id
       )
     end
 
@@ -108,20 +109,59 @@ module SolidusSquare
       SolidusSquare::PaymentSourcePresenter.square_payload(data)
     end
 
+    def create_profile(payment)
+      user = payment.order.user
+      return if user.nil?
+      return if user&.square_customer&.square_customer_ref
+
+      square_customer = SolidusSquare::Customers::Create.call(
+        client: client, spree_user: payment.order.user, spree_address: payment.order.bill_address
+      )
+
+      payment.source.create_customer(
+        square_customer_ref: square_customer[:id],
+        user: payment.order.user
+      )
+    end
+
     private
+
+    def create_card(source_id, bill_address, customer_id)
+      SolidusSquare::Cards::Create.call(
+        client: client, source_id: source_id, bill_address: bill_address, customer_id: customer_id
+      )
+    end
 
     def create_payment_on_square(amount, payment_source, gateway_options)
       payment = gateway_options[:originator]
-      source_id = payment_source.nonce
+      order = payment.order
       auto_capture = payment.payment_method.auto_capture
-      square_payment = create_payment(amount, source_id, auto_capture)
+
+      if payment_source.token
+        source_id = payment_source.token
+        customer_id = square_customer_ref(order)
+        square_payment = create_payment(amount, source_id, auto_capture, customer_id)
+      else
+        source_id = payment_source.nonce
+        square_payment = create_payment(amount, source_id, auto_capture)
+
+        if payment.payment_method.payment_profiles_supported? && order.user.present?
+          card = create_card(square_payment[:id], order.bill_address, square_customer_ref(order))
+          payment_source.update!(token: card[:id])
+        end
+        payment_source.update!(payment_source_constructor(square_payment))
+      end
+
       payment.response_code = square_payment[:id]
-      payment_source.update!(payment_source_constructor(square_payment))
 
       ActiveMerchant::Billing::Response.new(true, 'Transaction approved', square_payment,
         authorization: square_payment[:id])
     rescue StandardError => e
       ActiveMerchant::Billing::Response.new(false, e.message, {})
+    end
+
+    def square_customer_ref(order)
+      order.user&.square_customer&.square_customer_ref
     end
   end
 end

@@ -2,8 +2,10 @@
 
 RSpec.describe SolidusSquare::Payments::Create, type: :request do
   subject(:create_payment) {
-    described_class.new(client: client, source_id: "nonce", amount: 19.99, auto_capture: false)
+    described_class.new(client: client, source_id: source_id, amount: 19.99, auto_capture: false)
   }
+
+  let(:source_id) { 'nonce' }
 
   let(:client) do
     ::Square::Client.new(
@@ -36,6 +38,22 @@ RSpec.describe SolidusSquare::Payments::Create, type: :request do
 
     it "creates a square payment with the correct data" do
       expect(create_payment.call[:amount_money]).to match({ amount: 1999, currency: "USD" })
+    end
+
+    context 'with token and customer_id' do
+      subject(:create_payment) do
+        described_class.new(
+          client: client, source_id: source_id, amount: 1999, auto_capture: false,
+          customer_id: customer_id
+        )
+      end
+
+      let(:customer_id) { create_customer_id_on_sandbox }
+      let(:source_id) { create_card_id_on_sandbox(customer_id: customer_id) }
+
+      it "creates a square payment with the correct data" do
+        expect(create_payment.call[:amount_money]).to match({ amount: 1999, currency: "USD" })
+      end
     end
   end
 end

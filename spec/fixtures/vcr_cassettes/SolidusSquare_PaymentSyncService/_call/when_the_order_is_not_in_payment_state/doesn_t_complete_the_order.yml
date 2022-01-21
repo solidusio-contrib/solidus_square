@@ -100,4 +100,110 @@ http_interactions:
       string: !binary |-
         H4sIAAAAAAAAAMVUXW/aMBR936+o/JxNmJJ28NYNirqNDmi6qEyTZZwLeEtsal9DUtT/PjvppD2gaUGaJkWKP8659/qcq3sg2mRgyODsQGTmf+T9Yy6vbiarcqGm40pX8+puvHzal4XoXZOI5FpwlFqxBv3pw9WsGyeT+ex8NAzXUgGTCIX1t18PxDWw8nr4Lvk4Gd2mizRJq3I9XX1XHv7ouEKJVcBQv1e8gLD+HIo6Q40896dLboFtjRTACq2gqqvlhXYK/ZLSTqcTEeGMASXqUPd3Q/IckbXR1jLLc7DtiHVihrw8RvsTJZNWBFhbXqvqdtzIxoOGfIIywSGG1bYW+yYZTcjzt4gUgDzjyOsoG20RMiY2IH5o58MRNA4CWRjg4YqHHKTb6dLX1H9xQnuD8/6Axm/it/HC++a22d8BLXpc7ft0dOv3OzDWvy88ISIGVhDqh5eWm/dp/5JeXlz0yH9wCuX2n5rbUCyYXTBVbLhZH/X2OFsBsgZia/gpBbTR8gQV2+h3mgyBqJ0RUEN/jRSrc5k5Pw78zDHAECyy31op9LWzqAswL322SOmGp/tyNv7Se0jpfjm+dw/dPvoEr34CDoZIjDcFAAA=
   recorded_at: Thu, 18 Nov 2021 10:22:07 GMT
+- request:
+    method: post
+    uri: https://connect.squareupsandbox.com/v2/customers/search
+    body:
+      encoding: UTF-8
+      string: '{"limit":1,"query":{"filter":{"email_address":{"fuzzy":"email5@example.com"}}}}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Authorization:
+      - "<BEARER_TOKEN>"
+      User-Agent:
+      - Square-Ruby-SDK/14.1.0.20210915
+      Square-Version:
+      - '2021-09-15'
+      Accept-Encoding:
+      - gzip,deflate
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 20 Jan 2022 15:12:20 GMT
+      Frame-Options:
+      - DENY
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/json
+      Square-Version:
+      - '2021-09-15'
+      Squareup--Connect--V2--Common--Versionmetadata-Bin:
+      - CgoyMDIxLTA5LTE1
+      Vary:
+      - Accept-Encoding, User-Agent
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '500'
+      Strict-Transport-Security:
+      - max-age=631152000; includeSubDomains; preload
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAAH2RUY+iMBSF3/dXGJ5H04K4g8kkC1p0nRERAaObDalQlSxtmRZcjfG/b6u7M2/70LQ99+vJ6b1XI29lwykR0hh2flyNslC78WoD09puZtP+2psixxnE6wnwrY0fGU9GLghuSJHhRqMmMM0ugF0TxLA/tJ2hZfae+/ZWgW1d/B/U0KE8EZYxTImGZvzIlLjHtKwuH+qYEyUSissqw0UhiNRpH4L9jZwxrSvSyzlV1Gf9+u+cVSUjGdRPwkXH4+cOtKyvn+yjbup6wEVz/E1ko6oVz3FVNhetT4lgBdfRai4bXGU5L+7RIADA0U3hLWvEnU1Wxk1xR65MWUt3RGjVtu2uXgA6mhdkTwRhOckeHYfa+kN8xH98uGWy3clclDuiyT2uJLn9nULJWSZ5K/J7lnj6PRpnoRvFG+UmyYES1ij/+2iN+dsKQfd5DEOQBr0IuaOp670h4+eTcVLjV1YKAzd1zVsh+T306ACD2A/8eYL60dhfzv3tYnKs8cQ9eOi4xIimzWZdySDxKjLxm3xyrt5ocNqtZu7IRasQBV6U+l5CHRHTeoQRuKSxF6YwBWtas3li1/OxhyOwfY/94nWH4ABbEU7R7H39K2JBYg+WtF5gGolV4s/CFUfKd+kuX16M25c/uwsEI74CAAA=
+  recorded_at: Thu, 20 Jan 2022 15:12:20 GMT
+- request:
+    method: post
+    uri: https://connect.squareupsandbox.com/v2/customers/search
+    body:
+      encoding: UTF-8
+      string: '{"limit":1,"query":{"filter":{"email_address":{"fuzzy":"email5@example.com"}}}}'
+    headers:
+      Accept:
+      - application/json
+      Content-Type:
+      - application/json; charset=utf-8
+      Authorization:
+      - "<BEARER_TOKEN>"
+      User-Agent:
+      - Square-Ruby-SDK/14.1.0.20210915
+      Square-Version:
+      - '2021-09-15'
+      Accept-Encoding:
+      - gzip,deflate
+  response:
+    status:
+      code: 200
+      message: OK
+    headers:
+      Date:
+      - Thu, 20 Jan 2022 15:12:21 GMT
+      Frame-Options:
+      - DENY
+      X-Frame-Options:
+      - DENY
+      X-Content-Type-Options:
+      - nosniff
+      X-Xss-Protection:
+      - 1; mode=block
+      Content-Type:
+      - application/json
+      Square-Version:
+      - '2021-09-15'
+      Squareup--Connect--V2--Common--Versionmetadata-Bin:
+      - CgoyMDIxLTA5LTE1
+      Vary:
+      - Accept-Encoding, User-Agent
+      Content-Encoding:
+      - gzip
+      Content-Length:
+      - '499'
+      Strict-Transport-Security:
+      - max-age=631152000; includeSubDomains; preload
+    body:
+      encoding: ASCII-8BIT
+      string: !binary |-
+        H4sIAAAAAAAAAH2RXY+iMBiF7/dXGK5H06LsDiaTLGjBdQdUPvzabEiFqmQKJW1xNMb/vq3uztztBYGe8/Tk8L5XI2+FZBXhwhh2fl2NslBv46cFzP52M50MVu4E2fbXZOUDr7/xIuPJyDnBkhQZlho1gWl2AeyaIIGDoWUP+2bveWBtFdg2xf9BDR3KE6mzGldEQ1N2rJW4x1VJLx/qmBElkgqXNMNFwYnQbR+C9Z2ccdVQ0stZpahP//rvO6NlTTKor8xnHZedO7Df//bJPnxT+yHj8vhOhFQuZTmmpbxofUJ4XTBdrWFCYprlrLhXgwAAWw+FtbXkdzaNjZvijkyF1m21I1yrlmV19QOgrXlO9oSTOifZY+JQR3+Ij/qPH25r0e5Ezssd0eQeU0Fuf7dQsjoTrOX5vUsy+RGNs7kTJRuVJsihIrVU+ffVGsFrjKDzPIZzsAx7EXJGE8d9RcbvJ+Ok1q+iFAZu6pi3XLB76dEBhokXekGKBtHYWwTeduYfG+w7BxcdFxhVS7lZURGmLiW+J3P/TF+r8LSLp87IQfEchW609Ny0svlqGcU4tRH25SxCECSrJgo8mgRjd0botEm8wseQrpN1NIvAVijfxwiiaN1sg7e3S5x603nMkMpdOIuXF+P25Q+sllYRvgIAAA==
+  recorded_at: Thu, 20 Jan 2022 15:12:21 GMT
 recorded_with: VCR 6.0.0
