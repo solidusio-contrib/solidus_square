@@ -73,7 +73,7 @@ module SolidusSquare
       )
     end
 
-    def create_payment(amount, source_id, auto_capture, customer_id)
+    def create_payment(amount, source_id, auto_capture, customer_id = nil)
       ::SolidusSquare::Payments::Create.call(
         client: client,
         amount: amount,

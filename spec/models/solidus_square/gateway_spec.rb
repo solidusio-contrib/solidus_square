@@ -176,8 +176,8 @@ RSpec.describe SolidusSquare::Gateway do
   RSpec.shared_examples "#create_payment_on_square" do
     before do
       allow(SolidusSquare::Cards::Create).to receive(:call).and_return(id: 'token-card-id')
-      allow(gateway).to receive(:create_payment).with(123, 'nonce', nil).and_return(square_response)
-      allow(gateway).to receive(:create_payment).with(123, 'nonce', nil, nil).and_return(square_response)
+
+      allow(::SolidusSquare::Payments::Create).to receive(:call).and_return(square_response)
     end
 
     context "when valid" do
@@ -211,6 +211,18 @@ RSpec.describe SolidusSquare::Gateway do
         expect(SolidusSquare::Cards::Create).to have_received(:call).with(
           client: gateway.client, source_id: 123, bill_address: payment.order.bill_address, customer_id: customer_id
         )
+      end
+
+      it 'calls the SolidusSquare::Payments::Create' do
+        method
+
+        expect(::SolidusSquare::Payments::Create).to have_received(:call).with(hash_including(
+          client: gateway.client,
+          amount: 123,
+          source_id: 'nonce',
+          auto_capture: nil,
+          customer_id: nil
+        ))
       end
     end
 
@@ -260,17 +272,29 @@ RSpec.describe SolidusSquare::Gateway do
 
     context 'when the payment_source contains token and customer_id' do
       let(:payment_source) do
-        create(:square_payment_source, nonce: 'nonce', token: 'token', customer_id: 'customer_id')
+        create(:square_payment_source, nonce: 'nonce', token: 'token')
       end
 
       before do
-        allow(gateway).to receive(:create_payment).with(123, 'token', nil, nil).and_return(square_response)
+        payment.order.user.create_square_customer(square_customer_ref: 'customer_id')
       end
 
       it 'does not call the SolidusSquare::Cards::Create service' do
         method
 
         expect(SolidusSquare::Cards::Create).not_to have_received(:call)
+      end
+
+      it 'calls the SolidusSquare::Payments::Create without giving the customer_id' do
+        method
+
+        expect(::SolidusSquare::Payments::Create).to have_received(:call).with(hash_including(
+          client: gateway.client,
+          amount: 123,
+          source_id: 'token',
+          auto_capture: nil,
+          customer_id: 'customer_id'
+        ))
       end
     end
   end
