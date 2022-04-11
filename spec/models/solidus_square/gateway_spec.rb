@@ -130,6 +130,18 @@ RSpec.describe SolidusSquare::Gateway do
     it "returns a successfull response" do
       expect(credit).to be_success
     end
+
+    context 'when called with 4 parameters' do
+      subject(:credit) { gateway.credit(123, payment.source, "response_code", gateway_options) }
+
+      it "returns an ActiveMerchant::Billing::Response " do
+        expect(credit).to be_an_instance_of(ActiveMerchant::Billing::Response)
+      end
+
+      it "returns a successfull response" do
+        expect(credit).to be_success
+      end
+    end
   end
 
   describe '#cancel_payment' do
