@@ -27,7 +27,15 @@ module SolidusSquare
       ActiveMerchant::Billing::Response.new(true, 'Transaction captured', response, authorization: response_code)
     end
 
-    def credit(amount, response_code, _options)
+    def credit(*args)
+      payment = args.last[:originator].try(:payment)
+
+      if payment.payment_method.payment_profiles_supported?
+        amount, _source, response_code, _options = args
+      else
+        amount, response_code, _options = args
+      end
+
       response = refund_payment(amount, response_code)
 
       ActiveMerchant::Billing::Response.new(true, "Transaction Credited with #{amount}", response,

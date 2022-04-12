@@ -27,5 +27,11 @@ module SolidusSquare
     def partial_name
       "square"
     end
+
+    def try_void(payment)
+      return false unless payment.source.can_void?(payment)
+
+      gateway.void(payment.response_code, originator: payment)
+    end
   end
 end
