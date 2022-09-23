@@ -81,13 +81,14 @@ module SolidusSquare
       )
     end
 
-    def create_payment(amount, source_id, auto_capture, customer_id = nil)
+    def create_payment(amount, source_id, auto_capture, customer_id = nil, order_number = nil)
       ::SolidusSquare::Payments::Create.call(
         client: client,
         amount: amount,
         source_id: source_id,
         auto_capture: auto_capture,
-        customer_id: customer_id
+        customer_id: customer_id,
+        order_number: order_number
       )
     end
 
@@ -148,10 +149,10 @@ module SolidusSquare
       if payment_source.token
         source_id = payment_source.token
         customer_id = square_customer_ref(order)
-        square_payment = create_payment(amount, source_id, auto_capture, customer_id)
+        square_payment = create_payment(amount, source_id, auto_capture, customer_id, order.number)
       else
         source_id = payment_source.nonce
-        square_payment = create_payment(amount, source_id, auto_capture)
+        square_payment = create_payment(amount, source_id, auto_capture, nil, order.number)
 
         if payment.payment_method.payment_profiles_supported? && order.user.present?
           card = create_card(square_payment[:id], order.bill_address, square_customer_ref(order))
